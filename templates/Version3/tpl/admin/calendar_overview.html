@@ -1,0 +1,15 @@
+<table width="100%" border="0" cellspacing="0" cellpadding="1" id="cal_table">
+  <tr>
+    <td width="25%"><strong>{$smarty.const.DATE}:</strong></td>
+    <td width="60%"><strong>{$smarty.const.EVENT_NAME}:</strong></td>
+    <td width="15%"></td>
+  </tr>
+  {foreach from=$events item=e}
+  <tr class="{cycle name="cal1" values="row_odd,row_even"}" id="cal_{$e.calID}">
+    <td>{$e.datum}</td>
+    <td>{$e.eventname}</td>
+    <td align="right"><img src="templates/{$smarty.const.DESIGN}/images/calendar_edit.png" alt="" title="{$smarty.const.EDIT_2}" class="imgpointer" onclick="edit_cal({$e.calID});" /> <img src="templates/{$smarty.const.DESIGN}/images/calendar_delete.png" alt="" title="{$smarty.const.DELETE}" class="imgpointer" onclick="del_cal({$e.calID}, '{$e.eventname}');" /></td>
+  </tr>
+  {/foreach}
+</table>
+

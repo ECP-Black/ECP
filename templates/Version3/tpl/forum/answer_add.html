@@ -1,0 +1,36 @@
+<form action="ajax_checks.php?func=thread_answer_add&id={$id}" method="post" name="answer_add_form" id="answer_add_form">
+  <fieldset>
+  <legend>{$smarty.const.SURVEY_ANSWER}</legend>
+  <div>
+    <label for="answer">{$smarty.const.SURVEY_ANSWER}:</label>
+    <input type="text" maxlength="200" id="answer" name="answer" class="required" value="{$answer}" />
+  </div>
+  </fieldset>
+  <input type="submit" value="{$smarty.const.SUBMIT}" class="submit" id="answer_add_submit" /> <img src="templates/{$smarty.const.DESIGN}/images/spinner.gif" alt="" title="{$smarty.const.LOADING}" id="answer_spinner" style="visibility:hidden" />
+</form>
+
+<script language="javascript" type="text/javascript">
+{literal}
+answer_form = new FormValidator($('answer_add_form')); 		
+$('answer_add_form').addEvent('submit', function(e) {
+	new Event(e).stop();
+	if(answer_form.validate()) {
+		$('answer_spinner').style.visibility = '';
+		$('answer_add_submit').disabled = true;
+		new Request({
+			url: $('answer_add_form').action,
+			onSuccess: function(r) {
+				$('answer_spinner').style.visibility = 'hidden';
+				$('answer_add_submit').disabled = false;			
+				if(r == 'ok') {			
+					forum_survey_answers({/literal}{$id}{literal});	
+					answer_add_win.hide();										
+				} else {
+					errorAlert(ERROR, r);
+				}
+			}
+		}).send($('answer_add_form'));
+	}
+});
+{/literal}
+</script>

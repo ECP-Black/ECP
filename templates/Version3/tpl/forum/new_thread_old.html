@@ -1,0 +1,80 @@
+<span id="swf"></span>
+<form name="thread_add" id="thread_add" method="post" enctype="multipart/form-data" action="?section=forum&action=newtopic&boardID={$smarty.get.boardID}&rand={$rand}">
+<fieldset>
+   <legend> {$smarty.const.FORUM_NEW_TOPIC} </legend>
+   <div><label for="name">{$smarty.const.NAME}:</label><input type="text" id="name" maxlength="100" class="required" name="name" value="{$name}" /></div>
+   {if !$smarty.session.userID AND !$func}<div><label for="content">{$smarty.const.USERNAME}:</label><input type="text" name="username" class="required" id="username" maxlength="25" /></div>{/if}   
+   <div><label for="content">{$smarty.const.CONTENT}:</label><textarea name="comment" class="com_input required" id="comment" rows="10" cols="50">{$comment}</textarea></div>
+	  {if !$smarty.session.userID AND !$func}    
+      <div><label for="captcha">{$smarty.const.CAPTCHA}:</label><div style="float: left;"><img id="captcha_pic" src="captcha.php?chars=4&minsize=22&maxsize=26" alt="" title="{$smarty.const.CAPTCHA}" /> <img src="templates/{$smarty.const.DESIGN}/images/refresh.png" alt="" title="{$smarty.const.CAPTCHA_RELOAD}" style="cursor:pointer" onclick="reload_captcha('captcha_pic', 'chars=4&minsize=22&maxsize=26', 'captcha');" /><br /><input name="captcha" type="text" class="required validate-captcha smallinput" id="captcha"/></div></div>{/if}       
+      {if $attach OR $umfrage}
+      <div id="tabBoxExample">
+        <ul class="tabSet">
+{if $attach}<li class="off"><a>{$smarty.const.FORUM_ATTACH_FILE}</a></li>{/if}
+{if $umfrage}<li class="off"><a>{$smarty.const.FORUM_SURVEY}</a></li>{/if}          
+        </ul>
+        <div class="panelSet">  
+          {if $attach}<div class="panel">
+          	{$uploadinfo}
+            <input type="file" name="Filedata" id="Filedata" />
+          </div> {/if}           
+          {if $umfrage}
+          <div class="panel">
+              <fieldset style="border:none">   
+                    <fieldset>
+                        <legend>{$smarty.const.SURVEY}</legend>
+                        <div><label for="frage">{$smarty.const.QUESTION}:</label><input type="text" maxlength="200" id="frage" name="frage" /></div>
+                        <div><label for="ende">{$smarty.const.FORUM_SURVEY_END}:</label><div><input type="text" name="ende" id="ende" size="30" class="validate-date-eu smallinput" /><img id="button_cal" src="templates/{$smarty.const.DESIGN}/images/calendar.png" alt="{$smarty.const.CHOOSE_DATE}" title="{$smarty.const.CHOOSE_DATE}" /></div></div>          
+                        <div><label for="antworten">{$smarty.const.SURVEY_CHOOSE}:</label><input type="text" value="1" maxlength="200" id="antworten" name="antworten" class="required validate-number smallinput" /></div>
+                        <hr />
+                        <div id="div_antworten">          
+                        <div class="answer"><label for="answer_1">{$smarty.const.ANSWER} 1:</label><input type="text" maxlength="100" id="answer_1" name="answer_1" /> <img src="templates/{$smarty.const.DESIGN}/images/survey_add.png" alt="" title="{$smarty.const.SURVEY_ANSWER_ADD}" style="cursor:pointer" onClick="survey_add_answer(this)" /> <img src="templates/{$smarty.const.DESIGN}/images/survey_delete.png" alt="" title="{$smarty.const.SURVEY_ANSWER_DELETE}" style="cursor:pointer" onClick="survey_del_answer(this)" /></div>
+                        </div>
+                    </fieldset>                                                            
+              </fieldset>
+          </div>{/if}    
+        </div>
+      </div>
+      <br /> 
+      {/if}                         
+   <input type="submit" value="{$smarty.const.SUBMIT}" name="absenden" id="thread_add_submit" class="submit" /> <img src="templates/{$smarty.const.DESIGN}/images/spinner.gif"  alt="" title="" id="thread_add_submit_loader" style="visibility:hidden" />
+</fieldset>
+</form>
+<div id="test"></div>
+{literal}
+<script type="text/javascript" language="javascript">
+FormValidator.addAllThese([
+	['validate-captcha', 	{
+			errorMsg:	'{/literal}{$smarty.const.CAPTCHA_WRONG}{literal}', 
+			test: 	function(v) {			
+								var myXHR = new Request({method: 'get', async: false, url: 'ajax_checks.php?func=check_captcha&code=' + v.get('inputValue')}).send();
+								if(myXHR.xhr.responseText == 0)
+									reload_captcha('captcha_pic', 'chars=4&minsize=22&maxsize=26', 'captcha'); 
+								return (myXHR.xhr.responseText == 1)? true: false;
+			}
+	}]											
+]);
+thread_a = new FormValidator($('thread_add'));	
+{/literal}{if $umfrage}{literal}
+Calendar.setup({
+    inputField    : "ende",
+    button        : "button_cal",
+	showsTime     :    true
+});	
+{/literal}{/if}{literal}
+{/literal}{if $attach}{literal}
+window.addEvent('domready', function() {
+	new MultiUpload($('thread_add').Filedata, {/literal}{$maxuploads}{literal});
+});
+{/literal}{/if}{literal}
+new TabSwapper({
+  selectedClass: 'on',
+  deselectedClass: 'off',
+  tabs: $$('#tabBoxExample li'),
+  clickers: $$('#tabBoxExample li a'),
+  sections: $$('div.panelSet div.panel'),
+  /*use transitions to fade across*/
+  smooth: true
+});	
+</script>
+{/literal}

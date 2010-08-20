@@ -1,0 +1,28 @@
+{if $seiten}
+<div class="pageLinks">{$smarty.const.SITES}: {$seiten}<br><br></div><div style="clear: both"></div>
+{/if}{if $user}
+<table width="100%" border="0" cellspacing="1" cellpadding="0">
+  <tr>
+    <td width="20%">ID:</td>
+    <td width="65%">{$smarty.const.USERNAME}:</td>
+    <td width="15%">&nbsp;</td>
+  </tr>
+  {foreach from=$user item=g}
+  <tr id="member_{$g.userID}" class="{cycle values="row_odd,row_even"}">
+    <td id="member_{$g.userID}_1">{$g.userID}</td>
+    <td id="member_{$g.userID}_2"><a href="?section=user&id={$g.userID}" target="_blank">{$g.username}</a></td>
+    <td id="member_{$g.userID}_3"><a href="#" onClick="return group_del_member({$id}, {$g.userID});"><img src="templates/{$smarty.const.DESIGN}/images/user_delete.png" alt="" title="{$smarty.const.GROUP_DEL_MEMBER2}" /></a></td>
+  </tr>
+  {/foreach}
+</table>
+<br />
+{/if}
+<input type="text" name="username" size="30" id="username" /> <img src="templates/{$smarty.const.DESIGN}/images/user_add.png" class="imgpointer" onclick="add_member({$id}, this);" alt="" title="{$smarty.const.GROUP_ADD_MEMBER2}" /> <img src="templates/{$smarty.const.DESIGN}/images/spinner.gif" id="member_spinner" style="visibility:hidden" alt="" title="{$smarty.const.LOAD_DATA}" />
+{literal}
+<script type="text/javascript">
+		new Autocompleter.Ajax.Json($('username'), 'ajax_checks.php?func=search_member', { postVar: 'username', multiple: true,
+			  onRequest: function ()  { $('member_spinner').style.visibility = ''; },
+			  onComplete: function ()  { $('member_spinner').style.visibility = 'hidden'; }, 
+			  zIndex: 999999 });
+</script>
+{/literal}

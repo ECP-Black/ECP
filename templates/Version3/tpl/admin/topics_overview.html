@@ -1,0 +1,14 @@
+    <table width="100%" border="0" cellspacing="0" cellpadding="1" id="topic_table">
+      <tr>
+        <td width="20%"><strong>{$smarty.const.NAME}:</strong></td>
+        <td width="70%"><strong>{$smarty.const.DISCRIPTION}:</strong></td>
+        <td width="10%">&nbsp;</td>
+      </tr>
+      {foreach from=$topics item=t}
+      <tr class="{cycle values="row_odd,row_even"}" id="topic_{$t.tID}">
+        <td>{$t.topicname}</td>
+        <td>{$t.beschreibung}</td>
+        <td><img src="templates/{$smarty.const.DESIGN}/images/edit.png" alt="" title="{$smarty.const.EDIT}" onclick="topic_edit({$t.tID})" style="cursor:pointer" /> <img src="templates/{$smarty.const.DESIGN}/images/delete.png" alt="" title="{$smarty.const.DELETE}" onclick="topic_del({$t.tID}, '{$t.topicname}')" style="cursor:pointer" /></td>
+      </tr>
+      {/foreach}
+    </table>

@@ -1,0 +1,159 @@
+<div class="div_headline">{$smarty.const.GENERAL}</div>
+<table width="100%" border="0" cellspacing="0" cellpadding="1">
+  <tr>
+    <td width="35%">{$smarty.const.LOTTO_MONEY_IN_JACK}:</td>
+    <td width="65%"><span id="jackpot">{$jackpot}</span> {$smarty.const.VIRTUELL_MONEY_UNIT}</td>
+  </tr>
+  <tr>
+    <td>{$smarty.const.LOTTO_SCHEINE}:</td>
+    <td><span id="scheine">{$scheine}</span></td>
+  </tr>
+  <tr>
+    <td>{$smarty.const.LOTTO_MONEY_PER_SCHEIN}:</td>
+    <td>{$preis} {$smarty.const.VIRTUELL_MONEY_UNIT}</td>
+  </tr>
+  <tr>
+    <td>{$smarty.const.LOTTO_NEXT_DATE}:</td>
+    <td>{$ende}</td>
+  </tr>
+  <tr>
+    <td>{$smarty.const.LOTTO_JACKPOT_RAISE}:</td>
+    <td>{$jackpotraise} {$smarty.const.VIRTUELL_MONEY_UNIT}</td>
+  </tr>
+</table>
+<br />
+<div class="div_headline">{$smarty.const.LOTTO_CLASSES}</div>
+<table width="100%" border="0" cellspacing="0" cellpadding="1">
+  <tr>
+    <td width="35%">{$smarty.const.LOTTO_PRO4ER}:</td>
+    <td width="65%"><span id="money4er">{$money4er} {$smarty.const.VIRTUELL_MONEY_UNIT}  ({$pro4er}%)</span></td>
+  </tr>
+  <tr>
+    <td>{$smarty.const.LOTTO_PRO3ER}:</td>
+    <td><span id="money3er">{$money3er} {$smarty.const.VIRTUELL_MONEY_UNIT}  ({$pro3er}%)</span></td>
+  </tr>
+  <tr>
+    <td>{$smarty.const.LOTTO_PRO2ER}:</td>
+    <td><span id="money2er">{$money2er} {$smarty.const.VIRTUELL_MONEY_UNIT}  ({$pro2er}%)</span></td>
+  </tr>
+</table>
+{if $lastdatum}
+<br />
+<div class="div_headline">{$smarty.const.LOTTO_LAST}</div>
+<table width="100%" border="0" cellspacing="0" cellpadding="1">
+  <tr>
+    <td width="35%">{$smarty.const.DATE}:</td>
+    <td width="65%">{$lastdatum}</td>
+  </tr>
+  <tr>
+    <td>{$smarty.const.LOTTO_NUMBERS}:</td>
+    <td>{$zahlen}</td>
+  </tr>
+  <tr>
+    <td valign="top">{$smarty.const.LOTTO_WIN}:</td>
+    <td>{$wins}<br>
+    <a href="?section=lotto&amp;action=winlist&amp;runde={$rundenID}">{$smarty.const.LOTTO_VIEW_LAST}</a><br></td>
+  </tr>
+</table>
+<div style="text-align:center"><a href="?section=lotto&action=viewall">{$smarty.const.LOTTO_VIEW_ALL}</a></div>
+{/if}
+<br />
+<hr />
+{if $smarty.session.userID}
+	<div style="text-align:center" id="lotto_scheine">
+    {if $user_scheine}
+    	{$user_scheine}
+    {else}
+    	{$smarty.const.LOTTO_NO_SCHEINE}
+    {/if}
+    </div>
+    <hr />
+    <br />
+	{if $aktiv}
+<div style="text-align:center">
+        	<span class="lotto_user_info">{$info}</span>
+<form id="lotto_form" action="ajax_checks.php?func=submit_lottoschein" method="post">
+<table width="50%" border="0" cellspacing="0" cellpadding="1" align="center">
+              <tr>
+                <td align="center">1<br><input type="checkbox" class="checkbox" name="lottozahlen[]" onclick="check_lottozahlen();" value="1" id="lotto_1" /></td>
+                <td align="center">2<br><input type="checkbox" class="checkbox" name="lottozahlen[]" onclick="check_lottozahlen();" value="2" id="lotto_2" /></td>
+                <td align="center">3<br><input type="checkbox" class="checkbox" name="lottozahlen[]" onclick="check_lottozahlen();" value="3" id="lotto_3" /></td>
+                <td align="center">4<br><input type="checkbox" class="checkbox" name="lottozahlen[]" onclick="check_lottozahlen();" value="4" id="lotto_4" /></td>
+                <td align="center">5<br><input type="checkbox" class="checkbox" name="lottozahlen[]" onclick="check_lottozahlen();" value="5" id="lotto_5" /></td>
+                <td align="center">6<br><input type="checkbox" class="checkbox" name="lottozahlen[]" onclick="check_lottozahlen();" value="6" id="lotto_6" /></td>
+              </tr>
+              <tr>
+                <td align="center">7<br><input type="checkbox" class="checkbox" name="lottozahlen[]" onclick="check_lottozahlen();" value="7" id="lotto_7" /></td>
+                <td align="center">8<br><input type="checkbox" class="checkbox" name="lottozahlen[]" onclick="check_lottozahlen();" value="8" id="lotto_8" /></td>
+                <td align="center">9<br><input type="checkbox" class="checkbox" name="lottozahlen[]" onclick="check_lottozahlen();" value="9" id="lotto_9" /></td>
+                <td align="center">10<br><input type="checkbox" class="checkbox" name="lottozahlen[]" onclick="check_lottozahlen();" value="10" id="lotto_10" /></td>
+                <td align="center">11<br><input type="checkbox" class="checkbox" name="lottozahlen[]" onclick="check_lottozahlen();" value="11" id="lotto_11" /></td>
+                <td align="center">12<br><input type="checkbox" class="checkbox" name="lottozahlen[]" onclick="check_lottozahlen();" value="12" id="lotto_12" /></td>
+              </tr>
+              <tr>
+                <td align="center">13<br><input type="checkbox" class="checkbox" name="lottozahlen[]" onclick="check_lottozahlen();" value="13" id="lotto_13" /></td>
+                <td align="center">14<br><input type="checkbox" class="checkbox" name="lottozahlen[]" onclick="check_lottozahlen();" value="14" id="lotto_14" /></td>
+                <td align="center">15<br><input type="checkbox" class="checkbox" name="lottozahlen[]" onclick="check_lottozahlen();" value="15" id="lotto_15" /></td>
+                <td align="center">16<br><input type="checkbox" class="checkbox" name="lottozahlen[]" onclick="check_lottozahlen();" value="16" id="lotto_16" /></td>
+                <td align="center">17<br><input type="checkbox" class="checkbox" name="lottozahlen[]" onclick="check_lottozahlen();" value="17" id="lotto_17" /></td>
+                <td align="center">18<br><input type="checkbox" class="checkbox" name="lottozahlen[]" onclick="check_lottozahlen();" value="18" id="lotto_18" /></td>
+              </tr>
+              <tr>
+                <td align="center">19<br><input type="checkbox" class="checkbox" name="lottozahlen[]" onclick="check_lottozahlen();" value="19" id="lotto_19" /></td>
+                <td align="center">20<br><input type="checkbox" class="checkbox" name="lottozahlen[]" onclick="check_lottozahlen();" value="20" id="lotto_20" /></td>
+                <td align="center">21<br><input type="checkbox" class="checkbox" name="lottozahlen[]" onclick="check_lottozahlen();" value="21" id="lotto_21" /></td>
+                <td align="center">22<br><input type="checkbox" class="checkbox" name="lottozahlen[]" onclick="check_lottozahlen();" value="22" id="lotto_22" /></td>
+                <td align="center">23<br><input type="checkbox" class="checkbox" name="lottozahlen[]" onclick="check_lottozahlen();" value="23" id="lotto_23" /></td>
+                <td align="center">24<br><input type="checkbox" class="checkbox" name="lottozahlen[]" onclick="check_lottozahlen();" value="24" id="lotto_24" /></td>
+              </tr>
+  </table>
+    	<br><input type="submit" value="{$smarty.const.LOTTO_SUBMIT}" id="lotto_submit" disabled /> <img src="templates/{$smarty.const.DESIGN}/images/spinner.gif" alt="" title="{$smarty.const.LOADING}" id="lotto_submit_spinner" style="display: none" />
+        </form>
+        <script type="text/javascript">
+		{literal}
+			$('lotto_form').addEvent('submit', function(e) {
+				new Event(e).stop();
+				new Request({
+					url: $('lotto_form').action,
+					onRequest: function() { $('lotto_submit').disabled = true; $('lotto_submit_spinner').style.display = ''; },
+					onSuccess: function(r) { 
+						$('lotto_submit').disabled = false; $('lotto_submit_spinner').style.display = 'none';					
+						error = false;
+						try {
+							data = JSON.decode(r);
+							if(typeof(data.error) != 'undefined') {
+							 	errorAlert(ERROR, data.error);
+							} else {
+								$$('#lotto_form input.checkbox').each(function(e) {
+									 e.checked = false; 
+									 e.disabled = false; 
+								}); 
+								check_lottozahlen();  
+								$('lotto_scheine').set('html', data.lotto_scheine);
+								$('jackpot').set('html', data.jackpot);
+								$('scheine').set('html', data.scheine);
+								$('money4er').set('html', data.money4er);																				
+								$('money3er').set('html', data.money3er);
+								$('money2er').set('html', data.money2er);	
+								$('schein_left').set('html', data.schein_left);	
+								$('user_money').set('html', data.money);							
+							}							
+						} catch(el) {
+							error = true;
+							alert(el);
+						}
+						if(error == true) errorAlert(ERROR, r);
+					}
+				}).send($('lotto_form'));
+			});
+		{/literal}
+		</script>
+        <span onclick="lotto_rand()" class="imgpointer"><strong>{$smarty.const.LOTTO_RAND}</strong></span>
+</div>
+    {else}
+    	<div style="text-align:center">{$smarty.const.LOTTO_NOT_ENOUGH_MONEY}</div>
+    {/if}
+{else}
+{$smarty.const.NOT_LOGGED_IN}
+{/if}
+

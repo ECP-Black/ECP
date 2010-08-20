@@ -1,0 +1,60 @@
+<form name="survey_form" id="survey_form" action="?section=admin&site=survey&func=add" method="post">
+	<fieldset>
+    	<legend>{$smarty.const.SURVEY}</legend>
+        <div><label for="frage">{$smarty.const.QUESTION}:</label><input type="text" maxlength="200" id="frage" name="frage" class="required" /></div>
+   		<div><label for="start">{$smarty.const.START}:</label><div><input type="text" name="start" id="start" size="30" class="required validate-date-eu smallinput" /><img id="button_cal_1" src="templates/{$smarty.const.DESIGN}/images/calendar.png" alt="{$smarty.const.CHOOSE_DATE}" title="{$smarty.const.CHOOSE_DATE}" /></div></div>
+   		<div><label for="ende">{$smarty.const.END}:</label><div><input type="text" name="ende" id="ende" size="30" class="required validate-date-eu smallinput" /><img id="button_cal_2" src="templates/{$smarty.const.DESIGN}/images/calendar.png" alt="{$smarty.const.CHOOSE_DATE}" title="{$smarty.const.CHOOSE_DATE}" /></div></div>          
+        <div><label for="sperre">{$smarty.const.SURVEY_RELOAD}:</label><input type="sperre" maxlength="5" class="required validate-number smallinput" id="sperre" name="sperre" /> <select id="multi" name="multi"><option value="60">{$smarty.const.MINUTES}</option><option value="3600">{$smarty.const.HOURS}</option><option value="86400">{$smarty.const.DAYS}</option></select></div>  
+        <div><label for="antworten">{$smarty.const.SURVEY_CHOOSE}:</label><input type="text" value="1" maxlength="200" id="antworten" name="antworten" class="required validate-number smallinput" /></div>
+		<div><label for="rights">{$smarty.const.RIGHTS}:</label><select name="rights[]" size="7" multiple="multiple" class="selected" id="rights">{$rights}</select></div>    
+        <hr />
+        <div id="div_antworten">          
+        <div class="answer"><label for="answer_1">{$smarty.const.ANSWER} 1:</label><input type="text" maxlength="100" id="answer_1" name="answer_1" class="required" /> <img src="templates/{$smarty.const.DESIGN}/images/survey_add.png" alt="" title="{$smarty.const.SURVEY_ANSWER_ADD}" style="cursor:pointer" onClick="survey_add_answer(this)" /> <img src="templates/{$smarty.const.DESIGN}/images/survey_delete.png" alt="" title="{$smarty.const.SURVEY_ANSWER_DELETE}" style="cursor:pointer" onClick="survey_del_answer(this)" /></div>
+        </div>
+        <br />
+        <input type="submit" name="submit" value="{$smarty.const.ADD}" class="submit" id="survey_submit" /> <img src="templates/{$smarty.const.DESIGN}/images/spinner.gif" alt="" title="{$smarty.const.LOADING}" id="survey_loader" style="visibility:hidden" />       
+    </fieldset>
+</form>
+<script type="text/javascript" language="javascript">
+{literal}
+sur_form_val = new FormValidator($('survey_form')); 
+Calendar.setup({
+    inputField    : "start",
+    button        : "button_cal_1",
+	showsTime     :    true,
+	onUpdate:	  function() { sur_form_val.validateField($('start')); }
+});	
+Calendar.setup({
+    inputField    : "ende",
+    button        : "button_cal_2",
+	showsTime     :    true,
+	onUpdate:	  function() { sur_form_val.validateField($('ende')); }
+});	
+$('survey_form').addEvent('submit', function(e) {
+	new Event(e).stop();
+	if(sur_form_val.validate()) {
+		$('survey_loader').style.visibility = '';
+		$('survey_submit').disabled = true;
+		new Request({
+			url: $('survey_form').action,
+			onSuccess: function(r) {
+				if(r == 'ok') {			
+					if($('survey_form').action.contains('edit')) {
+						make_info(SURVEY_EDIT_SUCCESS, 'accept');
+					} else {
+						make_info(SURVEY_ADD_SUCCESS, 'accept');
+					}		
+					reset_survey_form();
+					new Request.HTML({url: 'ajax_checks.php?func=admin&site=getsurveys', useWaiter: true, update: $('survey_div')}).get();
+				} else {
+					errorAlert(ERROR, r);
+				}
+			}
+		}).send($('survey_form'));
+	}
+	$('survey_loader').style.visibility = 'hidden';
+	$('survey_submit').disabled = false;
+});
+{/literal}
+</script>
+<hr />

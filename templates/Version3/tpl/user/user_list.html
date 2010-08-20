@@ -1,0 +1,90 @@
+{if !$ajax}
+<form method="get" id="user_list_form">
+  <input type="hidden" name="section" value="user" />
+  <input type="hidden" value="list" name="action" />
+  <select name="orderby" id="orderby">
+  	<option value="username" {if $smarty.get.orderby == "username"}selected="selected" {/if}>{$smarty.const.USERNAME}</option>
+    <option value="registerdate" {if $smarty.get.orderby == "registerdate"}selected="selected" {/if}>{$smarty.const.MEMBER_SINCE}</option>
+    <option value="lastlogin" {if $smarty.get.orderby == "lastlogin"}selected="selected" {/if}>{$smarty.const.LAST_LOGIN}</option>
+    <option value="rangname" {if $smarty.get.orderby == "rangname"}selected="selected" {/if}>{$smarty.const.RANG}</option>
+    <option value="sex" {if $smarty.get.orderby == "sex"}selected="selected" {/if}>{$smarty.const.SEX}</option>
+    <option value="geburtstag" {if $smarty.get.orderby == "geburtstag"}selected="selected" {/if}>{$smarty.const.AGE}</option>
+    <option value="online" {if $smarty.get.orderby == "online"}selected="selected" {/if}>{$smarty.const.ONLINE_STATUS}</option>                
+  </select>
+  <select name="order" id="order">
+  <option value="ASC">{$smarty.const.ASC}</option>
+  <option value="DESC" {if $smarty.get.order == "DESC"}selected="selected" {/if}>{$smarty.const.DESC}</option>  
+  </select>  
+  <input type="submit" value="{$smarty.const.SORT}" class="submit" />
+</form> {$smarty.const.MEMBER}: {$anzahl}
+<div id="user_liste"> {/if}
+  {if $seiten}<div class="pageLinks">{$seiten}</div>{/if}<div style="clear:both"></div>
+  <table width="100%" border="0" cellspacing="0" cellpadding="1">
+    <tr>
+      <td><strong>{$smarty.const.USERNAME}:</strong></td>
+      <td width="20%"><strong>{$smarty.const.MEMBER_SINCE}:</strong></td>
+      <td width="20%"><strong>{$smarty.const.RANG}:</strong></td>
+      <td width="5%" align="center"><img src="templates/{$smarty.const.DESIGN}/images/homepage.png" alt="" title="{$smarty.const.HOMEPAGE}" /></td>
+      <td width="10%">&nbsp;</td>
+      <td width="10%">&nbsp;</td>
+    </tr>
+    {foreach from=$user item=u}
+    <tr class="{cycle values="row_odd, row_even"}">
+      <td><img src="images/flaggen/{$u.country}.gif" alt="{$u.countryname}" title="{$u.countryname}" /> <img src="templates/{$smarty.const.DESIGN}/images/{if $u.online}online{else}offline{/if}.png" alt="{if $u.online}{$smarty.const.ONLINE}{else}{$smarty.const.OFFLINE}{/if}" title="{if $u.online}{$smarty.const.ONLINE}{else}{$smarty.const.OFFLINE}{/if}" /> <a href="?section=user&id={$u.ID}" title="{$u.username}" class="Tips">{$u.username}<span class="tipcontents">
+        <div style="width:370px"> {if $u.user_pic}<img src="images/user/{$u.ID}_{$u.user_pic}" alt="" title="{$u.username}" style="max-width: 90px; float: left; margin: 5px;" />{else}<img src="templates/{$smarty.const.DESIGN}/images/nopic.png" alt="" title="{$smarty.const.NO_USER_PIC}" style="max-width: 90px; float: left; margin: 5px;" />{/if}
+          <table border="0"cellspacing="0" width="270" cellpadding="1" style="float: left;">
+            <tr>
+              <td><strong>{$smarty.const.USERNAME}:</strong></td>
+              <td><img src="images/flaggen/{$u.country}.gif" alt="{$u.countryname}" title="{$u.countryname}" /> <img src="templates/{$smarty.const.DESIGN}/images/{if $u.online}online{else}offline{/if}.png" alt="{if $u.online}{$smarty.const.ONLINE}{else}{$smarty.const.OFFLINE}{/if}" title="{if $u.online}{$smarty.const.ONLINE}{else}{$smarty.const.OFFLINE}{/if}" /> {$u.username}</td>
+            </tr>
+            <tr>
+              <td><strong>{$smarty.const.MEMBER_SINCE}:</strong></td>
+              <td>{$u.registerdate}</td>
+            </tr>
+            <tr>
+              <td><strong>{$smarty.const.LAST_LOGIN}:</strong></td>
+              <td>{$u.lastlogin}</td>
+            </tr>
+            <tr>
+              <td><strong>{$smarty.const.AGE}:</strong></td>
+              <td>{$u.alter}</td>
+            </tr>
+            <tr>
+              <td><strong>{$smarty.const.TOWN}:</strong></td>
+              <td>{$u.wohnort}</td>
+            </tr>
+           <tr>
+              <td><strong>{$smarty.const.ACCOUNT_CLAN_NAME}:</strong></td>
+              <td>{$u.clanname}</td>
+            </tr>            
+          </table>
+          <div style="clear:both"></div>
+        </div>
+        </span></a> {if $u.sex == "male"}<img src="templates/{$smarty.const.DESIGN}/images/male.gif" alt="{$smarty.const.MALE}" title="{$smarty.const.MALE}" />{else}<img src="templates/{$smarty.const.DESIGN}/images/female.gif" alt="{$smarty.const.FEMALE}" title="{$smarty.const.FEMALE}" />{/if}</td>
+      <td>{$u.registerdate2}</td>
+      <td><img src="images/ranks/{$u.iconname}" alt="" title="{$u.rankname}" /></td>
+      <td align="center">{if $u.homepage}<a href="{$u.homepage}" target="_blank"><img src="templates/{$smarty.const.DESIGN}/images/homepage.png" alt="{$u.homepage}" title="{$u.homepage}" /></a>{else}-{/if}</td>
+      <td align="right">{if $u.xfire}<a href="http://profile.xfire.com/{$u.xfire}" target="_blank" class="Tips" title="XFire {$u.xfire}"><img src="templates/{$smarty.const.DESIGN}/images/xfire.png" alt="" title="{$u.xfire}" /><span class="tipcontents"><img src="http://miniprofile.xfire.com/bg/bg/type/0/{$u.xfire}.png" width="440" height="111" /></span></a> {/if}{if $u.icq}<a href="http://www.icq.com/people/about_me.php?uin={$u.icqtrim}" target="_blank"><img src="http://web.icq.com/whitepages/online?icq={$u.icqtrim}&img=5" border="0" alt="" title="{$u.icq}" /></a> {/if}</td>
+      <td align="right"><img src="templates/{$smarty.const.DESIGN}/images/message.png" alt="" onclick="return send_message_user({$u.ID},'{$u.username}');" title="{$smarty.const.USER_SEND_MESSAGE}" class="imgpointer" /> <img src="templates/{$smarty.const.DESIGN}/images/buddy_add.png" alt="" onclick="return add_buddy({$u.ID});" title="{$smarty.const.BUDDY_ADD}" class="imgpointer" /></td>
+    </tr>
+    {/foreach}
+  </table>
+  {if $seiten}<div class="pageLinks">{$seiten}</div><div style="clear:both"></div>{/if}  
+  {if !$ajax} </div>{literal}
+  <script type="text/javascript">
+  $('user_list_form').addEvent('submit', function(e) {
+  	new Event(e).stop();
+	new Request.HTML({url: 'ajax_checks.php?func=get_user_list&orderby='+$('orderby').get('inputValue')+'&order='+$('order').get('inputValue'), update: 'user_liste', useWaiter: true, 
+			onComplete: function(r) { 
+				$$('#user_liste a.Tips').each(function(e) {
+					tips.attach(e);
+					if (e.getElement('span.tipcontents')) {
+						e.store('tip:text', e.getElement('span.tipcontents').get('html'));
+					}
+				});
+			}
+	}).get(); 
+  });
+  </script>
+  {/literal}
+{/if}

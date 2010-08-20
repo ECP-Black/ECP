@@ -1,0 +1,25 @@
+    <div id="forum_survey_quest">{$frage} {if ($smarty.session.userID == vonID AND $editcom) OR $editmocom OR $delcom}<img src="templates/{$smarty.const.DESIGN}/images/survey_edit.png" class="imgpointer" title="{$smarty.const.SURVEY_EDIT}" alt="" onclick="forum_survey_edit({$fsurveyID});" /> <img src="templates/{$smarty.const.DESIGN}/images/survey_delete.png" class="imgpointer" title="{$smarty.const.SURVEY_DELETE}" alt="" onclick="forum_survey_delete({$fsurveyID});" />&nbsp;&nbsp;&nbsp;<img src="templates/{$smarty.const.DESIGN}/images/survey_add.png" class="imgpointer" title="{$smarty.const.SURVEY_ANSWER_ADD}" alt="" onclick="forum_answer_add({$fsurveyID});" />{/if}</div>
+    <div id="forum_survey_info">{$smarty.const.VOTES}: {$gesamt}{if $ende}<br />{$smarty.const.FORUM_SURVEY_ENDED}: {$ende}{/if}</div>    
+    <table width="100%" border="0" cellspacing="0" cellpadding="1">
+      {foreach from=$antworten item=a}
+      <tr>
+        <td colspan="2">{$a.answer}</td>
+      </tr>
+      <tr>
+        <td width="70%"><div class="survey_curve_container"><div class="survey_curve" style="width: {if $a.prozent}{$a.prozent}{else}{1}{/if}%"></div></div></td>
+        <td width="30%">&nbsp;{$smarty.const.VOTES}: {$a.votes} ({$a.prozent}%) {if ($smarty.session.userID == vonID AND $editcom) OR $editmocom OR $delcom}<img src="templates/{$smarty.const.DESIGN}/images/survey_edit.png" title="{$smarty.const.SURVEY_ANSWER_EDIT}" alt="" onclick="forum_answer_edit({$a.answerID});" class="imgpointer" /> <img src="templates/{$smarty.const.DESIGN}/images/survey_delete.png" title="{$smarty.const.SURVEY_ANSWER_DELETE}" alt="" onclick="forum_answer_delete({$a.answerID}, {$fsurveyID}, '{$a.answer}');" class="imgpointer" />{/if}</td>
+      </tr>
+      {/foreach}
+    </table>
+{literal}
+<script language="javascript" type="text/javascript">
+	elemente = $('forum_survey').getElements('div .survey_curve');
+	o = {};
+	elemente.each(function(elm, i) {
+		o[i] = { width: [0, elm.getSize().x] };
+		elm.setStyle('width', 0);
+	});				
+	var fx = new Fx.Elements(elemente, {wait: false, duration: 1500, transition: Fx.Transitions.Bounce.easeOut});
+	(function() { fx.start(o); }).delay(450);
+</script>
+{/literal} 

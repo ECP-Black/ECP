@@ -1,0 +1,11 @@
+<div class="message_head">
+{if $userid == 0}{$smarty.const.FROM_SYSTEM}{else}<img src="images/flaggen/{$country}.gif" alt="" /> <a href="?section=user&id={$userid}">{$username}</a>{/if}
+<br />{$datum}
+<br /><strong>{$title}</strong>
+</div>
+<div class="message_text">
+{$msg}
+</div>
+<div class="message_footer">
+<span class="klammer">[</span> {if $in AND $userid != 0}<a href="?section=account&action=sendmsg&toid={$userid}&msgid={$id}" onclick="return send_message_user({$userid},'{$username}', '{$title}');">{$smarty.const.ANSWER}</a> <span class="klammer">|</span>{/if} <a href="?section=account&action=delmsg&id={$id}">{$smarty.const.MSG_DELETE}</a> <span class="klammer">]</span>
+</div>

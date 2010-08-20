@@ -1,0 +1,11 @@
+<div id="gallery_kate_overview">
+{foreach from=$kate item=k key=spe}
+    <div class="gallery_kate">
+        <a href="?section=gallery&action=kate&id={$k.kateID}">{$k.katename}</a> ({$k.galleries})
+        {if $k.beschreibung}<br />{$k.beschreibung}{/if}
+    </div>
+{if ($spe+1)%2 == 0}
+<div style="clear:both"></div>{/if}
+{/foreach}
+</div>
+<div style="clear:both"></div>

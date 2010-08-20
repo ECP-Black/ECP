@@ -1,0 +1,16 @@
+<table width="100%" border="0" cellspacing="0" cellpadding="0" id="games_table">
+  <tr>
+    <td><strong>{$smarty.const.NAME}:</strong></td>
+    <td><strong>{$smarty.const.GAMES_SHORT}:</strong></td>
+    <td><strong>{$smarty.const.GAMES_ICON}:</strong></td>
+    <td>&nbsp;</td>
+  </tr>
+  {foreach from=$games item=g}
+  <tr class="{cycle values="row_odd,row_even"}" id="game_{$g.gameID}">
+    <td>{$g.gamename}</td>
+    <td>{$g.gameshort}</td>
+    <td><img src="images/games/{$g.icon}" alt="" title="{$g.gamename}" /></td>
+    <td><img src="templates/{$smarty.const.DESIGN}/images/games_edit.png" alt="" style="cursor:pointer" onclick="games_edit({$g.gameID});" title="{$smarty.const.EDIT}" /> <img src="templates/{$smarty.const.DESIGN}/images/games_delete.png" alt="" style="cursor:pointer" onclick="games_del({$g.gameID}, '{$g.gamename}');" title="{$smarty.const.DELETE}" /></td>
+  </tr>
+  {/foreach}
+</table>

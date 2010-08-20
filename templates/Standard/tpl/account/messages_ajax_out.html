@@ -1,0 +1,23 @@
+{if $seitenout}<div class="pageLinks">{$seitenout}</div><div style="clear: both"></div>{/if}
+<table width="100%" border="0" cellspacing="0" cellpadding="1" id="table_msgout">
+  <tr>
+    <td width="25%"><strong>{$smarty.const.DATE}:</strong></td>
+    <td width="25%"><strong>{$smarty.const.TO_USER}:</strong></td>
+    <td width="35%"><strong>{$smarty.const.MSG_SUBJECT}:</strong></td>
+    <td width="15%" align="right"><input type="checkbox" class="checkbox" onclick="mark_all('delout', this);" /></td>
+  </tr>
+  {if $messagesout}
+  {foreach from=$messagesout item=o}
+  <tr class="{cycle values="row_odd, row_even"}" id="msg_{$o.msgID}">
+    <td>{$o.datum}</td>
+    <td><img src="images/flaggen/{$o.country}.gif" alt="" /> <a href="?section=user&id={$o.touser}">{$o.username}</a></td>
+    <td>{if $o.readed == 1}<img src="templates/{$smarty.const.DESIGN}/images/accept.png" alt="" title="{$smarty.const.UNREAD_TO}" /> {/if}<a href="?section=account&action=readmsg&id={$o.msgID}">{if $o.title}{$o.title}{else}{$smarty.const.NO_TITLE}{/if}</a></td>
+    <td align="right"><input type="checkbox" value="{$o.msgID}" name="delmsg[]" /><img src="templates/{$smarty.const.DESIGN}/images/delete.png" class="imgpointer" onclick="del_message({$o.msgID}, 'out')" alt="" title="{$smarty.const.MSG_DELETE}" /></td>
+  </tr>
+  {/foreach}
+  {else}
+  <tr>
+  	<td colspan="4" align="center">{$smarty.const.NO_ENTRIES}</td>
+  </tr>
+  {/if}
+</table>

@@ -1,0 +1,41 @@
+<form id="fightus_form" name="fightus_form" action="?section=fightus" method="post">
+<fieldset>
+	<legend>{$smarty.const.FIGHTUS}</legend>
+    <div><label for="clanname">{$smarty.const.CLANNAME}:</label><input type="text" name="clanname" class="required" id="clanname" value="{$smarty.post.clanname}" maxlength="40" /></div>
+    <div><label for="email">{$smarty.const.EMAIL}:</label><input type="text" name="email" id="email" class="required validate-email"  value="{$smarty.post.email}" maxlength="255" /></div>
+    <div><label for="homepage">{$smarty.const.HOMEPAGE}:</label><input type="text" name="homepage" id="homepage" value="{$smarty.post.homepage}" maxlength="255" /></div>  
+    <div><label for="icq">{$smarty.const.ICQ}:</label><input type="text" name="icq" id="icq" value="{$smarty.post.icq}" maxlength="11" /></div>
+    <div><label for="msn">{$smarty.const.MSN}:</label><input type="text" name="msn" id="msn" value="{$smarty.post.msn}" maxlength="255" /></div>
+    <div><label for="skype">{$smarty.const.SKYPE}:</label><input type="text" name="skype" id="skype" value="{$smarty.post.skype}" maxlength="50" /></div>
+   	<div><label for="datum">{$smarty.const.DATE}:</label><div><input type="text" name="datum" id="datum" size="30" class="required validate-date-eu smallinput" value="{$smarty.post.datum}" /><img id="button_cal" src="templates/{$smarty.const.DESIGN}/images/calendar.png" alt="{$smarty.const.CHOOSE_DATE}" title="{$smarty.const.CHOOSE_DATE}" /></div></div>
+	<div><label for="teamID">{$smarty.const.TEAM}:</label><select name="teamID" class="validate-selection selected" id="teamID">{$teams}</select></div>
+	<div><label for="gameID">{$smarty.const.GAME}:</label><select name="gameID" class="validate-selection selected" id="gameID">{$games}</select></div>  
+    <div><label for="matchtypeID">{$smarty.const.MATCHTYP}:</label><select name="matchtypeID" class="validate-selection selected" id="matchtypeID">{$liggen}</select></div>  
+	<div><label for="serverip">{$smarty.const.SERVER_IP}:</label><input type="text" name="serverip" class="required" id="serverip" value="{$smarty.post.serverip}" maxlength="100" /></div>                               
+	<div><label for="info">{$smarty.const.COMMENT}:</label><textarea class="com_input" rows="7" cols="60" name="info" id="info">{$smarty.post.info}</textarea></div>                                   
+    <div><label for="captcha">{$smarty.const.CAPTCHA}:</label><div style="float: left"><img id="captcha_pic" src="captcha.php?chars=4&amp;minsize=22&amp;maxsize=26" alt="" title="{$smarty.const.CAPTCHA}" /> <img src="templates/{$smarty.const.DESIGN}/images/refresh.png" alt="" title="{$smarty.const.CAPTCHA_RELOAD}" style="cursor:pointer" onclick="reload_captcha('captcha_pic', 'chars=4&minsize=22&maxsize=26', 'captcha');" /><br />
+    <input name="captcha" type="text" class="required validate-captcha smallinput" id="captcha"/></div></div><div style="clear:both"></div>
+    <input type="submit" id="fightus_submit" name="submit" class="submit" value="{$smarty.const.SUBMIT}" />  
+</fieldset>
+</form>
+<script type="text/javascript" language="javascript">
+{literal}
+FormValidator.addAllThese([
+	['validate-captcha', 	{errorMsg:	'{/literal}{$smarty.const.CAPTCHA_WRONG}{literal}', 
+				  test: 	function(v) {			
+								var myXHR = new Request({method: 'get', async: false, url: 'ajax_checks.php?func=check_captcha&code=' + v.get('inputValue')}).send();
+								if(myXHR.xhr.responseText == 0)
+									reload_captcha('captcha_pic', 'chars=4&minsize=22&maxsize=26', 'captcha'); 
+								return (myXHR.xhr.responseText == 1)? true: false;
+							}
+				}]
+]);	
+fi_form = new FormValidator($('fightus_form')); 
+Calendar.setup({
+    inputField    : "datum",
+    button        : "button_cal",	
+	showsTime     : true,
+	onUpdate:	  function() { fi_form.validateField($('datum')); }
+});		
+</script>
+{/literal}

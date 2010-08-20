@@ -1,0 +1,38 @@
+<form action="{$url}" method="post" id="new_msg_{$id}">
+<fieldset>
+	<div><label for="username">{$smarty.const.TO_USER}:</label><img src="images/flaggen/{$country}.gif" alt="" /> {$username}</div>
+	<div><label for="title">{$smarty.const.MSG_SUBJECT}:</label><input type="text" id="title_{$id}" name="title" value="{$replay}" maxlength="40" /></div>    
+    <div><label for="message_{$id}">&nbsp;</label><textarea name="message_{$id}" class="com_input required" id="message_{$id}" rows="10" cols="50">{$smarty.post.message}</textarea></div>
+</fieldset>
+<input type="submit" value="{$smarty.const.SUBMIT}" id="submit_msg_{$id}" name="submit" class="submit" />
+</form>
+{literal}
+<script type="text/javascript">
+window.addEvent('domready', function() { 
+	$('new_msg_{/literal}{$id}{literal}').addEvent('submit', function(e) {
+		new Event(e).stop();
+		$('submit_msg_{/literal}{$id}{literal}').disabled = true;
+		tinyMCE.execCommand('mceToggleEditor',false,'message_{/literal}{$id}{literal}');
+		new Request({
+			url: $('new_msg_{/literal}{$id}{literal}').action,
+			onSuccess: function(r) {
+				$('submit_msg_{/literal}{$id}{literal}').disabled = false;
+				if(r == 'ok') {
+					make_info(MESSAGE_SUCCESS_SEND, 'accept');
+					msg_win[{/literal}{$id}{literal}].hide();
+					$('new_msg_{/literal}{$id}{literal}').reset();
+					tinyMCE.execCommand('mceToggleEditor',false,'message_{/literal}{$id}{literal}');
+					tinyMCE.updateContent('message_{/literal}{$id}{literal}');					
+				} else {
+					$('submit_msg_{/literal}{$id}{literal}').disabled = false;
+					tinyMCE.execCommand('mceToggleEditor',false,'message_{/literal}{$id}{literal}');
+					errorAlert(ERROR, r);
+				}
+			}
+		}).send($('new_msg_{/literal}{$id}{literal}'));	
+	});
+	tinyMCE.execCommand('mceToggleEditor',false,'message_{/literal}{$id}{literal}');
+		
+});
+</script>
+{/literal}

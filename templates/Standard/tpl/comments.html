@@ -1,0 +1,21 @@
+{if !$ajax}<div id="comments_bereich"><a name="comments"></a>{/if}
+  {if $seiten}<div class="pageLinks">{$seiten}</div>{/if}
+    {foreach from=$comments item=c} <br />
+    <div id="com_{$c.comID}" class="comment_mainframe">
+  <div class="comment_user"> {if $c.userID}<img src="images/flaggen/{$c.country}.gif" alt="" title="{$c.countryname}" /> <a href="?section=user&id={$c.userID}">{$c.username}</a>{else}{$c.author}{/if}
+        <div class="comment_user_details">{if $c.userID}<img src="templates/{$smarty.const.DESIGN}/images/{$c.sex}.gif" alt="" title="{$c.sextext}" />{if $c.online} <img src="templates/{$smarty.const.DESIGN}/images/online.png" alt="" title="{$smarty.const.ONLINE}" />{else}<img src="templates/{$smarty.const.DESIGN}/images/offline.png" alt="" title="{$smarty.const.OFFLINE}" />{/if} {if $c.userID != $smarty.session.userID}<a href="?section=account&action=sendmsg&toid={$c.userID}" onclick="return send_message_user({$c.userID},'{$c.username|escape:"quotes"}');"><img src="templates/{$smarty.const.DESIGN}/images/message.png" alt="" title="{$smarty.const.USER_SEND_MESSAGE}" /></a>{/if}{if $c.userID}{if $c.rID}<br /><img src="images/ranks/{$c.iconname}" alt="{$c.rankname}" title="{$c.rankname}" onclick="show_ranks();" style="cursor:pointer;padding:2px;" />{/if}{/if}<br />
+      {if $c.avatar}<img src="images/avatar/{$c.userID}_{$c.avatar}" class="avatar" alt="{$c.username}" title="{$c.username}" /><br />
+      {/if}{$smarty.const.USER_COMMENTS}: {$c.comments}{/if}</div>
+      </div>
+      <div class="comment_comment">
+        <div class="comment_header"><span class="comment_date"><img src="templates/{$smarty.const.DESIGN}/images/comment.png" alt="" style="vertical-align:middle" /> {$c.datum} </span>
+          <a href="#com_{$c.comID}" class="comment_nr">{$c.nr}</a></div>
+        <div class="comment_beitrag"> {$c.beitrag} {if $c.edit}<div class="comment_edit">{$c.edit}</div>{/if}</div>
+        <div class="comment_sig"> {$c.signatur} </div>
+        <div class="comments_buttons">{if ($smarty.session.rights.public[$bereich].com_edit AND $c.userID == $smarty.session.userID) OR $smarty.session.rights.admin[$bereich].com_edit OR $smarty.session.rights.superadmin OR ($smarty.session.rights.public[$bereich].com_del AND $c.userID == $smarty.session.userID) OR $smarty.session.rights.admin[$bereich].com_del}<div style="display:none;" id="com_menu_{$c.comID}">{if ($smarty.session.rights.public[$bereich].com_edit AND $c.userID == $smarty.session.userID) OR $smarty.session.rights.admin[$bereich].com_edit OR $smarty.session.rights.superadmin}<div class="comments_menu_link" onclick="location.href='?section={$section}&action=editcomment&id={$c.comID}&subid={$smarty.get.id}'"><img src="templates/{$smarty.const.DESIGN}/images/comment_edit.png" title="{$smarty.const.EDIT_2}" alt=""  /> {$smarty.const.EDIT_2}</div>{/if}{if ($smarty.session.rights.public[$bereich].com_del AND $c.userID == $smarty.session.userID) OR $smarty.session.rights.admin[$bereich].com_del OR $smarty.session.rights.superadmin}<div class="comments_menu_link" onclick="comment_delete({$c.comID}, '{if $c.userID}{$c.username}{else}{$c.postname}{/if}');"><img src="templates/{$smarty.const.DESIGN}/images/comment_delete.png" title="{$smarty.const.DELETE}" alt=""  /> {$smarty.const.DELETE}</div>{/if}</div><img src="templates/{$smarty.const.DESIGN}/images/admin.png" title="{$smart.const.PAGE_TOP}" alt="" onclick="open_sub_menu('com_menu_{$c.comID}', this);" style="cursor:pointer" />{/if} <img src="templates/{$smarty.const.DESIGN}/images/user_quote.png" alt="" title="{$smarty.const.QUOTE_USER}" class="imgpointer" onclick="add_quote('{if $c.userID}{$c.username}{else}{$c.author}{/if}', {$c.comID}, 'comments_add');" /> <a href="#top"><img src="templates/{$smarty.const.DESIGN}/images/page_up.gif" title="{$smart.const.PAGE_TOP}" alt="" /></a></div>
+      </div>
+    </div>
+    <div style="display: none" id="quote_{$c.comID}">{$c.quote}</div>
+    {/foreach}
+  {if $seiten}<div class="pageLinks">{$seiten}</div>{/if}
+{if !$ajax}</div><div style="clear:both"></div>{/if}

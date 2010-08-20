@@ -1,0 +1,25 @@
+<div id="shoutbox_menu">
+	<div id="shoutbox_menu_container">
+    {if $shoutbox}{foreach from=$shoutbox item=s}
+    	<div class="shoutbox_mini_msg {cycle values="row_odd,row_even"}" id="shout_m_{$s.comID}">
+        {if $smarty.session.rights.superadmin OR $smarty.session.rights.admin.shoutbox.del}<img src="templates/{$smarty.const.DESIGN}/images/delete.png" alt="" title="{$smarty.const.DELETE}" onclick="shout_delete({$s.comID}, '{if $s.userID}{$s.username}{else}{$s.author}{/if}');" style="float: right;" class="imgpointer" />{/if}
+        <a name="com_{$s.comID}"></a>#{$s.nr} {if $s.userID}<img src="images/flaggen/{$s.country}.gif" alt="" title="{$s.countryname}" /> <a href="?section=user&id={$s.userID}">{$s.username}</a>{else}{$s.author}{/if}<br />
+        <span class="shoutbox_date">{$s.datum}</span><br />
+        {$s.beitrag}
+        </div>
+       {/foreach}
+       <div style="text-align:center"><a href="?section=shoutbox">{$smarty.const.SHOUTBOX_VIEW_ALL}</a></div>
+    {else}{$smarty.const.NO_ENTRIES}{/if}
+    </div>
+	{if $smarty.session.rights.public.shoutbox.add || $smarty.session.rights.superadmin}
+    <div id="shout_add_form">
+    <form name="shoutbox_add" id="shoutbox_add" action="?section=shoutbox&action=add" method="post">
+    	{if !$smarty.session.userID}<input type="text" id="shout_username" alt="{$smarty.const.USERNAME}" value="{$smarty.post.shout_username}" name="shout_username" maxlength="30" class="required shout_input overtext" /><br />
+         <img id="captcha_shout_pic" src="captcha.php?mode=mini&chars=2&minsize=12&maxsize=16" alt="" title="{$smarty.const.CAPTCHA}" /> <img src="templates/{$smarty.const.DESIGN}/images/refresh.png" alt="" title="{$smarty.const.CAPTCHA_RELOAD}" class="imgpointer" onclick="reload_captcha_mini('captcha_shout_pic', 'chars=2&minsize=12&maxsize=16', 'shout_captcha');" /><input name="shout_captcha" type="text" class="required validate-captcha-mini" id="shout_captcha"/>{/if}
+         <textarea name="shoutbox_msgbox" id="shoutbox_msgbox" validatorProps="{literal}{{/literal}maxLength:{$smarty.const.SHOUTBOX_MAX_CHARS}{literal}}"{/literal} class="required maxLength" onKeyUp="check_chars_length(this, {$smarty.const.SHOUTBOX_MAX_CHARS}, $('shout_chars_left'));" onChange="check_chars_length(this, {$smarty.const.SHOUTBOX_MAX_CHARS}, $('shout_chars_left'));">{$smarty.post.shoutbox_msgbox}</textarea>
+         {$smarty.const.SHOUTBOX_CHARS_LEFT}: <span id="shout_chars_left">{$smarty.const.SHOUTBOX_MAX_CHARS}</span><br />
+         <input type="submit" class="submit" value="{$smarty.const.SUBMIT}" id="shout_submit" /> <img id="shout_spinner" src="templates/{$smarty.const.DESIGN}/images/spinner.gif" alt="" title="{$smarty.const.LOADING}" style="display: none;" />
+    </form>
+    </div>	    
+    {/if}    
+</div>

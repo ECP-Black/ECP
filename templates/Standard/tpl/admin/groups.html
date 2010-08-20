@@ -1,0 +1,16 @@
+<table width="100%" border="0" cellspacing="1" cellpadding="0" id="groups_table">
+  <tr>
+    <td width="26%"><strong>{$smarty.const.GROUP_NAME}:</strong></td>
+    <td width="60%"><strong>{$smarty.const.MEMBERS}:</strong></td>
+    <td width="14%"><strong>{$smarty.const.ADMIN}:</strong></td>
+  </tr>
+  {foreach from=$groups item=g}
+  <tr class="{cycle values="row_odd,row_even"}" id="group_{$g.groupID}">
+    <td>{$g.name} {if $g.admin or $g.groupID == 1}<span class="error">*</span>{/if}</td>
+    <td><a href="#" onclick="return getMembers({$g.groupID});">{$smarty.const.SHOW_MEMBERS}</a></td>
+    <td><a href="?section=admin&amp;site=groups&amp;func=edit&amp;id={$g.groupID}"><img src="templates/{$smarty.const.DESIGN}/images/group_edit.png" alt="{$smarty.const.EDIT}" border="0" title="{$smarty.const.EDIT}" /></a> <a href="#" onclick="return group_del({$g.groupID})"><img src="templates/{$smarty.const.DESIGN}/images/group_delete.png" alt="{$smarty.const.DELETE}" border="0" title="{$smarty.const.DELETE}" /></a></td>
+  </tr>
+  {/foreach}
+</table>
+<br /><span class="error">*</span> {$smarty.const.MARKED_GROUPS}
+<div id="admin_groups" style="visibility: hidden; position: absolute;"></div>

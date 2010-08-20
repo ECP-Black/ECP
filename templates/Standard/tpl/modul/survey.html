@@ -1,0 +1,43 @@
+<div id="survey_mini_div">
+<img src="templates/{$smarty.const.DESIGN}/images/dot.gif" alt="" /> {$frage}
+    {if $abstimmen}
+        <form id="survey_mini_form" method="post" onsubmit="return submit_mini_survey({$surveyID}, {$maxvotes});" action="?section=survey&amp;action=vote&amp;id={$surveyID}">        
+    	{if $maxvotes > 1}
+        	{foreach from=$antworten item=a}
+            <input type="checkbox" name="answer_{$a.answerID}" class="checkbox" value="1" /> {$a.answer}<br />
+            {/foreach}
+    	{else}      
+        	{foreach from=$antworten item=a}
+            <input type="radio" name="answer" value="{$a.answerID}" class="radio" /> {$a.answer}<br />
+            {/foreach}
+        {/if}
+        <input type="submit" name="submit" value="{$smarty.const.VOTE}" class="submit" id="survey_mini_submit1" /> <img src="templates/{$smarty.const.DESIGN}/images/spinner.gif" alt="" title="{$smarty.const.LOADING}" id="survey_mini_submit_loader" style="visibility:hidden" />
+        </form>            
+    {else}  
+    <table width="100%" border="0" cellspacing="0" cellpadding="1">
+      {foreach from=$antworten item=a}
+      <tr>
+        <td colspan="2">{$a.answer}</td>
+      </tr>
+      <tr>
+        <td width="60%"><div class="survey_curve_container"><div class="survey_curve" style="width: {if $a.prozent}{$a.prozent}{else}{1}{/if}%"></div></div></td>
+        <td width="40%">&nbsp;{$a.votes} ({$a.prozent}%)</td>
+      </tr>
+      {/foreach}
+    </table>
+    {literal}
+    <script type="text/javascript">
+	window.addEvent('domready',  function() {
+		mini_elemente = $$('#survey_mini_div  div.survey_curve');
+		mini_o = {};
+		mini_elemente.each(function(elm, i) {
+			mini_o[i] = { width: [0, elm.getSize().x] };
+			elm.setStyle('width', 0);
+		});				
+		var mini_fx = new Fx.Elements(mini_elemente, {wait: false, duration: 1500, transition: Fx.Transitions.Bounce.easeOut});
+		(function() { mini_fx.start(mini_o); }).delay(150);
+	});
+	</script>
+    {/literal}    
+    {/if}
+    </div>    

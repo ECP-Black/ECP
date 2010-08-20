@@ -1,0 +1,18 @@
+<div style="overflow:auto"> {foreach from=$downloads item=d}
+  <div>
+    <div class="dl_kate">
+      <div class="dl_kate_links"> <img src="templates/{$smarty.const.DESIGN}/images/dot.gif" alt="" /> <a href="?section=downloads&action=viewkate&id={$d.0.kID}">{$d.0.kname}</a> ({$d.0.dls}){if $d.0.beschreibung}<br />
+        {$d.0.beschreibung}{/if}
+        {foreach from=$d.0.unter item=s} <br />
+        &nbsp;&nbsp;<img src="templates/{$smarty.const.DESIGN}/images/dot2.gif" alt="" /> <a href="?section=downloads&action=viewkate&id={$s.kID}">{$s.kname}</a> ({$s.dls}) 
+        {/foreach} </div>
+      {if $d.1.kname}
+      <div class="dl_kate_rechts"> <img src="templates/{$smarty.const.DESIGN}/images/dot.gif" /> <a href="?section=downloads&action=viewkate&id={$d.1.kID}">{$d.1.kname}</a> ({$d.1.dls})
+        {if $d.1.beschreibung}<br />
+        {$d.1.beschreibung}{/if}
+        {foreach from=$d.1.unter item=s} <br />
+        &nbsp;&nbsp;<img src="templates/{$smarty.const.DESIGN}/images/dot2.gif" alt="" /> <a href="?section=downloads&action=viewkate&id={$s.kID}">{$s.kname}</a> ({$s.dls}) 
+        {/foreach} </div>
+      {/if} </div>
+  </div>
+  {/foreach} </div>

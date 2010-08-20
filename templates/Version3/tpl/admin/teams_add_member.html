@@ -1,0 +1,44 @@
+<form name="user_add" id="user_add" action="?section=admin&site=teams&func=addmember&id={$id}" method="post">
+<fieldset>
+	<legend>{$smarty.const.TEAM_USER_ADD}</legend>
+    <div><label for="user">{$smarty.const.USER}:</label><input type="text" id="user" name="user" class="required" /></div>
+    <div><label for="username">{$smarty.const.DISPLAY_NAME}:</label><input type="text" id="username" name="username" /></div>
+    <div><label for="task">{$smarty.const.TASK}:</label><input type="text" id="task" name="task" /></div>     
+    <div><label for="aktiv">{$smarty.const.aktiv}:</label><input type="checkbox" value="1" class="checkbox" id="aktiv" name="aktiv" /></div>
+    <br /><br /><input type="submit" class="submit" name="submit" value="{$smarty.const.ADD}" id="member_submit" /> <img style="visibility: hidden" src="templates/{$smarty.const.DESIGN}/images/spinner.gif" id="user_spinner" alt="" title="{$smarty.const.LOADING}" />
+</fieldset>
+</form>
+{literal}
+<script type="text/javascript" language="javascript">
+user_form = new FormValidator($('user_add')); 
+window.addEvent('domready', function(){ 
+	new Autocompleter.Ajax.Json($('user'), 'ajax_checks.php?func=search_member', { 
+		postVar: 'username', 
+		multiple: false,
+		inheritWidth: false,		
+		onRequest: function ()  { $('user_spinner').style.visibility = ''; },
+		onComplete: function ()  { $('user_spinner').style.visibility = 'hidden'; }, 
+		zIndex: 999999 });
+});	
+$('user_add').addEvent('submit', function(e) {
+	new Event(e).stop();
+	if(user_form.validate()) {
+		$('user_spinner').style.visibility = '';
+		$('member_submit').disabled = true;
+		new Request({
+			url: $('user_add').action,
+			onSuccess: function(r) {
+				if(r == 'ok') {	
+					update_admin_teams();															
+					win_teams_add_user.hide();				
+				} else {
+					errorAlert(ERROR, r);
+				}
+			}
+		}).send($('user_add'));
+	}
+	$('member_submit').disabled = false;
+	$('user_spinner').style.visibility = 'hidden';
+});	
+</script>
+{/literal}

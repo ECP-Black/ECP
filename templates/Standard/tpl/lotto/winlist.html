@@ -1,0 +1,77 @@
+<table width="100%" border="0" cellspacing="0" cellpadding="1">
+  <tr>
+    <td width="36%"><strong>{$smarty.const.DATE}:</strong></td>
+    <td width="64%">{$anfang} - {$ende}</td>
+  </tr>
+  <tr>
+    <td><strong>{$smarty.const.LOTTO_SCHEINE}:</strong></td>
+    <td>{$scheine}</td>
+  </tr>
+  <tr>
+    <td><strong>{$smarty.const.LOTTO_NUMBERS}:</strong></td>
+    <td>{$zahl1}, {$zahl2}, {$zahl3}, {$zahl4}</td>
+  </tr>
+  <tr>
+    <td><strong>{$smarty.const.LOTTO_JACKPOT}:</strong></td>
+    <td>{$rundenjackpot} {$smarty.const.VIRTUELL_MONEY_UNIT}</td>
+  </tr>
+  <tr>
+    <td><strong> {$smarty.const.LOTTO_WINNER}:</strong></td>
+    <td>{$winner} ({$smarty.const.LOTTO_QUOTE}: {$quote} %)</td>
+  </tr>
+  <tr>
+    <td><strong>{$smarty.const.LOTTO_WIN}:</strong></td>
+    <td>{$auszahlung} {$smarty.const.VIRTUELL_MONEY_UNIT}</td>
+  </tr>
+</table>
+<br />
+<div class="div_headline">{$smarty.const.LOTTO_CLASSES}:</div>
+<table width="100%" border="0" cellspacing="0" cellpadding="1">
+  <tr>
+    <td width="15%"><strong>{$smarty.const.LOTTO_RIGHTS}:</strong></td>
+    <td width="35%"><strong>{$smarty.const.MONEY}:</strong></td>
+    <td width="25%"><strong>{$smarty.const.LOTTO_WINNER}:</strong></td>
+    <td width="25%"><strong>{$smarty.const.MONEY}/{$smarty.const.LOTTO_WINNER}:</strong></td>
+  </tr>
+  <tr>
+    <td align="center">4</td>
+    <td>{$geld4er} {$smarty.const.VIRTUELL_MONEY_UNIT}</td>
+    <td>{$4er}</td>
+    <td>{$geld4eruser} {$smarty.const.VIRTUELL_MONEY_UNIT}</td>
+  </tr>
+  <tr>
+    <td align="center">3</td>
+    <td>{$geld3er} {$smarty.const.VIRTUELL_MONEY_UNIT}</td>
+    <td>{$3er}</td>
+    <td>{$geld3eruser} {$smarty.const.VIRTUELL_MONEY_UNIT}</td>
+  </tr>
+  <tr>
+    <td align="center">2</td>
+    <td>{$geld2er} {$smarty.const.VIRTUELL_MONEY_UNIT}</td>
+    <td>{$2er}</td>
+    <td>{$geld2eruser} {$smarty.const.VIRTUELL_MONEY_UNIT}</td>
+  </tr>
+</table>
+<br />
+<div class="div_headline">{$smarty.const.LOTTO_WINNER}:</div>
+{if $gewinner}
+<table width="100%" border="0" cellspacing="0" cellpadding="1">
+  <tr>
+    <td width="15%"><strong>{$smarty.const.LOTTO_RIGHTS}:</strong></td>
+    <td width="35%"><strong>{$smarty.const.LOTTO_WINNER}:</strong></td>
+    <td width="25%"><strong>{$smarty.const.MONEY}:</strong></td>
+    <td width="25%"><strong>{$smarty.const.LOTTO_SCHEIN}:</strong></td>
+  </tr>
+  {foreach from=$gewinner item=g}
+  <tr class="{cycle values="row_odd, row_even"}">
+    <td align="center">{$g.art}</td>
+    <td><img src="images/flaggen/{$g.country}.gif" alt="{$g.countryname}" title="{$g.countryname}" /> <img src="templates/{$smarty.const.DESIGN}/images/{if $g.online}online{else}offline{/if}.png" alt="{if $g.online}{$smarty.const.ONLINE}{else}{$smarty.const.OFFLINE}{/if}" title="{if $g.online}{$smarty.const.ONLINE}{else}{$smarty.const.OFFLINE}{/if}" /> <a href="?section=user&id={$g.userID}">{$g.username}</a></td>
+    <td>{$g.gewinn} {$smarty.const.VIRTUELL_MONEY_UNIT}</td>
+    <td>{$g.scheine}</td>
+  </tr>
+  {/foreach}
+</table>
+{else}
+<div style="text-align:center">{$smarty.const.LOTTO_NO_WINNERS}</div>
+{/if}
+

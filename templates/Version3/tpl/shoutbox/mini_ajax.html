@@ -1,0 +1,10 @@
+    {if $shoutbox}{foreach from=$shoutbox item=s}
+    	<div class="shoutbox_mini_msg {cycle values="row_odd,row_even"}" id="shout_m_{$s.comID}">
+        {if $smarty.session.rights.superadmin OR $smarty.session.rights.admin.shoutbox.del}<img src="templates/{$smarty.const.DESIGN}/images/delete.png" alt="" title="{$smarty.const.DELETE}" onclick="shout_delete({$s.comID}, '{if $s.userID}{$s.username}{else}{$s.author}{/if}');" style="float: right;" class="imgpointer" />{/if}        
+        <a name="com_{$s.comID}"></a>#{$s.nr} {if $s.userID}<img src="images/flaggen/{$s.country}.gif" alt="" title="{$s.countryname}" /> <a href="?section=user&id={$s.userID}">{$s.username}</a>{else}{$s.author}{/if}<br />
+        <span class="shoutbox_date">{$s.datum}</span><br />
+        {$s.beitrag}
+        </div>
+       {/foreach}
+        <div style="text-align:center"><a href="?section=shoutbox">{$smarty.const.SHOUTBOX_VIEW_ALL}</a></div>
+    {else}{$smarty.const.NO_ENTRIES}{/if}

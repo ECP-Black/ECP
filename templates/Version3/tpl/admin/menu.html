@@ -1,0 +1,103 @@
+<div id="tabBoxExample">
+  <ul class="tabSet">
+    <li class="off"><a>{$smarty.const.MENU}</a></li>
+    <li class="off"><a>{$smarty.const.MENU_LINKS}</a></li>
+  </ul>
+  <div class="panelSet">
+    <div class="panel">
+      <div id="menu_container">
+        <div id="menu_left"> <strong>{$smarty.const.LEFT}</strong> {foreach from=$lmenu item=m}
+          <div class="menu-item" id="m_{$m.menuID}"><strong>{$m.name}</strong><img src="templates/{$smarty.const.DESIGN}/images/menu_delete.png" alt="" title="{$smarty.const.DELETE}" onclick="menu_del({$m.menuID}, '{$m.name}');" align="right" class="imgpointer" /> <a href="?section=admin&site=menu&func=edit&id={$m.menuID}"><img src="templates/{$smarty.const.DESIGN}/images/menu_edit.png" alt="" title="{$smarty.const.EDIT_2}" align="right" /></a><div style="clear:both"></div></div>
+          {/foreach} </div>
+        <div id="menu_right"> <strong>{$smarty.const.RIGHT}</strong> {foreach from=$rmenu item=m}
+          <div class="menu-item" id="m_{$m.menuID}"><strong>{$m.name}</strong><img src="templates/{$smarty.const.DESIGN}/images/menu_delete.png" alt="" title="{$smarty.const.DELETE}" onclick="menu_del({$m.menuID}, '{$m.name}');" align="right" class="imgpointer" /> <a href="?section=admin&site=menu&func=edit&id={$m.menuID}"><img src="templates/{$smarty.const.DESIGN}/images/menu_edit.png" alt="" title="{$smarty.const.EDIT_2}" align="right" /></a><div style="clear:both"></div></div>
+          {/foreach} </div>
+      </div>
+      <div style="clear:both; text-align:center">&nbsp;{if $designs}<br />
+        <form action="?section=admin&site=menu&func=copy" method="post">
+          {$smarty.const.MENU_COPY_TXT}:
+          <select name="to">
+            {$designs}
+          </select>
+          <input type="submit" value="{$smarty.const.MENU_COPY}" />
+        </form>
+        {/if}</div>
+    </div>
+    <div class="panel">
+        <dl class="AccordionMulti" id="AccordionMulti">
+        {foreach from=$lang item=l}
+           <dt class="stretchtoggle"><img src="images/flaggen/{$l.lang}.gif" alt="" title="{$l.name}" /> <b>{$l.name}</b></dt>
+           <dd class="stretcher">
+           <form id="lang_{$l.lang}" name="lang_{$l.lang}" method="post" action="ajax_checks.php?func=admin&site=add_menu_link&lang={$l.lang}">
+               <fieldset style="width: 93%">
+               	<div><label>{$smarty.const.SEARCH}:</label><input type="text" maxlength="40" name="suche" id="suche_{$l.lang}" class="required" /></div>
+                   <div><label>{$smarty.const.REPLACE}:</label><input type="text" maxlength="255" name="ersetze" id="ersetze_{$l.lang}" class="required" /></div>
+                   <input type="submit" value="{$smarty.const.ADD}" id="submit_{$l.lang}" name="submit_{$l.lang}" class="submit" /> <img src="templates/{$smarty.const.DESIGN}/images/spinner.gif" alt="" title="{$smarty.const.LOADING}" id="lang_spinner_{$l.lang}" style="visibility:hidden" />
+               </fieldset>
+           </form>
+           <br />
+           <div id="div_lang_{$l.lang}">{$l.content}</div>
+           </dd>
+           {/foreach}
+         </dl>
+    </div>
+  </div>
+</div>
+{literal}
+<script language="javascript" type="text/javascript">
+window.addEvent('domready', function() { 
+	s = new Sortables('#menu_left, #menu_right', {
+			cloneOpacity:.2,
+			clone: true,
+			revert: true,
+			onComplete: function() {
+				daten = this.serialize(0, function(e, i) {
+									return e.id.replace('m_', '')+'='+i;
+								}).join('&');				
+				daten += '&right=1&';
+				daten += this.serialize(1, function(e, i) {
+									return e.id.replace('m_', '')+'='+i;
+								}).join('&');								 
+				new Request({url: 'ajax_checks.php?func=admin&site=order_menu', data: daten}).post();
+			}
+	});
+	new TabSwapper({
+	  selectedClass: 'on',
+	  deselectedClass: 'off',
+	  tabs: $$('#tabBoxExample li'),
+	  clickers: $$('#tabBoxExample li a'),
+	  sections: $$('div.panelSet div.panel'),
+	  /*use transitions to fade across*/
+	  smooth: true
+	});				
+	multi = new MultipleOpenAccordion('AccordionMulti', { togglers: $$('#AccordionMulti dt.stretchtoggle'), elements: $$('#AccordionMulti dd.stretcher'), openAll: false});
+	{/literal}
+	{foreach from=$lang item=l key=k}
+	valid_{$l.lang} = new FormValidator($('lang_{$l.lang}')); 
+	$('lang_{$l.lang}').addEvent('submit', function(e) {ldelim}
+		if(valid_{$l.lang}.validate()) {ldelim}
+			new Event(e).stop();
+			$('lang_spinner_{$l.lang}').style.visibility = '';
+			$('submit_{$l.lang}').disabled = true;
+			new Request({ldelim}
+				url: $('lang_{$l.lang}').action,
+				onSuccess: function(r) {ldelim}
+					if(r == 'ok') {ldelim}	
+						$('lang_{$l.lang}').reset();		
+						$('lang_{$l.lang}').action = 'ajax_checks.php?func=admin&site=add_menu_link&lang={$l.lang}';
+						$('submit_{$l.lang}').value = ADD;
+						$('lang_spinner_{$l.lang}').style.visibility = 'hidden';
+						$('submit_{$l.lang}').disabled = false;				
+						new Request.HTML({ldelim}url: 'ajax_checks.php?func=admin&site=get_menu_links&lang={$l.lang}', update: $('div_lang_{$l.lang}'), onSuccess: function() {ldelim}multi.showSection({$k}); {rdelim}, useWaiter: true {rdelim}).get();
+					{rdelim} else {ldelim}
+						errorAlert(ERROR, r);
+						$('lang_spinner_{$l.lang}').style.visibility = 'hidden';
+						$('submit_{$l.lang}').disabled = false;					
+					{rdelim}
+				{rdelim}
+			{rdelim}).send($('lang_{$l.lang}'));
+		{rdelim}
+	});
+	{/foreach}
+{rdelim});
+</script>

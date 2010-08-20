@@ -1,0 +1,100 @@
+	<form id="account_edit" method="post">
+        <dl class="AccordionMulti" id="AccordionMulti">
+            <dt class="stretchtoggle"><b>{$smarty.const.PERSONAL_INFO}</b></dt>
+            <dd class="stretcher">
+			<fieldset>
+            	<div><label for="username">{$smarty.const.USERNAME}:</label><input type="text" name="username" id="username" value="{$username}" maxlength="30" class="required" /></div>
+            	<div><label for="email">{$smarty.const.EMAIL}:</label><input type="text" name="email" id="email" value="{$email}" maxlength="255" class="required validate-email" /></div> 
+                <div><label for="realname">{$smarty.const.NAME}:</label><input type="text" name="realname" id="realname" value="{$realname}" maxlength="40" /></div>
+                <div><label for="country">{$smarty.const.COUNTRY}:</label>
+                <select name="country" id="country" onchange="set_flagge(this)">
+                {$countries}
+                </select> <img src="images/flaggen/none.gif" height="11" width="16" alt="none" id="flagge" /></div>
+                <div><label for="wohnort">{$smarty.const.TOWN}:</label><input type="text" name="wohnort" id="wohnort" value="{$wohnort}" maxlength="50" /></div> 
+                <div><label for="sex">{$smarty.const.SEX}:</label><select name="sex" id="sex"><option value="female">{$smarty.const.FEMALE}</option><option value="male" {if $sex == "male"}selected="selected"{/if}>{$smarty.const.MALE}</option></select></div> 
+                <div><label for="birthday">{$smarty.const.BIRTHDAY}:</label><input type="text" name="birthday" id="birthday" value="{$birthday}" class="smallinput" maxlength="19" /> <img id="button_cal" src="templates/{$smarty.const.DESIGN}/images/calendar.png" alt="{$smarty.const.CHOOSE_DATE}" title="{$smarty.const.CHOOSE_DATE}" /></div> 
+                <div><label for="homepage">{$smarty.const.HOMEPAGE}:</label><input type="text" name="homepage" id="homepage" value="{$homepage}" maxlength="255" /></div>            
+            </fieldset>
+            </dd>
+            <dt class="stretchtoggle"><b>{$smarty.const.MESSEGENER}</b></dt>
+            <dd class="stretcher">
+			<fieldset>
+            	<div><label for="icq">{$smarty.const.ICQ}:</label><input type="text" name="icq" id="icq" value="{$icq}" maxlength="13" class="smallinput" /></div>
+                <div><label for="msn">{$smarty.const.MSN}:</label><input type="text" name="msn" id="msn" value="{$msn}" maxlength="255" class="validate-email" /></div>
+                <div><label for="yahoo">{$smarty.const.YAHOO}:</label><input type="text" name="yahoo" id="yahoo" value="{$yahoo}" maxlength="255" /></div>
+            	<div><label for="aim">{$smarty.const.AIM}:</label><input type="text" name="aim" id="aim" value="{$aim}" maxlength="255" /></div> 
+                <div><label for="skype">{$smarty.const.SKYPE}:</label><input type="text" name="skype" id="skype" value="{$skype}" maxlength="255" /></div>
+                <div><label for="xfire">{$smarty.const.XFIRE}:</label><input type="text" name="xfire" id="xfire" value="{$xfire}" maxlength="255" /></div>      
+            </fieldset>
+            </dd>  
+            <dt class="stretchtoggle"><b>{$smarty.const.CLAN}</b></dt>
+            <dd class="stretcher">
+			<fieldset>
+            	<div><label for="clanname">{$smarty.const.ACCOUNT_CLAN_NAME}:</label><input type="text" name="clanname" id="clanname" value="{$clanname}" maxlength="40" /></div>
+                <div><label for="clanirc">{$smarty.const.IRC}:</label><input type="text" name="clanirc" id="clanirc" value="{$clanirc}" maxlength="40" /></div>
+                <div><label for="clanhomepage">{$smarty.const.HOMEPAGE}:</label><input type="text" name="clanhomepage" id="clanhomepage" value="{$clanhomepage}" maxlength="255" /></div>
+            	<div><label for="clanhistory">{$smarty.const.CLAN_HISTORY}:</label><input type="text" name="clanhistory" id="clanhistory" value="{$clanhistory}" maxlength="255" /></div>   
+            </fieldset>
+            </dd>             
+            <dt class="stretchtoggle"><b>{$smarty.const.PC_CONF}</b></dt>
+            <dd class="stretcher">
+			<fieldset>
+            	<div><label for="cpu">{$smarty.const.CPU}:</label><input type="text" name="cpu" id="cpu" value="{$cpu}" maxlength="60" /></div>  
+            	<div><label for="mainboard">{$smarty.const.MAINBOARD}:</label><input type="text" name="mainboard" id="mainboard" value="{$mainboard}" maxlength="60" /></div>  
+            	<div><label for="ram">{$smarty.const.RAM}:</label><input type="text" name="ram" id="ram" value="{$ram}" maxlength="60" /></div>  
+            	<div><label for="gkarte">{$smarty.const.GRAPHICC}:</label><input type="text" name="gkarte" id="gkarte" value="{$gkarte}" maxlength="60" /></div>  
+            	<div><label for="skarte">{$smarty.const.SOUNDC}:</label><input type="text" name="skarte" id="skarte" value="{$skarte}" maxlength="60" /></div>  
+            	<div><label for="monitor">{$smarty.const.PC_DISPLAY}:</label><input type="text" name="monitor" id="monitor" value="{$monitor}" maxlength="60" /></div>  
+            	<div><label for="maus">{$smarty.const.MOUSE}:</label><input type="text" name="maus" id="maus" value="{$maus}" maxlength="60" /></div>
+                <div><label for="tastatur">{$smarty.const.KEYBOARD}:</label><input type="text" name="tastatur" id="tastatur" value="{$tastatur}" maxlength="60" /></div>  
+            	<div><label for="mauspad">{$smarty.const.MOUSEPAD}:</label><input type="text" name="mauspad" id="mauspad" value="{$mauspad}" maxlength="60" /></div>
+                <div><label for="internet">{$smarty.const.I_CONNECTION}:</label><input type="text" name="internet" id="internet" value="{$internet}" maxlength="60" /></div>  
+            	<div><label for="festplatte">{$smarty.const.HDD}:</label><input type="text" name="festplatte" id="festplatte" value="{$festplatte}" maxlength="60" /></div>              	
+                <div><label for="headset">{$smarty.const.HEADSET}:</label><input type="text" name="headset" id="headset" value="{$headset}" maxlength="60" /></div> 
+              </fieldset>
+            </dd>    
+            <dt class="stretchtoggle"><b>{$smarty.const.ABOUT_ME}</b></dt>
+            <dd class="stretcher">
+			<textarea name="aboutme" class="com_input" id="aboutme" rows="10" cols="50">{$aboutme}</textarea>
+            </dd>
+            <dt class="stretchtoggle"><b>{$smarty.const.SIGNATUR}</b></dt>
+            <dd class="stretcher">
+			<textarea name="signatur" class="com_input" id="signatur" rows="10" cols="50">{$signatur}</textarea>
+            </dd>                 
+            <dt class="stretchtoggle"><b>{$smarty.const.STATS}</b></dt>
+            <dd class="stretcher">
+             <fieldset>
+            	<div><label for="comments">{$smarty.const.COMMENTS}:</label><input name="comments" type="text" id="comments" class="validate-number smallinput" value="{$comments}" /></div>             
+            	<div><label for="money">{$smarty.const.MONEY}:</label><input name="money" type="text" id="money" class="validate-numberdot smallinput" value="{$money}" /> {$smarty.const.VIRTUELL_MONEY_UNIT}</div>
+             </fieldset>
+            </dd>                                        
+        </dl>
+        <input type="submit" name="submit" value="{$smarty.const.SUBMIT}" />
+    </form>
+<script type="text/javascript">
+{literal}
+	multi = new MultipleOpenAccordion('AccordionMulti', {togglers: $$('#AccordionMulti dt.stretchtoggle'), elements: $$('#AccordionMulti dd.stretcher'), openAll: false});
+	set_flagge($('country'));
+	Calendar.setup({
+		inputField    : "birthday",
+		button        : "button_cal",
+		showsTime     :  false,
+		ifFormat      : "%d.%m.%Y",
+		daFormat      : "%d.%m.%Y"		     			  
+	});	
+    FormValidator.addAllThese([				
+	['minLength1', {
+		errorMsg: function(element, props){
+			if($type(props.minLength))
+				return STRING_MIN_LENGTH.replaceAll('{gesamt}', props.minLength).replace('{anzahl}', element.get('inputValue').length);
+			else return '';
+		}, 
+		test: function(element, props) {
+			if($type(props.minLength) && element.value != 0) return (element.get('inputValue').length >= $pick(props.minLength, 0));
+			else return true;
+		}
+	}],														
+	]);	
+	new FormValidator('account_edit');	
+{/literal}
+</script>

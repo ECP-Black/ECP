@@ -1,0 +1,42 @@
+<form id="server_form" name="server_form" action="?section=admin&site=teamspeak&func=add" method="post">
+	<fieldset>
+    	<div><label for="serverart">{$smarty.const.VOICE_TOOL}</label><select id="serverart" name="serverart"><option value="1">{$smarty.const.TEAMSPEAK_2}</option><option value="2">{$smarty.const.TEAMSPEAK_3}</option></select></div>
+    	<div><label for="ip">{$smarty.const.SERVER_IP}</label><input type="text" name="ip" id="ip" value="{$ip}" maxlength="15" /></div>
+        <div><label for="port">{$smarty.const.SERVER_PORT}</label><input type="text" name="port" id="port" value="{$port}" class="smallinput" maxlength="5" /></div>
+        <div><label for="qport">{$smarty.const.SERVER_QUERYPORT}</label><input type="text" name="qport" id="qport" value="{$qport}" class="smallinput" maxlength="5" /> {$smarty.const.DEFAULT_PORT}: 51234</div>
+        <input type="submit" name="submit" id="server_form_submit" value="{$smarty.const.ADD}" class="submit" /> <img id="server_form_spinner" src="templates/{$smarty.const.DESIGN}/images/spinner.gif" alt="" title="{$smarty.const.LOADING}" style="visibility: hidden;" />
+    </fieldset>
+</form>
+{literal}
+<script language="javascript" type="text/javascript">
+s_form = new FormValidator($('server_form')); 		
+$('server_form').addEvent('submit', function(e) {
+	new Event(e).stop();
+	if(s_form.validate()) {
+		$('server_form_spinner').style.visibility = '';
+		$('server_form_submit').disabled = true;	
+		new Request({
+			url: $('server_form').action,
+			onSuccess: function(r) {
+				if(r == 'ok') {			
+					if($('server_form').action.contains('edit')) {
+						make_info(SERVER_EDIT_SUCCESS, 'accept');
+						$('server_form_submit').value = ADD;
+					} else {
+						make_info(SERVER_ADD_SUCCESS, 'accept');	
+					}	
+					update_server(1);
+					$('server_form').reset();	
+					$('server_form_spinner').style.visibility = 'hidden';
+					$('server_form_submit').disabled = false;										
+				} else {
+					errorAlert(ERROR, r);
+					$('server_form_spinner').style.visibility = 'hidden';
+					$('server_form_submit').disabled = false;
+				}
+			}
+		}).send($('server_form'));
+	}
+});
+</script>
+{/literal}

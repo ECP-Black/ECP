@@ -1,0 +1,125 @@
+     <div id="teamspeak">
+            <table cellpadding="2" cellspacing="1" width="100%" align="center">
+              <tr class="ts_headline">
+                <td colspan="2"><img src="templates/{$smarty.const.DESIGN}/images/teamspeak/tsicons/gts.gif" width="16" height="15" alt="" border="0"> <strong>{$smarty.const.TS_BASE}</strong></td>
+              </tr>
+              <tr class="ts_bg">
+                <td class="bread" width="20%"><strong>{$smarty.const.NAME}:</strong></td>
+                <td class="bread" width="80%">{$name}</td>
+              </tr>
+              <tr class="ts_bg">
+                <td class="bread"><strong>{$smarty.const.SERVER_IP}:</strong></td>
+                <td class="bread"><a href="teamspeak://{$ip}:{$port}">{$ip}:{$port}</a></td>
+              </tr>              
+              <tr class="ts_bg">
+                <td class="bread"><strong>{$smarty.const.OS}:</strong></td>
+                <td class="bread">{$os}</td>
+              </tr>
+              <tr class="ts_bg">
+                <td class="bread"><strong>{$smarty.const.UPTIME}:</strong></td>
+                <td class="bread">{$uptime}</td>
+              </tr>
+              <tr class="ts_bg">
+                <td class="bread"><strong>{$smarty.const.CHANNELS}:</strong></td>
+                <td class="bread">{$cAmount}</td>
+              </tr>
+              <tr class="ts_bg">
+                <td class="bread"><strong>{$smarty.const.BYTS_SEND}:</strong></td>
+                <td class="bread">{$send}</td>
+              </tr>
+              <tr class="ts_bg">
+                <td class="bread"><strong>{$smarty.const.BYTS_RECV}:</strong></td>
+                <td class="bread">{$recv}</td>
+              </tr>
+              <tr class="ts_bg">
+                <td class="bread"><strong>{$smarty.const.USERS}:</strong></td>
+                <td class="bread">{$user}
+                  /{$max} </td>
+              </tr>
+            </table>
+            <br />
+<table cellpadding="2" cellspacing="1" width="100%" align="center">
+              <tr class="ts_headline">
+                <td class="whiteBoldBread" width="30%">{$smarty.const.USERNAME}:</td>
+                <td class="whiteBoldBread" width="30%">{$smarty.const.CHANNEL}:</td>
+                <td class="whiteBoldBread">{$smarty.const.PING}:</td>
+                <td class="whiteBoldBread">{$smarty.const.LOGGED_IN_SINCE}:</td>
+                <td class="whiteBoldBread">{$smarty.const.IDLETIME}:</td>
+              </tr>
+              {foreach from=$users item=u}
+               <tr class="ts_bg">
+          <td><table cellpadding="0" cellspacing="0">
+                    <tr>
+                      <td>{$u.icon}</td>
+                      <td class="bread">{$u.name}</td>
+                    </tr>
+                  </table></td>
+          <td><table cellpadding="0" cellspacing="0">
+                    <tr>
+                      <td><img src="templates/{$smarty.const.DESIGN}/images/teamspeak/tsicons/channel.gif" width="14" height="15" border="0">&nbsp;</td>
+                      <td class="bread">{$u.channel}</td>
+                    </tr>
+                  </table></td>
+                <td class="bread">{$u.ping}</td>
+                <td class="bread">{$u.loggedin}</td>
+                <td class="bread">{$u.idle}</td>
+              </tr>
+              {/foreach}
+  </table>
+            <br />
+            <table cellpadding="2" cellspacing="0" width="100%" align="center">
+              <tr class="ts_bg">
+                <td width="16"><img src="templates/{$smarty.const.DESIGN}/images/teamspeak/tsicons/ts.gif" width="16" height="15" alt="" border="0"></td>
+                <td class="bread"><a href="#" class="wrapCell" onclick="return load_teamspeak_info(this,0,0)">&nbsp;{$name}&nbsp;</a></td>
+                <td width="50%"></td>
+              </tr>
+              <tr class="ts_bg">
+                <td></td>
+                <td valign="top"><table cellpadding="1" cellspacing="0">
+                    {foreach from=$channels item=c}
+                    <tr>
+                      <td><img src="templates/{$smarty.const.DESIGN}/images/teamspeak/tsicons/channel.gif" width="14" height="15" border="0"></td>
+                      <td class="bread">{$c.name}</td>
+                    </tr>
+                    {foreach from=$c.subs item=s}
+                    <tr>
+                      <td></td>
+                      <td><table cellpadding="1" cellspacing="0">
+                        <tr>
+                          <td><img src="templates/{$smarty.const.DESIGN}/images/teamspeak/tsicons/channel.gif" width="14" height="15" border="0"></td>
+                            <td class="bread">{$s.name}</td>
+                        </tr>
+                         {foreach from=$s.players item=p}
+                            <tr>
+                              <td></td>
+                              <td><table cellpadding="1" cellspacing="0">
+                                <tr>
+                                  <td>{$p.icon}</td>
+                                    <td class="bread">{$p.name}</td>
+                                </tr>
+                              </table></td>
+                            </tr>                         
+                         {/foreach}
+                      </table></td>
+                    </tr>   
+                    {/foreach}                    
+                    {foreach from=$c.players item=p}
+                    <tr>
+                      <td></td>
+                      <td><table cellpadding="1" cellspacing="0">
+                        <tr>
+                          <td>{$p.icon}</td>
+                            <td class="bread">{$p.name}</td>
+                        </tr>
+                      </table></td>
+                    </tr>
+                    {/foreach}                    
+                    {/foreach}
+                </table></td>
+                <!-- TS INFO -->
+                <td valign="top"><div id="ts_info">{$tsinfo}</div></td>
+                <!-- TS INFO -->
+              </tr>
+<tr class="ts_bg"></tr>
+            </table>
+	</div>

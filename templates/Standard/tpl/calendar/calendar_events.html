@@ -1,0 +1,9 @@
+<a href="" onclick="return false;" class="Tips" title="{$smarty.const.EVENTS}"><img src="templates/{$smarty.const.DESIGN}/images/calendar.png" alt="" /><span class="tipcontents">
+<div style="width: 500px;">
+      {foreach from=$events item=e}
+	   <div class="div_headline">{$e.eventname}</div>
+       <img src="images/flaggen/{$e.country}.gif" alt="" title="{$e.countryname}" /> {$e.username} :: {$e.datum}<br />
+       {$e.inhalt}
+      {/foreach}
+</div>
+</span></a>

@@ -1,0 +1,19 @@
+    <strong>{$dbsize}</strong><br />
+    <strong>{$new_free}</strong><br />
+    <br />
+    <table border="0" align="center" cellpadding="0" cellspacing="0" width="100%">
+    	<tr>
+			<td width="40%"><strong>{$smarty.const.TABLE_NAME}:</strong></td>
+			<td width="30%" align="right"><strong>{$smarty.const.SIZE}:</strong></td>
+			<td width="15%">&nbsp;</td>
+			<td width="15%"><strong>{$smarty.const.DATABASE_OPTIMIZED}:</strong></td>
+		</tr>
+        {foreach from=$database item=d}
+        <tr class="{cycle values="row_odd,row_even"}">
+			<td>{$d.Name}</td>
+			<td align="right">{$d.Data_length}</td>
+            <td>&nbsp;</td>
+			<td>{$d.free}</td>
+		</tr>
+        {/foreach}
+    </table>                

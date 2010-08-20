@@ -1,0 +1,31 @@
+<form name="news" id="news_form" method="post" action="">
+<fieldset>
+	<legend> {$legend} </legend>
+	<div><label for="headline">{$smarty.const.HEADLINE}:</label><input name="headline" id="headline" class="required" value="{$headline}" maxlength="50" /></div>
+	<div><label for="topic">{$smarty.const.TOPIC}:</label><select name="topic" id="topic" class="validate-selection selected"><option value="0">{$smarty.const.CHOOSE}</option>{$topics}</select> <a href="?section=admin&site=topics">{$smarty.const.TOPIC_ADD}</a></div>
+	<div><label for="links">{$smarty.const.NEWS_LINKS}:</label><div id="links">{assign var=count value=0}{foreach from=$links item=link key=k}<div{if $k!=0} class="news_links_input"{/if}>Name:<input name="link_{$count}" id="link_{$count}" value="{$link.link}" maxlength="255" class="smallinput" /> URL:<input name="url_{$count}" id="url_{$count}" value="{$link.url}" maxlength="255" class="smallinput" /><a onclick="news_add_link(this)"><img src="templates/{$smarty.const.DESIGN}/images/link_add.png" alt="{$smarty.const.ADDLINK}" title="{$smarty.const.ADDLINK}" /></a><a onclick="news_del_link(this)"><img src="templates/{$smarty.const.DESIGN}/images/link_delete.png" alt="{$smarty.const.DELLINK}" title="{$smarty.const.DELLINK}" /></a></div>{assign var=count value=$count+1}{/foreach}</div></div>
+  	<div><label for="bodytext">{$smarty.const.BODYTEXT}:</label><textarea name="bodytext" class="required admininput" id="bodytext" rows="10" cols="40">{$bodytext}</textarea><div align="center"><a onclick="tinyMCE.execCommand('mceToggleEditor',false,'bodytext');">{$smarty.const.TOGGLE_EDITOR}</a></div></div>
+  	<div><label for="extendtext">{$smarty.const.EXTEND_TEXT}:</label><textarea name="extendtext" class="admininput" id="extendtext" rows="10" cols="40">{$extendtext}</textarea><div align="center"><a onclick="tinyMCE.execCommand('mceToggleEditor',false,'extendtext');">{$smarty.const.TOGGLE_EDITOR}</a></div></div>	
+	<div><label for="datum">{$smarty.const.NEWS_DATE}:</label><div id="datum"><input type="text" name="datum" id="datum_news" value="{$datum}" size="30" /><img id="button_cal" src="templates/{$smarty.const.DESIGN}/images/calendar.png" alt="{$smarty.const.CHOOSE_DATE}" title="{$smarty.const.CHOOSE_DATE}" /></div></div>	
+	<div><label for="rights">{$smarty.const.NEWS_RIGHTS}:</label><select name="rights[]" size="5" multiple="multiple" class="selected" id="rights">{$rights}</select></div>
+    <div><label for="languages">{$smarty.const.LANGUAGES}:</label><select name="languages[]" size="5" multiple="multiple" class="selected" id="languages">{$languages}</select></div>
+	<br />	
+	<input type="submit" class="submit" name="submit" value="{$smarty.const.SUBMIT}" />
+</fieldset>
+</form>
+{literal}
+<script language="javascript" type="text/javascript">
+var valid = new FormValidator($('news_form'), {
+		onFormValidate: function (bool, elm) {
+			el = tinyMCE.get('bodytext');
+			if(el.isDirty()) el.save();
+			this.validateField($('bodytext'));
+		}}
+		); 
+            Calendar.setup({
+              inputField    : "datum_news",
+              button        : "button_cal",
+			  showsTime     :    true      			  
+            });					
+</script>
+{/literal}

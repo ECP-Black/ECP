@@ -1,0 +1,61 @@
+<table width="100%" border="0" cellspacing="0" cellpadding="1">
+  <tr class="{cycle values="row_odd,row_even"}">
+    <td width="18%"><strong>{$smarty.const.CLANNAME}:</strong></td>
+    <td width="82%">{if $homepage}<a href="{$homepage}" target="_blank">{$clanname}</a>{else}{$clanname}{/if}</td>
+  </tr>
+  <tr class="{cycle values="row_odd,row_even"}">
+    <td><strong>{$smarty.const.EMAIL}:</strong></td>
+    <td>{$email}</td>
+  </tr>
+  <tr class="{cycle values="row_odd,row_even"}">
+    <td><strong>{$smarty.const.ICQ}:</strong></td>
+    <td>{$icq}</td>
+  </tr>
+  <tr class="{cycle values="row_odd,row_even"}">
+    <td><strong>{$smarty.const.SKYPE}:</strong></td>
+    <td>{$skype}</td>
+  </tr>
+  <tr class="{cycle values="row_odd,row_even"}">
+    <td><strong>{$smarty.const.MSN}:</strong></td>
+    <td>{$msn}</td>
+  </tr>
+  <tr class="{cycle values="row_odd,row_even"}">
+    <td><strong>{$smarty.const.TEAM}:</strong></td>
+    <td>{$tname}</td>
+  </tr>
+  <tr class="{cycle values="row_odd,row_even"}">
+    <td><strong>{$smarty.const.GAME}:</strong></td>
+    <td><img src="images/games/{$icon}" title="{$gamename}" alt="" /> {$gamename}</td>
+  </tr>
+  <tr class="{cycle values="row_odd,row_even"}">
+    <td><strong>{$smarty.const.MATCHTYP}:</strong></td>
+    <td>{$matchtypename}</td>
+  </tr>
+  <tr class="{cycle values="row_odd,row_even"}">
+    <td><strong>{$smarty.const.WAR_DATE}:</strong></td>
+    <td>{$wardatum}</td>
+  </tr>
+  <tr class="{cycle values="row_odd,row_even"}">
+    <td><strong>{$smarty.const.SERVER_IP}:</strong></td>
+    <td>{$serverip}</td>
+  </tr>
+  <tr class="{cycle values="row_odd,row_even"}">
+    <td valign="top"><strong>{$smarty.const.COMMENT}:</strong></td>
+    <td>{$info}</td>
+  </tr>
+  <tr class="{cycle values="row_odd,row_even"}">
+    <td><strong>{$smarty.const.DATE}:</strong></td>
+    <td>{$datum}</td>
+  </tr>
+  <tr class="{cycle values="row_odd,row_even"}">
+    <td><strong>{$smarty.const.IP}:</strong></td>
+    <td>{$IP}</td>
+  </tr>
+  <tr class="{cycle values="row_odd,row_even"}">
+    <td><strong>{$smarty.const.FINISHED}:</strong></td>
+    <td><span id="finish_from">{if $bearbeitet}{$smarty.const.FINISHED_FROM} <a href="?section=user&id={$vonID}">{$username}</a>{else}<a href="#" onclick="fightus_finished({$id}); return false;">{$smarty.const.MAKE_FINISHED}</a>{/if}</span></td>
+  </tr>
+</table>
+<br />
+<hr />
+<br />

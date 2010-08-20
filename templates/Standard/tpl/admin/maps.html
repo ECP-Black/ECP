@@ -1,0 +1,38 @@
+<form name="maps_form" id="maps_form" action="?section=admin&site=games&func=addmap" method="post">
+<fieldset>
+	<legend>{$smarty.const.MAP_ADD}</legend>
+    <div><label for="name">{$smarty.const.NAME}:</label><input type="text" id="name" name="name" class="required" /></div>
+    <div><label for="gameid">{$smarty.const.GAME}:</label><select class="validate-selection selected" id="gameid" name="gameid">{$games}</select></div> 
+	<br /><input type="submit" class="submit" name="submit" value="{$smarty.const.ADD}" id="maps_submit" /> <img style="visibility: hidden" src="templates/{$smarty.const.DESIGN}/images/spinner.gif" id="maps_spinner" alt="" title="{$smarty.const.LOADING}" />
+</fieldset>
+</form>
+{literal}
+<script type="text/javascript" language="javascript">
+maps_form_val = new FormValidator($('maps_form')); 
+$('maps_form').addEvent('submit', function(e) {
+	new Event(e).stop();
+	if(maps_form_val.validate()) {
+		$('maps_spinner').style.visibility = '';
+		$('maps_submit').disabled = true;
+		new Request({
+			url: $('maps_form').get('action'),
+			onSuccess: function(r) {
+				$('maps_submit').disabled = false;
+				$('maps_spinner').style.visibility = 'hidden';			
+				if(r == 'ok') {	
+					$('name').value = '';
+					$('maps_form').action = '?section=admin&site=games&func=addmap';
+					$('maps_submit').value = ADD;
+					load_content('maps', 'ajax_checks.php?func=admin&site=get_maps&page=1');
+				} else {
+					errorAlert(ERROR, r);
+				}
+			}
+		}).send($('maps_form'));
+	}
+});	
+</script>
+{/literal}
+<div id="maps">
+	{$maps}
+</div>

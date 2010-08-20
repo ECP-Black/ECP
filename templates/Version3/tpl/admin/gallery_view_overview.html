@@ -1,0 +1,13 @@
+<div>{$smarty.const.PAGES}: {$seiten}</div>
+{foreach from=$pics item=p key=k}
+<div class="gallery_pic" id="pic_{$p.imageID}">
+	<a target="_blank" href="images/gallery/{$folder}/{$p.imageID}_{$p.filename}" rel="lightbox[]"><img src="images/gallery/{$folder}/thumbs/{$p.imageID}_{$p.filename}" alt="" title="" /></a>
+    <div class="gallery_pic_disc">{$smarty.const.UPLOAD_DATE}: {$p.uploaded}<br />
+    {$smarty.const.DISCRIPTION}: <input type="text" id="disc_{$p.imageID}" maxlength="300" value="{$p.beschreibung}" onchange="gallery_set_disc({$p.imageID});" /> <img src="templates/{$smarty.const.DESIGN}/images/delete.png" alt="" title="{$smarty.const.DELETE}" class="imgpointer" onclick="gallery_del_pic({$p.imageID});" /></div>
+</div>
+{if ($k+1)%3 == 0}<div style="clear: both"></div>{/if}
+{/foreach}
+<div style="clear:both">&nbsp;</div>
+<script type="text/javascript">
+new Lightbox();
+</script>

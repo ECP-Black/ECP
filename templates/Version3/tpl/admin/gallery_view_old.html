@@ -1,0 +1,16 @@
+<a href="?section=admin&site=gallery&func=einlesen&id={$smarty.get.id}">{$smarty.const.GALLERY_READ_FOLDER}</a><br /><br />
+<form enctype="multipart/form-data" method="post" name="upload_pics" id="upload_pics" action="{$smarty.const.SITE_URL}ajax_checks.php?func=admin&site=upload_gallery&id={$smarty.get.id}">
+	<input type="file" name="Filedata" id="Filedata" />
+  	<div class="clear"></div>
+  <input type="submit" class="submit" id="upload_submit" value="{$smarty.const.UPLOAD}"/>
+</form>
+<div id="gallery_pics">
+{$pics}
+</div>
+{literal}
+<script type="text/javascript">
+	window.addEvent('domready', function() {
+		new MultiUpload($('upload_pics').Filedata);	
+	});
+{/literal}
+</script>

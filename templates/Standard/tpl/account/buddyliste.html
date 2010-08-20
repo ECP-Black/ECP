@@ -1,0 +1,43 @@
+<div class="div_headline"><img src="templates/{$smarty.const.DESIGN}/images/{if $smarty.cookies.buddy[0] == "closed"}plus{else}minus{/if}.png" class="imgpointer" alt="" title="" onclick="return toggle_buddy(0, this);" /> {$smarty.const.BUDDYLIST}</div>
+<div id="ownbuddy">
+<table width="100%" border="0" cellspacing="0" cellpadding="1" id="buddy_table" style="table-layout:fixed">
+  <tr>
+    <td width="17%">&nbsp;</td>
+    <td width="43%"><strong>{$smarty.const.USERNAME}:</strong></td>
+    <td width="20%"><strong>{$smarty.const.LAST_LOGIN}:</strong></td>
+    <td width="20%">&nbsp;</td>
+  </tr>
+	{foreach from=$own item=o}
+  <tr class="{cycle values="row_odd, row_even"}" id="buddy_{$o.buddyID}">
+    <td>{if $o.user_pic}<img src="images/user/{$o.buddyID}_{$o.user_pic}" alt="" title="{$o.username}" class="buddy_pic" />{else}<img src="templates/{$smarty.const.DESIGN}/images/nopic.png" alt="" title="{$o.username}" class="buddy_pic" />{/if}</td>
+    <td><img src="templates/{$smarty.const.DESIGN}/images/{$o.sex}.gif" alt="" /> <img src="templates/{$smarty.const.DESIGN}/images/{if $o.online}online{else}offline{/if}.png" alt="" title="{if $o.online}{$smarty.const.ONLINE}{else}{$smarty.const.OFFLINE}{/if}" /> <img src="images/flaggen/{$o.country}.gif" alt="" /> <a href="?section=user&id={$o.buddyID}">{$o.username}</a></td>
+    <td>{$o.lastlogin}</td>
+    <td align="right"><img src="templates/{$smarty.const.DESIGN}/images/message.png" alt="" onclick="return send_message_user({$o.buddyID},'{$o.username|escape:"quotes"}');" title="{$smarty.const.USER_SEND_MESSAGE}" class="imgpointer" /> <img src="templates/{$smarty.const.DESIGN}/images/delete.png" class="imgpointer" onclick="del_from_buddy({$o.buddyID}, '{$o.username|escape:"quotes"}')" alt="" title="{$smarty.const.DELETE}" /></td>
+  </tr>
+  	{/foreach}
+</table>
+</div>
+<div class="div_headline"><img src="templates/{$smarty.const.DESIGN}/images/{if $smarty.cookies.buddy[1] == "closed"}plus{else}minus{/if}.png" class="imgpointer" alt="" title="" onclick="return toggle_buddy(1, this);" /> {$smarty.const.BUDDYLIST_OHTER}:</div>
+<div id="otherbuddy">
+<table width="100%" border="0" cellspacing="0" cellpadding="1" style="table-layout:fixed">
+  <tr>
+    <td width="17%">&nbsp;</td>
+    <td width="43%"><strong>{$smarty.const.USERNAME}:</strong></td>
+    <td width="20%"><strong>{$smarty.const.LAST_LOGIN}:</strong></td>
+    <td width="20%">&nbsp;</td>
+  </tr>
+	{foreach from=$other item=o}
+  <tr class="{cycle values="row_odd, row_even"}">
+    <td>{if $o.user_pic}<img src="images/user/{$o.userID}_{$o.user_pic}" alt="" title="{$o.username}" class="buddy_pic" />{else}<img src="templates/{$smarty.const.DESIGN}/images/nopic.png" alt="" title="{$o.username}" class="buddy_pic" />{/if}</td>
+    <td><img src="templates/{$smarty.const.DESIGN}/images/{$o.sex}.gif" alt="" /> <img src="templates/{$smarty.const.DESIGN}/images/{if $o.online}online{else}offline{/if}.png" alt="" title="{if $o.online}{$smarty.const.ONLINE}{else}{$smarty.const.OFFLINE}{/if}" /> <img src="images/flaggen/{$o.country}.gif" alt="" /> <a href="?section=user&id={$o.userID}">{$o.username}</a></td>
+    <td>{$o.lastlogin}</td>
+    <td align="right"><img src="templates/{$smarty.const.DESIGN}/images/message.png" alt="" onclick="return send_message_user({$o.userID},'{$o.username|escape:"quotes"}');" title="{$smarty.const.USER_SEND_MESSAGE}" class="imgpointer" /></td>
+  </tr>
+  	{/foreach}
+</table>
+</div>
+<script type="text/javascript">
+	{literal}toggles = {};{/literal}
+	toggles[0] = new Fx.Slide('ownbuddy'){if $smarty.cookies.buddy[0] == "closed"}.hide(){/if};
+	toggles[1] = new Fx.Slide('otherbuddy'){if $smarty.cookies.buddy[1] == "closed"}.hide(){/if};
+</script>

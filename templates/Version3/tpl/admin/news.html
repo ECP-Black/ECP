@@ -1,0 +1,23 @@
+{if !$ajax}<a href="?section=admin&amp;site=news&amp;func=add">{$smarty.const.ADMIN_NEWS_ADD}</a><br />
+<br />
+<div id="news_table">
+{/if}
+<table width="100%" border="0" cellspacing="0" cellpadding="1">
+  <tr>
+    <td><strong>{$smarty.const.HEADLINE}:</strong></td>
+    <td><strong>{$smarty.const.TOPIC}:</strong></td>
+    <td><strong>{$smarty.const.DATE}:</strong></td>
+    <td><strong>{$smarty.const.ADMIN}:</strong></td>
+  </tr>
+  {foreach from=$news item=n}
+  <tr id="news_{$n.newsID}">
+    <td>{if $n.sticky}<img src="templates/{$smarty.const.DESIGN}/images/forum_thread_pin.png" /> {/if}<a href="?section=news&amp;action=comments&amp;id={$n.newsID}">{$n.headline}</a></td>
+    <td>{$n.topicname}</td>
+    <td>{$n.datum}</td>
+    <td><a href="#" onclick="return news_pin({$n.newsID})"><img src="templates/{$smarty.const.DESIGN}/images/forum_thread_pin.png" alt="{$smarty.const.NEWS_PIN}" border="0" title="{$smarty.const.NEWS_PIN}" /></a> <a href="?section=admin&site=news&func=edit&id={$n.newsID}"><img src="templates/{$smarty.const.DESIGN}/images/book_edit.png" alt="{$smarty.const.EDIT}" border="0" title="{$smarty.const.EDIT}" /></a> <a href="#" onclick="return news_del({$n.newsID})"><img src="templates/{$smarty.const.DESIGN}/images/book_delete.png" alt="{$smarty.const.DELETE}" border="0" title="{$smarty.const.DELETE}" /></a></td>
+  </tr>
+  {/foreach}
+</table>
+<br />
+{$smarty.const.PAGES}: {$seiten}
+{if !$ajax}</div>{/if}

@@ -1,0 +1,21 @@
+<div class="div_headline">{$smarty.const.CLANWARS}</div>
+    <table width="100%" border="0" cellspacing="0" cellpadding="1">
+      <tr>
+		<td width="10%"><strong>{$smarty.const.DATE}</strong></td>       
+        <td width="30%"><strong>{$smarty.const.OPP}</strong></td>
+        <td width="20%"><strong>{$smarty.const.MATCHTYP}</strong></td>
+        <td width="20%"><strong>{$smarty.const.TEAM}</strong></td>
+        <td width="11%"><strong>{$smarty.const.RESULT}</strong></td>
+        <td width="9%">&#160;</td>
+      </tr>
+      {foreach from=$data item=c}
+      <tr class="{cycle name="wars" values="row_odd,row_even"}">
+     	<td><img src="images/games/{$c.icon}" alt="" title="{$c.gamename}" />{$c.datum}</td>
+        <td><img src="images/flaggen/{$c.country}.gif" alt="" title="{$c.countryname}" /> {if $c.homepage}<a href="{$c.homepage}" target="_blank">{$c.oppname}</a>{else}{$c.oppname}{/if}</td>
+        <td>{$c.matchtypename}</td>
+        <td>{$c.tname}</td>
+        <td><span class="clanwar_{$c.result}">{$c.resultscore}</span></td>
+        <td><img src="templates/{$smarty.const.DESIGN}/images/comments.png" alt="" title="{$smarty.const.COMMENTS}" /> <a href="?section=clanwars&amp;action=view&amp;id={$c.warID}">({$c.comments})</a></td>
+      </tr>
+      {/foreach}
+    </table>

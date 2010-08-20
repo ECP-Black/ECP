@@ -1,0 +1,18 @@
+<div id="award_div">
+    <table width="100%" border="0" cellspacing="0" cellpadding="1" id="award_table">
+      <tr>
+        <td width="40%"><strong>{$smarty.const.NAME}:</strong></td>
+        <td width="20%"><strong>{$smarty.const.DATE}:</strong></td>
+        <td width="25%"><strong>{$smarty.const.AWARDS_POS}:</strong></td>        
+        <td width="15%"></td>
+      </tr>
+      {foreach from=$awards item=a}
+      <tr class="{cycle values="row_odd,row_even"}" id="award_{$t.tID}">
+        <td>{$a.eventname}</td>
+        <td>{$a.eventdatum}</td>
+        <td>{if $a.platz < 4}<img src="templates/{$smarty.const.DESIGN}/images/award_{$a.platz}.png" alt="" title="{$a.platz}" />{else}{$a.platz}{/if}</td>
+        <td><img src="templates/{$smarty.const.DESIGN}/images/edit.png" alt="" title="{$smarty.const.EDIT}" onClick="award_edit({$a.awardID})" style="cursor:pointer" /> <img src="templates/{$smarty.const.DESIGN}/images/delete.png" alt="" title="{$smarty.const.DELETE}" onClick="award_del({$a.awardID}, '{$a.eventname}')" style="cursor:pointer" /></td>
+      </tr>
+      {/foreach}
+    </table>
+</div>

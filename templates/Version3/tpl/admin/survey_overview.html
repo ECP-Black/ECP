@@ -1,0 +1,24 @@
+<div id="survey_div">
+{if $anzahl}
+<table width="100%" border="0" cellspacing="0" cellpadding="1" id="survey_overview">
+  <tr>
+    <td width="40%"><strong>{$smarty.const.SURVEY}:</strong></td>
+    <td width="18%"><strong>{$smarty.const.START}:</strong></td>
+    <td width="18%"><strong>{$smarty.const.END}:</strong></td>
+    <td width="11%"><strong>{$smarty.const.STATUS}:</strong></td>
+    <td width="13%">&nbsp;</td>
+  </tr>
+  {foreach from=$umfrage item=u}
+  <tr class="{cycle values="row_odd,row_even"}" id="survey_{$u.surveyID}">
+    <td valign="top">{$u.frage}</td>
+    <td valign="top">{$u.start}</td>
+    <td valign="top">{$u.ende}</td>
+    <td valign="top">{$u.status}</td>
+    <td valign="top"><img src="templates/{$smarty.const.DESIGN}/images/survey_edit.png" alt="" title="{$smarty.const.EDIT}" style="cursor:pointer" onClick="survey_edit({$u.surveyID});" /> {if !$u.closed}<img src="templates/{$smarty.const.DESIGN}/images/survey_close.png" alt="" title="{$smarty.const.CLOSE}" style="cursor:pointer" onClick="survey_close({$u.surveyID});" />{/if} <img src="templates/{$smarty.const.DESIGN}/images/survey_delete.png" alt="" title="{$smarty.const.DELETE}" style="cursor:pointer" onClick="survey_delete({$u.surveyID});" /> </td>
+  </tr>
+  {/foreach}
+</table>
+{else}
+<div style="text-align:center">{$smarty.const.NO_ENTRIES}</div>
+{/if}
+</div>

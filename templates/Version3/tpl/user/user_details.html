@@ -1,0 +1,257 @@
+
+     <div id="tabBoxExample">
+        <ul class="tabSet">    
+			<li class="off"><a>{$smarty.const.PERSONAL_INFO}</a></li>
+            <li class="off"><a>{$smarty.const.GUESTBOOK}</a></li>
+            <li class="off"><a>{$smarty.const.BUDDYLIST}</a></li>
+            <li class="off"><a>{$smarty.const.STATS}</a></li>
+            <li class="off"><a>Xbox Live</a></li>
+            
+
+  </ul>
+        <div class="panelSet">             
+          <div class="panel">
+			<table width="100%" border="0" cellspacing="2" cellpadding="1">
+              <tr>
+                <td width="20%" class="{cycle values="row_odd, row_even"}"><strong>{$smarty.const.USERNAME}:</strong></td>
+                <td width="35%" class="row_odd"><img src="images/flaggen/{$country}.gif" alt="{$countryname}" title="{$countryname}" /> {$username} <img src="templates/{$smarty.const.DESIGN}/images/{$sex}.gif" alt="{$sextext}" title="{$sextext}" /></td>
+                <td width="45%" rowspan="9" align="center" valign="middle">	
+                {if $user_pic}
+                <img src="images/user/{$smarty.get.id}_{$user_pic}" alt="" title="{$username}"  class="user_pic_border" />
+            	{else}
+            	<img src="templates/{$smarty.const.DESIGN}/images/nopic.png" alt="" title="{$smarty.const.NO_USER_PIC}"  class="user_pic_border" />{/if}</td>
+              </tr>
+              <tr class="{cycle values="row_odd, row_even"}">
+                <td><strong>{$smarty.const.USERID}:</strong></td>
+                <td>{$ID}</td>
+              </tr>
+              <tr class="{cycle values="row_odd, row_even"}">
+                <td><strong>{$smarty.const.MEMBER_SINCE}:</strong></td>
+                <td>{$registerdate}</td>
+              </tr>
+              <tr class="{cycle values="row_odd, row_even"}">
+                <td><strong>{$smarty.const.LAST_LOGIN}:</strong></td>
+                <td><img src="templates/{$smarty.const.DESIGN}/images/{if $online}online{else}offline{/if}.png" alt="{if $online}{$smarty.const.ONLINE}{else}{$smarty.const.OFFLINE}{/if}" title="{if $online}{$smarty.const.ONLINE}{else}{$smarty.const.OFFLINE}{/if}" /> {$lastlogin}</td>
+              </tr>
+              <tr class="{cycle values="row_odd, row_even"}">
+                <td><strong>{$smarty.const.HOMEPAGE}:</strong></td>
+                <td>{$homepage}</td>
+              </tr>
+              <tr class="{cycle values="row_odd, row_even"}">
+                <td><strong>{$smarty.const.TOWN}:</strong></td>
+                <td>{$wohnort}</td>
+              </tr>
+              <tr class="{cycle values="row_odd, row_even"}">
+                <td><strong>{$smarty.const.BIRTHDAY}:</strong></td>
+                <td>{$geburtstag}</td>
+              </tr>
+              <tr class="{cycle values="row_odd, row_even"}">
+                <td><strong>{$smarty.const.AGE}:</strong></td>
+                <td>{$alter}</td>
+              </tr>
+              <tr class="{cycle values="row_odd, row_even"}">
+                <td><strong>{$smarty.const.NEXT_BIRTHDAY}:</strong></td>
+                <td>{if $next}{$next}{/if}</td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td align="center"><img src="templates/{$smarty.const.DESIGN}/images/message.png" alt="" onclick="return send_message_user({$ID},'{$username}');" title="{$smarty.const.USER_SEND_MESSAGE}" class="imgpointer" /> <img src="templates/{$smarty.const.DESIGN}/images/buddy_add.png" alt="" onclick="return add_buddy({$ID});" title="{$smarty.const.BUDDY_ADD}" class="imgpointer" />{if $smarty.session.rights.superadmin OR $smarty.session.rights.admin.user.edit OR $smarty.session.rights.admin.user.del OR $smarty.session.rights.admin.teams.add_member OR $smarty.session.rights.admin.teams.del_member OR $smarty.session.rights.admin.user.ban OR $smarty.session.rights.admin.groups.add_m} <img src="templates/{$smarty.const.DESIGN}/images/admin.png" alt="" title="{$smarty.const.ADMINISTRATION}" style="cursor:pointer" onclick="open_sub_menu('user_sub_menu', this);" />{/if}</td>
+              </tr>
+              <tr>
+				<td colspan="3"><span style="font-size:14px; font-weight:bold">{$smarty.const.ABOUT_ME}</span></td>
+              </tr>
+              <tr class="{cycle values="row_odd, row_even"}">
+                <td colspan="3">{$aboutme}</td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td colspan="2">&nbsp;</td>
+              </tr>
+              <tr>
+                <td><span style="font-size:14px; font-weight:bold">{$smarty.const.CLAN}</span></td>
+                <td>&nbsp;</td>
+                <td><span style="font-size:14px; font-weight:bold">{$smarty.const.LAST_VISITORS}</span></td>                
+              </tr>
+              <tr>
+                <td class="{cycle values="row_odd, row_even"}"><strong>{$smarty.const.ACCOUNT_CLAN_NAME}:</strong></td>
+                <td class="row_odd">{$clanname}</td>
+                <td rowspan="12" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="1">
+                  <!--   <tr>
+                        <td width="51%">{$smarty.const.USERNAME}:</td>
+                        <td width="42%">{$smarty.const.LAST_VISIT}</td>
+                        <td width="7%">&nbsp;</td>
+                      </tr>-->
+                  {foreach from=$last item=l}
+                  <tr>
+                    <td width="50%"><img src="images/flaggen/{$l.country}.gif" alt="{$l.countryname}" title="{$l.countryname}" /> <img src="templates/{$smarty.const.DESIGN}/images/{if $l.online}online{else}offline{/if}.png" alt="{if $l.online}{$smarty.const.ONLINE}{else}{$smarty.const.OFFLINE}{/if}" title="{if $l.online}{$smarty.const.ONLINE}{else}{$smarty.const.OFFLINE}{/if}" /> <a href="?section=user&id={$l.visitID}">{$l.username}</a></td>
+                    <td width="32%" align="right">{$l.time}</td>
+                    <td width="18%" align="right"><img src="templates/{$smarty.const.DESIGN}/images/message.png" alt="" onclick="return send_message_user({$l.visitID},'{$l.username}');" title="{$smarty.const.USER_SEND_MESSAGE}" class="imgpointer" /> <img src="templates/{$smarty.const.DESIGN}/images/buddy_add.png" alt="" onclick="return add_buddy({$l.visitID});" title="{$smarty.const.BUDDY_ADD}" class="imgpointer" /></td>
+                  </tr>
+                  {/foreach}
+                </table></td>                
+              </tr>
+              <tr class="{cycle values="row_odd, row_even"}">
+                <td><strong>{$smarty.const.IRC}:</strong></td>
+                <td>{$clanirc}</td>
+              </tr>
+              <tr class="{cycle values="row_odd, row_even"}">
+                <td><strong>{$smarty.const.HOMEPAGE}:</strong></td>
+                <td>{$clanhomepage}</td>
+              </tr>
+              <tr class="{cycle values="row_odd, row_even"}">
+                <td><strong>{$smarty.const.CLAN_HISTORY}:</strong></td>
+                <td>{$clanhistory}</td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
+              <tr>
+                <td><span style="font-size:14px; font-weight:bold">{$smarty.const.MESSEGENER}:</span></td>
+                <td>&nbsp;</td>
+              </tr>
+              <tr class="{cycle values="row_odd, row_even"}">
+                <td><strong>{$smarty.const.ICQ}:</strong></td>
+                <td>{if $icq}<img src="http://web.icq.com/whitepages/online?icq={$icqtrim}&img=5" border="0" alt="" /> <a href="http://www.icq.com/people/about_me.php?uin={$icqtrim}" target="_blank">{$icq}</a>{/if}</td>
+              </tr>
+              <tr class="{cycle values="row_odd, row_even"}">
+                <td><strong>{$smarty.const.MSN}:</strong></td>
+                <td>{$msn}</td>
+              </tr>
+              <tr class="{cycle values="row_odd, row_even"}">
+                <td><strong>{$smarty.const.YAHOO}:</strong></td>
+                <td>{$yahoo}</td>
+              </tr>
+              <tr class="{cycle values="row_odd, row_even"}">
+                <td><strong>{$smarty.const.AIM}:</strong></td>
+                <td>{$aim}</td>
+              </tr>
+              <tr class="{cycle values="row_odd, row_even"}">
+                <td><strong>{$smarty.const.SKYPE}:</strong></td>
+                <td>{$skype}</td>
+              </tr>
+              <tr class="{cycle values="row_odd, row_even"}">
+                <td><strong>{$smarty.const.XFIRE}:</strong></td>
+                <td>{if $xfire}<a href="http://profile.xfire.com/{$xfire}" target="_blank" class="Tips" title="XFire {$xfire}">{$xfire}<div class="tipcontents"><img src="http://miniprofile.xfire.com/bg/bg/type/0/{$xfire}.png" width="440" height="111" /></div></a>{/if}                </td>
+              </tr>
+            </table>
+
+          </div>   
+          <div class="panel">
+          		<div style="width: 99%">
+				{$guestbook}
+                </div>
+          </div> 
+          <div class="panel">
+            <table width="100%" border="0" cellspacing="0" cellpadding="1" style="table-layout:fixed">
+              <tr>
+                <td width="17%">&nbsp;</td>
+                <td width="43%"><strong>{$smarty.const.USERNAME}:</strong></td>
+                <td width="20%"><strong>{$smarty.const.LAST_LOGIN}:</strong></td>
+                <td width="20%">&nbsp;</td>
+              </tr>
+              {foreach from=$buddies item=o}
+              <tr class="{cycle values="row_odd, row_even"}" id="buddy_{$o.buddyID}">
+                <td>{if $o.user_pic}<img src="images/user/{$o.buddyID}_{$o.user_pic}" alt="" title="{$o.username}" class="buddy_pic" />{else}<img src="templates/{$smarty.const.DESIGN}/images/nopic.png" alt="" title="{$o.username}" class="buddy_pic" />{/if}</td>
+                <td><img src="templates/{$smarty.const.DESIGN}/images/{$o.sex}.gif" alt="" /> <img src="templates/{$smarty.const.DESIGN}/images/{if $o.online}online{else}offline{/if}.png" alt="" title="{if $o.online}{$smarty.const.ONLINE}{else}{$smarty.const.OFFLINE}{/if}" /> <img src="images/flaggen/{$o.country}.gif" alt="" /> <a href="?section=user&id={$o.buddyID}">{$o.username}</a></td>
+                <td>{$o.lastlogin}</td>
+                <td align="right"><img src="templates/{$smarty.const.DESIGN}/images/message.png" alt="" onclick="return send_message_user({$o.buddyID},'{$o.username}');" title="{$smarty.const.USER_SEND_MESSAGE}" class="imgpointer" />  <img src="templates/{$smarty.const.DESIGN}/images/buddy_add.png" alt="" onclick="return add_buddy({$o.buddyID});" title="{$smarty.const.BUDDY_ADD}" class="imgpointer" /></td>
+              </tr>
+                {/foreach}
+            </table>	
+          </div>
+          <div class="panel">
+			{$stats}
+          </div>                               
+          <div class="panel">
+          {if !$XBLive}<b><font color="red">Keine Daten vorhanden!</font></b><br /><br />Dafür gibt es 2 mögliche Ursachen:<br /> - der Benutzername entspricht keinem Live Konto<br /> - dieser User hat sich noch nicht eingeloggt{else}
+          <table width="100%" border="0" cellspacing="2" cellpadding="1">
+              <tr>
+                <td width="20%" class="{cycle values="row_odd, row_even"}"><strong>AccountStatus:</strong></td>
+                <td width="35%" class="row_odd">{$XBLive.xbl_Account}</td>
+                <td width="45%" rowspan="11" align="center" valign="middle"><img src="http://avatar.xboxlive.com/avatar/{$username}/avatar-body.png" class="user_pic_border" /></td>
+              </tr>
+              <tr class="{cycle values="row_odd, row_even"}">
+                <td><strong>Status:</strong></td>
+                <td>{$XBLive.xbl_Status}</td>
+              </tr>
+              <tr class="{cycle values="row_odd, row_even"}">
+                <td><strong>Zuletzt gesehen:</strong></td>
+                <td>{$XBLive.xbl_LastSeen}</td>
+              </tr>
+              <tr class="{cycle values="row_odd, row_even"}">
+                <td><strong>Info:</strong></td>
+                <td>{$XBLive.xbl_Info}</td>
+              </tr>
+              <tr class="{cycle values="row_odd, row_even"}">
+                <td><strong>GamerScore:</strong></td>
+                <td>{$XBLive.xbl_Gamerscore}</td>
+              </tr>
+              <tr class="{cycle values="row_odd, row_even"}">
+                <td><strong>Bio:</strong></td>
+                <td>{$XBLive.xbl_Bio}</td>
+              </tr>
+              <tr class="{cycle values="row_odd, row_even"}"><td>&nbsp;</td><td>&nbsp;</td></tr>
+              <tr class="row_odd"><td>&nbsp;</td><td>&nbsp;</td></tr>
+              <tr class="row_odd"><td>&nbsp;</td><td>&nbsp;</td></tr>
+              <tr class="row_odd"><td>&nbsp;</td><td>&nbsp;</td></tr>
+              <tr class="row_odd"><td>&nbsp;</td><td>&nbsp;</td></tr>
+          </table>
+          <table width ="100%">
+          <tr class="{cycle values="row_odd, row_even"}"><td width=100%"><strong>Bisher {$XBLive.Game|@count} Spiele eingetragen:</strong>                                   (lastupdate:{$XBLive.xbl_lastupdate})</td></tr>
+          </table>
+              {foreach from=$XBLive.Game item=XB}
+                <img src="{$XB.gIcon}" title="[{$XB.gameplay}] {$XB.gTitel}"/>
+              {/foreach}
+
+          {/if}
+          </div>
+  </div>
+        </div>
+      <div id="user_sub_menu" style="display:none">
+      	{if $smarty.session.rights.admin.user.edit OR $smarty.session.rights.superadmin}
+        <div class="comments_menu_link" onclick="location.href='?section=admin&site=user&func=edit&id={$smarty.get.id}';">
+        <img src="templates/{$smarty.const.DESIGN}/images/user_edit.png" title="{$smarty.const.EDIT_2}" alt=""  /> {$smarty.const.EDIT_2}</div>{/if}
+        {if $smarty.session.rights.admin.user.delete OR $smarty.session.rights.superadmin}
+        <div class="comments_menu_link" onclick="user_delete({$smarty.get.id}, '{$username}');">
+        <img src="templates/{$smarty.const.DESIGN}/images/user_delete.png" title="{$smarty.const.DELETE}" alt=""  /> {$smarty.const.DELETE}</div>{/if}
+        {if $smarty.session.rights.admin.user.ban OR $smarty.session.rights.superadmin}
+        <div class="comments_menu_link" onclick="user_ban({$smarty.get.id}, '{$username}');">
+        <img src="templates/{$smarty.const.DESIGN}/images/user_ban.png" title="{$smarty.const.USER_BAN}" alt=""  /> {$smarty.const.USER_BAN}</div>{/if}
+        {if $smarty.session.rights.admin.user.change_pw OR $smarty.session.rights.superadmin}
+        <div class="comments_menu_link" onclick="user_pw({$smarty.get.id});">
+        <img src="templates/{$smarty.const.DESIGN}/images/password.png" title="{$smarty.const.PASSWORD_EDIT}" alt=""  /> {$smarty.const.PASSWORD_EDIT}</div>{/if}
+        {if $smarty.session.rights.admin.user.change_rang OR $smarty.session.rights.superadmin}
+        <div class="comments_menu_link" onclick="user_change_rank({$smarty.get.id});">
+        <img src="templates/{$smarty.const.DESIGN}/images/ranks.png" title="{$smarty.const.CHANGE_RANK}" alt=""  /> {$smarty.const.CHANGE_RANK}</div>{/if}           
+        <hr />
+        {if $smarty.session.rights.admin.teams.add_m OR $smarty.session.rights.superadmin}
+        <div class="comments_menu_link" onclick="user_add_team({$smarty.get.id});">
+        <img src="templates/{$smarty.const.DESIGN}/images/user_add.png" title="{$smarty.const.TEAM_ADD_USER}" alt=""  /> {$smarty.const.TEAM_ADD_USER}</div>{/if}                 
+        {if $smarty.session.rights.admin.groups.add_member OR $smarty.session.rights.superadmin}
+        <div class="comments_menu_link" onclick="user_add_group({$smarty.get.id});">
+        <img src="templates/{$smarty.const.DESIGN}/images/user_add.png" title="{$smarty.const.GROUP_ADD_USER}" alt=""  /> {$smarty.const.GROUP_ADD_USER}</div>{/if}  
+        {if $smarty.session.rights.admin.groups.del_member OR $smarty.session.rights.superadmin}
+        <hr />
+        <strong>{$smarty.const.DEL_USER_GROUP}:</strong>
+        <div id="gruppen">        
+        {foreach from=$gruppen item=g}
+        <div class="comments_menu_link" id="group_{$g.gID}" onclick="user_remove_group({$smarty.get.id}, '{$username}', {$g.gID}, '{$g.name}');">
+        <img src="templates/{$smarty.const.DESIGN}/images/user_delete.png" title="{$smarty.const.DEL_USER_GROUP}" alt=""  /> {$g.name}</div>             
+        {/foreach}</div>{/if}
+      </div>
+<script type="text/javascript">   
+{literal}
+new TabSwapper({
+  selectedClass: 'on',
+  deselectedClass: 'off',
+  tabs: $$('#tabBoxExample li'),
+  clickers: $$('#tabBoxExample li a'),
+  sections: $$('div.panelSet div.panel'),
+  {/literal}{if $smarty.get.view == 'gb'}initPanel: 1,{/if}{literal}
+  /*use transitions to fade across*/
+  smooth: true
+});	
+</script>
+{/literal} 

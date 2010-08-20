@@ -1,0 +1,41 @@
+<strong>{$smarty.const.PATH}:</strong> {$navi}
+<hr />
+<table width="100%" border="0" cellspacing="1" cellpadding="0">
+  <tr>
+    <td align="center"><img src="templates/{$smarty.const.DESIGN}/images/refresh.png" alt="" style="cursor:pointer" title="{$smarty.const.REFRESH}" onClick="load_dir('{$ordner}');" /></td>
+    <td><strong>{$smarty.const.FILE}:</strong></td>
+    <td><strong>{$smarty.const.SIZE}:</strong></td>
+    <td>&nbsp;</td>
+  </tr>
+  {foreach from=$folders item=o}
+  <tr class="{cycle values="row_odd,row_even"}">
+    <td width="5%" align="center"><img src="templates/{$smarty.const.DESIGN}/images/folder.png" alt="" title="" /></td>
+    <td width="49%"><a href="#" style="text-decoration: none;" onclick="load_dir('{if $o.name == '..'}{$o.back}{else}{$ordner}/{$o.name}{/if}'); return false;">{$o.name}</a></td>
+    <td width="32%"></td>
+    <td width="14%">{if $o.name != '..'}{/if}</td>
+  </tr>
+  {/foreach}
+  {foreach from=$files item=f}
+  <tr class="{cycle values="row_odd,row_even"}">
+    <td width="5%" align="center"><img src="images/file_icons/{$f.icon}" alt="" title="" /></td>
+    <td width="49%"><a href="#" style="text-decoration: none;"  onclick="set_download('{$smarty.const.SITE_URL}downloads{$ordner}/{$f.name}', '{$f.size}'); return false;">{$f.name}</a></td>
+    <td width="32%">{$f.filesize}</td>
+    <td width="14%"><a href="#" onClick="dl_del_file('{$ordner}/', '{$f.name}'); return false;"><img src="templates/{$smarty.const.DESIGN}/images/download_delete.png" alt="" title="{$smarty.const.DELETE}" /></a></td>
+  </tr>
+  {/foreach}
+</table>
+<hr />
+{$smarty.const.ADD_FOLDER}: <input type="text" name="add_folder" id="add_folder" /> <img onclick="add_folder('{$ordner}');" src="templates/{$smarty.const.DESIGN}/images/folder_add.png" style="cursor:pointer" alt="" title="{$smarty.const.ADD_FOLDER}" />
+<hr />
+<form action="{$smarty.const.SITE_URL}ajax_checks.php?func=admin&amp;site=dlupload&amp;folder={$ordner}&amp;{$sid}" method="post" name="form_upload" id="form_upload" enctype="multipart/form-data">
+	{$smarty.const.DOWNLOAD_FILE_UPLOAD}: <input type="file" name="file_upload" id="file_upload" />
+  	<div class="clear"></div><br />
+  <input type="submit" class="submit" id="upload_submit" value="{$smarty.const.UPLOAD}"/>
+</form>
+{literal}
+<script language="javascript" type="text/javascript">
+window.addEvent('domready', function() {
+	new MultiUpload($('form_upload').file_upload);	
+});
+</script>
+{/literal}

@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>{#ecp.user_dessc}</title>
+	<script type="text/javascript">
+	DESIGN = "Standard";
+	</script>      
+	<script type="text/javascript" src="../../tiny_mce_popup.js"></script>
+    <script type="text/javascript" src="../../../lang/de.js"></script>
+    <script type="text/javascript" src="../../../mootools.php"></script>
+    <script type="text/javascript">
+	function insert_user() {
+		htmlcode = $('php_input_code').get('inputValue');
+		htmlcode = htmlcode.replace(/&/g, '&amp;');
+		htmlcode = htmlcode.replace(/\"/g, '&quot;');
+		htmlcode = htmlcode.replace(/</g, '&lt;');
+		htmlcode = htmlcode.replace(/>/g, '&gt;');
+		htmlcode = htmlcode.replaceAll("\t", "&nbsp;&nbsp;&nbsp;&nbsp;");
+		tinyMCEPopup.execCommand('mcePasteText', false, {
+			html : "[PHP]\n"+htmlcode+"\n[/PHP]",
+			linebreaks : true
+		});		
+		tinyMCEPopup.close();
+	}
+	window.addEvent('domready', function() {
+		new Autocompleter.Ajax.Json($('username'), 'ajax_checks.php?func=search_member', { postVar: 'username', multi: true, zIndex: 999999 });
+	 });
+	</script>
+	<base target="_self" />
+</head>
+<body style="display: none">
+    <form onsubmit="insert_user();return false;" action="#">
+    	<input id="username" name="username" class="mceFocus" />
+		<div class="mceActionPanel">
+			<div style="float: left">
+				<input type="submit" id="insert" name="insert" value="{#insert}" />
+			</div>
+
+			<div style="float: right">
+				<input type="button" id="cancel" name="cancel" value="{#cancel}" onclick="tinyMCEPopup.close();" />
+			</div>
+		</div>
+    </form>
+        <!-- www.easy-clanpage.de -->
+</body>
+</html>

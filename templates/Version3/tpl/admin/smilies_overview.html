@@ -1,0 +1,14 @@
+<table width="100%" border="0" cellspacing="0" cellpadding="0" style="table-layout:fixed" id="smilies_table">
+  <tr>
+    <td width="40%" align="center"><strong>{$smarty.const.SMILIE}</strong></td>
+    <td width="40%" align="center"><strong>{$smarty.const.SMILIE_DISC}</strong>&nbsp;</td>
+    <td width="20%">&nbsp;</td>
+  </tr>
+  {foreach from=$smilies item=s}
+  <tr class="{cycle values="row_odd,row_even"}" id="smilie_{$s.ID}">
+    <td align="center"><img src="images/smilies/{$s.filename}" alt="" title="{$s.bedeutung}" /></td>
+    <td align="center">{$s.bedeutung}</td>
+    <td align="right"><img src="templates/{$smarty.const.DESIGN}/images/edit.png" alt="" title="{$smarty.const.EDIT}" class="imgpointer" onclick="smilie_edit({$s.ID});" /> <img src="templates/{$smarty.const.DESIGN}/images/delete.png" alt="" title="{$smarty.const.DELETE}" class="imgpointer" onclick="smilie_delete({$s.ID}, '{$s.filename}');" /></td>
+  </tr>
+  {/foreach}
+</table>

@@ -1,0 +1,10 @@
+<div>{$smarty.const.VERSION1}: <br />
+  {$smarty.const.YOURS}: <span class="{$version_color}">{$smarty.const.VERSION}</span> | {$smarty.const.ECP_ONLINE}: {$online}</div>
+<div class="div_headline">{$smarty.const.ECP_NEWS}</div>
+{foreach from=$news item=n}
+<div class="{cycle value="row_odd, row_even"}">
+    <div style="font-weight:bold">{$n.headline} | {$n.date}</div>
+    <div>{$n.msg}</div>
+    <br />
+</div>
+{/foreach}

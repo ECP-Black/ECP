@@ -1,0 +1,31 @@
+{foreach from=$threads item=n}
+<div class="Tips" title="{$n.threadname}"><img src="templates/{$smarty.const.DESIGN}/images/dot.gif" alt="" /> <a href="?section=forum&action=thread&boardID={$n.bID}&threadID={$n.threadID}">{$n.threadname|truncate:24:"...":true}</a></strong>
+<span class="tipcontents"><table width="300" border="0" cellspacing="0" cellpadding="1">
+  <tr>
+    <td width="100"><strong>{$smarty.const.FORUM_LAST_POST}:</strong></td>
+    <td width="200">{if $n.lastusername}{$n.lastusername}{else}<img src="images/flaggen/{$n.lastcountry}.gif" alt="" title="{$n.lastcountryname}" /> {$n.lastpostname}{/if}&nbsp;&nbsp;{$n.lastreplay}</td>
+  </tr>
+  <tr>
+    <td><strong>{$smarty.const.FORUM_POSTS}:</strong></td>
+    <td>{$n.posts}</td>
+  </tr>  
+  <tr>
+    <td><strong>{$smarty.const.FORUM_VIEWS}:</strong></td>
+    <td>{$n.views}</td>
+  </tr>    
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><strong>{$smarty.const.FORUM}:</strong></td>
+    <td><strong>{if $n.boardparentname}{$n.boardparentname} <img src="templates/{$smarty.const.DESIGN}/images/dot2.gif" alt="" /> {/if}{$n.boardname}</strong></td>
+  </tr>
+  <tr>
+    <td><strong>{$smarty.const.FROM}:</strong></td>
+    <td>{if $n.vonname}{$n.vonname}{else}<img src="images/flaggen/{$n.voncountry}.gif" alt="" title="{$n.voncountryname}" /> {$n.fromusername}{/if}&nbsp;&nbsp;{$n.datum}</td>
+  </tr>
+</table>
+</span>
+</div>
+{/foreach}

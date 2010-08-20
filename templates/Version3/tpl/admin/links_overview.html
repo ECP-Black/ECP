@@ -1,0 +1,16 @@
+<table width="100%" border="0" cellspacing="0" cellpadding="0" style="table-layout:fixed" id="links_table">
+  <tr>
+    <td width="20%"><strong>{$smarty.const.LINK_NAME}</strong></td>
+    <td width="50%"><strong>{$smarty.const.LINK_URL}</strong>&nbsp;</td>
+    <td width="10%"><strong>{$smarty.const.LINK_HITS}</strong>&nbsp;</td>
+    <td width="20%">&nbsp;</td>
+  </tr>
+  {foreach from=$links item=l}
+  <tr class="{cycle values="row_odd,row_even"}" id="links_{$l.linkID}">
+    <td>{$l.name}</td>
+    <td>{$l.url}</td>
+    <td>{$l.hits}</td>
+    <td><img src="templates/{$smarty.const.DESIGN}/images/edit.png" alt="" title="{$smarty.const.EDIT}" class="imgpointer" onclick="links_edit({$l.linkID});" /> <img src="templates/{$smarty.const.DESIGN}/images/delete.png" alt="" title="{$smarty.const.DELETE}" class="imgpointer" onclick="links_delete({$l.linkID}, '{$l.name}');" /></td>
+  </tr>
+  {/foreach}
+</table>

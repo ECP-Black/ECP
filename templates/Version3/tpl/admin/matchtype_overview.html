@@ -1,0 +1,14 @@
+<table width="100%" border="0" cellspacing="0" cellpadding="0" id="matchtype_table">
+  <tr>
+    <td width="50%"><strong>{$smarty.const.NAME}:</strong></td>
+    <td width="30%"><strong>{$smarty.const.MATCHTPYE_FIGHTUS}:</strong></td>
+    <td>&nbsp;</td>
+  </tr>
+  {foreach from=$matchtype item=m}
+  <tr class="{cycle values="row_odd,row_even"}" id="matchtype_{$m.matchtypeID}">
+    <td>{$m.matchtypename}</td>
+    <td>{if $m.fightus}<span class="member_aktiv">{$smarty.const.YES}</span>{else}<span class="member_inaktiv">{$smarty.const.NO}</span>{/if}</td>
+    <td><img src="templates/{$smarty.const.DESIGN}/images/edit.png" alt="" style="cursor:pointer" onclick="matchtype_edit({$m.matchtypeID});" title="{$smarty.const.EDIT}" /> <img src="templates/{$smarty.const.DESIGN}/images/delete.png" alt="" style="cursor:pointer" onclick="matchtype_del({$m.matchtypeID}, '{$m.matchtypename}');" title="{$smarty.const.DELETE}" /></td>
+  </tr>
+  {/foreach}
+</table>

@@ -1,0 +1,18 @@
+<table width="100%" border="0" cellspacing="0" cellpadding="0" style="table-layout:fixed" id="gallery_table">
+  <tr>
+    <td width="30%"><strong>{$smarty.const.NAME}</strong></td>
+    <td width="30%"><strong>{$smarty.const.GALLERY_KATE}</strong>&nbsp;</td>    
+    <td width="10%"><strong>{$smarty.const.GALLERY_IMAGES}</strong>&nbsp;</td>
+    <td width="20%"><strong>{$smarty.const.GALLERY_FOLDER}</strong>&nbsp;</td>
+    <td width="10%">&nbsp;</td>
+  </tr>
+  {foreach from=$gallery item=g}
+  <tr class="{cycle values="row_odd,row_even"}" id="gallery_{$g.galleryID}">
+    <td><a href="?section=admin&site=gallery&func=viewgallery&id={$g.galleryID}">{$g.name}</a></td>
+    <td>{$g.katename}</td>
+    <td>{$g.images}</td>
+	<td>{$g.folder}</td>    
+    <td><img src="templates/{$smarty.const.DESIGN}/images/edit.png" alt="" title="{$smarty.const.EDIT}" class="imgpointer" onclick="gallery_edit({$g.galleryID});" /> <img src="templates/{$smarty.const.DESIGN}/images/delete.png" alt="" title="{$smarty.const.DELETE}" class="imgpointer" onclick="gallery_delete({$g.galleryID}, '{$g.name}');" /></td>
+  </tr>
+  {/foreach}
+</table>

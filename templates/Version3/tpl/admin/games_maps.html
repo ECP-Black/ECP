@@ -1,0 +1,19 @@
+    {if $anzahl}
+    {if $seiten}<div class="pageLinks">{$smarty.const.SITES}: {$seiten}</div><div style="clear:both"></div>{/if}
+<table width="100%" border="0" cellspacing="0" cellpadding="0" id="maps_table">
+  <tr>
+    <td><strong>{$smarty.const.NAME}:</strong></td>
+    <td><strong>{$smarty.const.GAME}:</strong></td>
+    <td>&nbsp;</td>
+  </tr>
+  {foreach from=$maps item=m}
+  <tr class="{cycle values="row_odd,row_even"}" id="map_{$m.locationID}">
+    <td>{$m.locationname}</td>
+    <td><img src="images/games/{$m.icon}" alt="" title="{$m.gamename}" /> {$m.gamename}</td>
+    <td><img src="templates/{$smarty.const.DESIGN}/images/edit.png" alt="" style="cursor:pointer" onclick="map_edit({$m.locationID});" title="{$smarty.const.EDIT}" /> <img src="templates/{$smarty.const.DESIGN}/images/delete.png" alt="" style="cursor:pointer" onclick="map_del({$m.locationID}, '{$m.locationname}');" title="{$smarty.const.DELETE}" /></td>
+  </tr>
+  {/foreach}
+</table><br />
+    {if $seiten}<div class="pageLinks">{$smarty.const.SITES}: {$seiten}</div><div style="clear:both"></div>{/if}
+    {/if}
+

@@ -1,0 +1,96 @@
+<script type="text/javascript">
+uplooad = [];
+</script>
+{foreach from=$maps item=map}
+<form action="{$smarty.const.SITE_URL}ajax_checks.php?func=admin&site=cw_upload_screens&id={$id}&scoreid={$map.scoreID}&{$sid}" method="post" enctype="application/x-www-form-urlencoded">
+<fieldset>
+		<div class="div_headline"><strong>{$map.locationname}</strong></div>
+            <table width="100%" border="0" cellspacing="0" cellpadding="1" id="score_{$map.scoreID}">
+              <tr>
+                <td width="20%"><strong>{$smarty.const.NUMBER}:</strong></td>
+                <td width="20%"><strong>{$smarty.const.DATE}:</strong></td>
+                <td width="20%"><strong>{$smarty.const.SIZE}:</strong></td>
+                <td width="10%"><strong>{$smarty.const.VIEW}:</strong></td>
+                <td width="10%">&nbsp;</td>
+              </tr>
+             {foreach from=$map.screens item=s}
+              <tr class="{cycle values="row_odd,row_even"}" id="file_{$s.screenID}">
+                <td>{$smarty.const.CLANWARS_SCREEN} {$s.i}</td>
+                <td>{$s.uploaddate}</td>
+                <td>{$s.size}</td>
+                <td><a href="images/screens/{$s.filename}" rel="lightbox[{$map.scoreID}]">{$smarty.const.VIEW}</a></td>
+                <td><img src="templates/{$smarty.const.DESIGN}/images/delete.png" style="cursor: pointer" onclick="cw_screen_del({$s.screenID}, {$map.scoreID});" alt="" title="{$smarty.const.DELETE}"/></td>
+              </tr>
+              {/foreach}
+            </table>  
+            <fieldset id="upload-fallback-{$map.scoreID}">
+                <legend>File Upload</legend>
+                <p>
+                    Selected your photo to upload.<br />
+                    <strong>This form is just an example fallback for the unobtrusive behaviour of FancyUpload.</strong>
+                </p>
+                <label for="photoupload-filedata-{$map.scoreID}">
+                    Upload Photos:
+                    <input type="file" name="score_{$map.scoreID}" id="photoupload-filedata-{$map.scoreID}" />
+                </label>
+            </fieldset>
+            <div id="upload-status-{$map.scoreID}" class="upload-status hide">
+                <p>
+                    <a href="#" id="upload-browse-{$map.scoreID}">{$smarty.const.CHOOSE_FILES}</a>
+                </p>
+                <div>
+                    <strong class="overall-title">{$smarty.const.OVER_ALL_PROGRESS}</strong><br />
+                    <img src="templates/{$smarty.const.DESIGN}/images/bar.gif" class="progress overall-progress" />
+                </div>
+                <div>
+                    <strong class="current-title">{$smarty.const.FILE_PROGRESS}</strong><br />
+                    <img src="templates/{$smarty.const.DESIGN}/images/bar.gif" class="progress current-progress" />
+                </div>
+                <div class="current-text"></div>
+            </div>
+            <ul id="upload-list-{$map.scoreID}" class="upload-list"></ul>      
+    <input type="submit" value="{$smarty.const.SUBMIT}" id="screen_submit_{$map.scoreID}" name="submit" class="submit" /> <img style="visibility: hidden" src="templates/{$smarty.const.DESIGN}/images/spinner.gif" id="screens_spinner" alt="" title="{$smarty.const.LOADING}" />
+</fieldset>
+</form>
+		<script language="javascript" type="text/javascript">
+			uplooad[{$map.scoreID}]{literal} = new FancyUpload2($('upload-status-{/literal}{$map.scoreID}{literal}'), $('upload-list-{/literal}{$map.scoreID}{literal}'), {
+				'url': '{/literal}{$smarty.const.SITE_URL}ajax_checks.php?func=admin&site=cw_upload_screens&id={$id}&scoreid={$map.scoreID}&{$sid}{literal}',
+				'fieldName': 'score_{/literal}{$map.scoreID}{literal}',
+				'path': 'inc/javascript/Swiff.Uploader.swf',
+				'onLoad': function() {
+					$('upload-status-{/literal}{$map.scoreID}{literal}').removeClass('hide');
+					$('upload-fallback-{/literal}{$map.scoreID}{literal}').destroy();
+				},
+				'onSelect': function(e){
+			  		uplooad.each(function(e) { e.reposition(); });
+			  	},
+				'onAllComplete' : function() { 
+					if(!this.options.error) {
+						new Request.HTML({
+							url: 'ajax_checks.php?func=admin&site=cw_upload_screens&id={/literal}{$id}{literal}', 
+							update: 'screen_upload', 
+							evalScripts: true	
+						}).get();					
+					}
+					this.options.error = false;
+				},
+				target: 'upload-browse-{/literal}{$map.scoreID}{literal}',
+				typeFilter: {'Images (*.jpg, *.jpeg)': '*.jpg; *.jpeg'}
+				
+			});	
+			$('upload-browse-{/literal}{$map.scoreID}{literal}').addEvent('click', function() {
+				uplooad[{/literal}{$map.scoreID}{literal}].browse();
+				return false;
+			});
+			$('screen_submit_{/literal}{$map.scoreID}{literal}').addEvent('click', function() {
+				uplooad[{/literal}{$map.scoreID}{literal}].upload();
+				return false;
+			});							
+    	</script>
+    {/literal}  
+{/foreach}
+{literal}
+<script type="text/javascript" language="javascript">
+new Lightbox({zIndex: 999999});
+</script>
+{/literal}

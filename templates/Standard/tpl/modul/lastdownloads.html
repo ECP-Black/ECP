@@ -1,0 +1,35 @@
+{foreach from=$dls item=n}
+<span class="Tips info_line" title="{$n.name}"><img src="templates/{$smarty.const.DESIGN}/images/dot.gif" /> <a href="?section=downloads&action=viewdl&id={$n.dID}">{$n.name|truncate:24:"...":true}</a>
+<span class="tipcontents"><table width="250" border="0" cellspacing="0" cellpadding="1">
+  <tr>
+    <td width="100"><strong>{$smarty.const.USER}:</strong></td>
+    <td width="150"><img src="images/flaggen/{$n.country}.gif" alt="" title="{$n.countryname}" /> {$n.username}</td>
+  </tr>
+  <tr>
+    <td><strong>{$smarty.const.DATE}:</strong></td>
+    <td>{$n.datum}</td>
+  </tr>
+  <tr>
+    <td><strong>{$smarty.const.GALLERY_KATE}:</strong></td>
+    <td>{$n.kname}</td>
+  </tr>
+  <tr>
+    <td><strong>{$smarty.const.COMMENTS}:</strong></td>
+    <td>{$n.comments}</td>
+  </tr>
+  <tr>
+    <td><strong>{$smarty.const.DOWNLOADS}:</strong></td>
+    <td>{$n.downloads}</td>
+  </tr>
+  <tr>
+    <td><strong>{$smarty.const.TRAFFIC}:</strong></td>
+    <td>{$n.traffic}</td>
+  </tr>  
+  <tr>
+    <td><strong>{$smarty.const.DOWNLOAD_SIZE}:</strong></td>
+    <td>{$n.size}</td>
+  </tr>     
+</table>
+</span>
+</span>
+{/foreach}

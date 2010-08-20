@@ -1,0 +1,10 @@
+{if $seiten} <br /><div class="pageLinks">{$seiten}</div><div style="clear:both;"></div>{/if}
+{foreach from=$pics item=p key=k}
+<div class="gallery_pic" id="pic_{$p.imageID}">
+	<a href="?section=gallery&action=viewpic&id={$p.imageID}"><img src="images/gallery/{$folder}/thumbs/{$p.imageID}_{$p.filename}" alt="" title="" /></a>
+    <div style="clear: both"><span class="klammer">[</span> <a href="?section=gallery&action=viewpic&id={$p.imageID}#comments">{$smarty.const.COMMENTS}: {$p.comments}</a> <span class="klammer">|</span> {$smarty.const.GALLERY_CLICKS}: {$p.klicks} <span class="klammer">]</span></div>
+</div>
+{if ($k+1)%3 == 0}<div style="clear: both"></div>{/if}
+{/foreach}
+<div style="clear: both"></div>
+{if $seiten} <br /><div class="pageLinks">{$seiten}</div><div style="clear:both;"></div>{/if}

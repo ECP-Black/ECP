@@ -1,0 +1,14 @@
+<table width="100%" border="0" cellspacing="0" cellpadding="1" id="overview_{$lang}">
+  <tr>
+    <td width="20%"><strong>{$smarty.const.SEARCH}:</strong></td>
+    <td width="70%"><strong>{$smarty.const.REPLACE}:</strong></td>
+    <td width="10%">&nbsp;</strong></td>
+  </tr>
+  {foreach from=$links item=l}
+  <tr class="{cycle values="row_odd,row_even"}" id="item_{$l.linkID}">
+    <td>{$l.suche}</td>
+    <td>{$l.ersetze}</td>
+    <td><img src="templates/{$smarty.const.DESIGN}/images/edit.png" alt="" title="{$smarty.const.EDIT}" class="imgpointer" onclick="menu_link_edit({$l.linkID}, '{$lang}');" /> <img src="templates/{$smarty.const.DESIGN}/images/delete.png" alt="" title="{$smarty.const.DELETE}" class="imgpointer" onclick="menu_link_delete({$l.linkID}, '{$l.suche}', '{$lang}');" /></td>
+  </tr>
+  {/foreach}
+</table>

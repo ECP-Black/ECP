@@ -1,0 +1,56 @@
+<div class="div_headline"><strong>{$smarty.const.FINANCES_KONTO}</strong></div>
+<table width="100%" border="0" cellspacing="0" cellpadding="1">
+  <tr class="{cycle values="row_odd,row_even"}">
+    <td width="25%"><strong>{$smarty.const.FINANCES_USER}:</strong></td>
+    <td>{$empfaenger}</td>
+  </tr>
+  <tr class="{cycle values="row_odd,row_even"}">
+    <td><strong>{$smarty.const.FINANCES_KONTO_NR}:</strong></td>
+    <td>{$kontonummer}</td>
+  </tr>
+  <tr class="{cycle values="row_odd,row_even"}">
+    <td><strong>{$smarty.const.FINANCES_BANK_NR}:</strong></td>
+    <td>{$bankleitzahl}</td>
+  </tr>
+  <tr class="{cycle values="row_odd,row_even"}">
+    <td><strong>{$smarty.const.FINANCES_BANK}:</strong></td>
+    <td>{$institut}</td>
+  </tr>
+  <tr class="{cycle values="row_odd,row_even"}">
+    <td><strong>{$smarty.const.FINANCES_IBAN}:</strong></td>
+    <td>{$IBAN}</td>
+  </tr>
+  <tr class="{cycle values="row_odd,row_even"}">
+    <td><strong>{$smarty.const.FINANCES_SWIFT}:</strong></td>
+    <td>{$SWIFT}</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr class="{cycle values="row_odd,row_even"}">
+    <td><strong>{$smarty.const.FINANCES_BALANCE}:</strong></td>
+    <td>{if $kontostand < 0}<span class="clankasse_minus">{else}<span class="clankasse_plus">{/if}{$kontostand} &euro;</span></td>
+  </tr>
+</table>
+<br /><br />
+<div class="div_headline"><strong>{$smarty.const.FINANCES_TRANS}</strong></div>
+<div id="kasse_trans">
+{if $seiten} <div class="pageLinks">{$seiten}</div><div style="clear:both;"></div>{/if}
+<table width="100%" border="0" cellspacing="0" cellpadding="1" id="buch_overview">
+  <tr>
+    <td width="20%"><strong>{$smarty.const.DATE}:</strong></td>
+    <td width="20%"><strong>{$smarty.const.FINANCES_CONTRIB}:</strong></td>
+    <td width="35%"><strong>{$smarty.const.FINANCES_USE}:</strong></td>
+    <td width="25%"><strong>{$smarty.const.FINANCES_USER_BUCH}:</strong></td>
+  </tr>
+  {foreach from=$buchung item=b}
+  <tr class="{cycle values="row_odd,row_even"}" id="buch_{$b.ID}">
+    <td>{$b.datum}</td>
+    <td>{if $b.geld < 0}<span class="clankasse_minus">{else}<span class="clankasse_plus">{/if}{$b.geld} &euro;</span></td>
+    <td>{$b.verwendung}</td>
+    <td><a href="?section=user&id={$b.userID}">{$b.buchusername}</a></td>
+  </tr>
+  {/foreach}
+</table>
+</div>

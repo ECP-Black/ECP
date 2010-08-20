@@ -1,0 +1,43 @@
+<form name="change_pw" id="change_pw" action="ajax_checks.php?func=admin&site=user_change_pw&id={$id}" method="post">
+<fieldset>
+    <div><label for="password1">{$smarty.const.PASSWORD}:</label><input type="password" name="password1" id="password1" class="required minLength" validatorProps="{literal}{{/literal}minLength:{$smarty.const.PW_MIN_LENGTH}{literal}}"{/literal} /></div>
+    <div><label for="password2">{$smarty.const.PASSWORD}:</label><input type="password" name="password2" id="password2" class="required validate-password-confirm" /></div>
+   <input type="submit" class="submit" name="submit" value="{$smarty.const.SUBMIT}" id="change_pw_submit" /> <img style="visibility: hidden" src="templates/{$smarty.const.DESIGN}/images/spinner.gif" id="change_pw_submit_spinner" alt="" title="{$smarty.const.LOADING}" />
+</fieldset>
+</form>
+{literal}
+<script type="text/javascript" language="javascript">
+   FormValidator.addAllThese([					
+['validate-password-confirm', {
+	errorMsg: '{/literal}{$smarty.const.DIFFERENT_PW}{literal}', 
+	test: function (v) {
+		if(v.get('inputValue') == $('password1').get('inputValue')) 
+			return true; 
+		else 
+			return false;
+	}
+}]													
+]);
+var myFormValidator = new FormValidator($('change_pw'));
+$('change_pw').addEvent('submit', function(e) {
+	new Event(e).stop();
+	if(myFormValidator.validate()) {
+		$('change_pw_submit_spinner').style.visibility = '';
+		$('change_pw_submit').disabled = true;
+		new Request({
+			url: $('change_pw').action,
+			onSuccess: function(r) {
+				$('change_pw_submit').disabled = false;
+				$('change_pw_submit_spinner').style.visibility = 'hidden';			
+				if(r == 'ok') {															
+					change_pw_win.hide();	
+					make_info(PASSWORD_SUCCESS, 'accept');			
+				} else {
+					errorAlert(ERROR, r);
+				}
+			}
+		}).send($('change_pw'));
+	}
+});	
+</script>
+{/literal}

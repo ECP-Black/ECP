@@ -1,0 +1,24 @@
+{if $seiten}<div class="pageLinks">{$seiten}</div><div style="clear: both"></div>{/if}
+<table width="100%" border="0" cellspacing="0" cellpadding="1" id="table_msgin">
+  <tr>
+    <td width="25%"><strong>{$smarty.const.DATE}:</strong></td>
+    <td width="25%"><strong>{$smarty.const.FROM_USER}:</strong></td>
+    <td width="35%"><strong>{$smarty.const.MSG_SUBJECT}:</strong></td>
+    <td width="15%" align="right"><input type="checkbox" class="checkbox" onclick="mark_all('delin', this);" /></td>
+  </tr>
+  {if $messages}
+  {foreach from=$messages item=m}
+  <tr class="{cycle values="row_odd, row_even"}" id="msg_{$m.msgID}">
+    <td>{$m.datum}</td>
+    <td>{if $m.fromuser}<img src="images/flaggen/{$m.country}.gif" alt="" /> <a href="?section=user&id={$m.fromuser}">{$m.username}</a>{else}{$smarty.const.FROM_SYSTEM}{/if}</td>
+    <td>{if $m.readed == 0}<img src="templates/{$smarty.const.DESIGN}/images/new.png" alt="" title="{$smarty.const.UNREAD}" /> {/if}<a href="?section=account&action=readmsg&id={$m.msgID}">{if $m.title}{$m.title}{else}{$smarty.const.NO_TITLE}{/if}</a></td>
+    <td align="right">{if $m.fromuser}<a href="?section=account&action=sendmsg&toid={$m.fromuser}&msgid={$m.msgID}" onclick="return send_message_user({$m.fromuser},'{$m.username}', '{$m.title}');"><img src="templates/{$smarty.const.DESIGN}/images/message_answer.png" alt="" title="{$smarty.const.ANSWER}" /></a>{/if} 
+      <input type="checkbox" value="{$m.msgID}" name="delmsg[]" /><img src="templates/{$smarty.const.DESIGN}/images/delete.png" class="imgpointer" onclick="del_message({$m.msgID}, 'in')" alt="" title="{$smarty.const.MSGES_DELETE}" /></td>
+  </tr>
+  {/foreach}
+  {else}
+  <tr>
+  	<td colspan="4" align="center">{$smarty.const.NO_ENTRIES}</td>
+  </tr>
+  {/if}
+</table>

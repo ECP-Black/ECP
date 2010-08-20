@@ -1,0 +1,78 @@
+<form id="server_form" name="server_form" action="?section=admin&site=server&func=add" method="post">
+  <fieldset>
+  <legend> {$smarty.const.SERVER} </legend>
+  <div>
+    <label for="ip">{$smarty.const.SERVER_IP}:</label>
+    <input type="text" class="required" maxlength="255" name="ip" id="ip" />
+  </div>
+  <div>
+    <label for="port">{$smarty.const.SERVER_PORT}:</label>
+    <input type="text" class="required validate-number" maxlength="5" name="port" id="port" />
+  </div>
+  <div>
+    <label for="querport">{$smarty.const.SERVER_QUERYPORT}:</label>
+    <input type="text" class="validate-number" maxlength="5" name="queryport" id="queryport" />
+  </div>
+  <div>
+    <label for="sport">{$smarty.const.SERVER_SOFTWARE_PORT}:</label>
+    <input type="text" class="validate-number" maxlength="5" name="sport" id="sport" />
+  </div>
+  <div>
+    <label for="gametype">{$smarty.const.SERVER_GAMETYPE}:</label>
+    <select name="gametype" id="gametype">
+		{foreach from=$games item=g key=k}
+        <option value="{$k}">{$g}</option>
+        {/foreach}
+    </select>
+  </div>
+  <div>
+    <label for="passwort">{$smarty.const.PASSWORD}:</label>
+    <input type="text" maxlength="40" name="passwort" id="passwort" />
+  </div>  
+  <div>
+    <label for="stat">{$smarty.const.SERVER_LOG_STAT}:</label>
+    <input type="checkbox" class="checkbox" id="stat" name="stat" value="1" /> <a href="http://www.easy-clanpage.de/?section=cms&id=10" target="_blank">{$smarty.const.INFO}</a>
+  </div>  
+  <div>
+    <label for="displaymenu">{$smarty.const.SERVER_DISPLAY_MENU}:</label>
+    <input type="checkbox" class="checkbox" id="displaymenu" name="displaymenu" value="1" />
+  </div>     
+  <div style="clear: left;">
+    <label for="gamename">{$smarty.const.SERVER_GAME_NAME}:</label>
+    <input type="text" maxlength="40" name="gamename" id="gamename" />
+  </div>      
+  <input type="submit" name="submit" id="server_form_submit" value="{$smarty.const.ADD}" class="submit" /> <img id="server_form_spinner" src="templates/{$smarty.const.DESIGN}/images/spinner.gif" alt="" title="{$smarty.const.LOADING}" style="visibility: hidden;" />
+  </fieldset>
+</form>
+{literal}
+<script language="javascript" type="text/javascript">
+s_form = new FormValidator($('server_form')); 		
+$('server_form').addEvent('submit', function(e) {
+	new Event(e).stop();
+	if(s_form.validate()) {
+		$('server_form_spinner').style.visibility = '';
+		$('server_form_submit').disabled = true;	
+		new Request({
+			url: $('server_form').action,
+			onSuccess: function(r) {
+				if(r == 'ok') {			
+					if($('server_form').action.contains('edit')) {
+						make_info(SERVER_EDIT_SUCCESS, 'accept');
+					} else {
+						make_info(SERVER_ADD_SUCCESS, 'accept');	
+					}	
+					update_server();
+					$('server_form').reset();	
+					$('server_form_spinner').style.visibility = 'hidden';
+					$('server_form_submit').disabled = false;										
+				} else {
+					errorAlert(ERROR, r);
+					$('server_form_spinner').style.visibility = 'hidden';
+					$('server_form_submit').disabled = false;
+				}
+			}
+		}).send($('server_form'));
+	}
+});
+</script>
+{/literal} 

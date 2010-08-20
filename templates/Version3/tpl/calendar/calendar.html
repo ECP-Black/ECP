@@ -1,0 +1,38 @@
+  <table width="70%" border="0" cellspacing="0" cellpadding="1" align="center">
+    <tr>
+      <td width="35%" align="right"><a href="?section=calendar&amp;year={$year-1}&amp;month={$monthz}" onclick="return load_calendar(this);">&lt;&lt;</a></td>
+      <td width="30%" align="center" valign="middle">{$smarty.const.YEAR}: {$year} </td>
+      <td width="35%"><a href="?section=calendar&amp;year={$year+1}&amp;month={$monthz}" onclick="return load_calendar(this);">&gt;&gt;</a></td>
+    </tr>
+    <tr>
+      <td align="right"><a href="?section=calendar&amp;year={$year}&amp;month={$monthz-1}" onclick="return load_calendar(this);">&lt;&lt;</a></td>
+      <td align="center" valign="middle">{$smarty.const.MONTH}: {$month}</td>
+      <td><a href="?section=calendar&amp;year={$year}&amp;month={$monthz+1}" onclick="return load_calendar(this);">&gt;&gt;</a></td>
+    </tr>
+  </table>
+<br />
+<table width="100%" border="0" cellspacing="1" cellpadding="1">
+  <tr class="kal_head">
+    <td width="9%" class="kal_border" align="center"><strong>{$smarty.const.WEEK}</strong></td>
+    <td width="13%" class="kal_border" align="center"><strong>{$smarty.const.MONDAY}</strong></td>
+    <td width="13%" class="kal_border" align="center"><strong>{$smarty.const.TUESDAY}</strong></td>
+    <td width="13%" class="kal_border" align="center"><strong>{$smarty.const.WEDNESDAY}</strong></td>
+    <td width="13%" class="kal_border" align="center"><strong>{$smarty.const.THURSDAY}</strong></td>
+    <td width="13%" class="kal_border" align="center"><strong>{$smarty.const.FRIDAY}</strong></td>
+    <td width="13%" class="kal_border" align="center"><strong>{$smarty.const.SATURDAY}</strong></td>
+    <td width="13%" class="kal_border" align="center"><strong>{$smarty.const.SUNDAY}</strong></td>
+  </tr>
+  {assign var=count value=1}
+  {foreach from=$kalender item=kal}
+  <tr height="60px">
+    <td align="center" valign="top" class="kal_border kal_week" ><strong>{$kal.woche}</strong></td>
+    <td align="center" valign="top" class="kal_border {if $kal.akt == 1} kal_today{/if}">&#160;{if $kal.events.1}<a href="?section=calendar&amp;action=viewday&amp;tag={$kal.tage.1}&amp;month={$monthz}&amp;year={$year}">{$kal.tage.1}</a>{else}{$kal.tage.1}{/if}{if $kal.events.1}<br />{$kal.events.1}{/if}</td>
+    <td align="center" valign="top" class="kal_border {if $kal.akt == 2} kal_today{/if}">&#160;{if $kal.events.2}<a href="?section=calendar&amp;action=viewday&amp;tag={$kal.tage.2}&amp;month={$monthz}&amp;year={$year}">{$kal.tage.2}</a>{else}{$kal.tage.2}{/if}{if $kal.events.2}<br />{$kal.events.2}{/if}</td>
+    <td align="center" valign="top" class="kal_border {if $kal.akt == 3} kal_today{/if}">&#160;{if $kal.events.3}<a href="?section=calendar&amp;action=viewday&amp;tag={$kal.tage.3}&amp;month={$monthz}&amp;year={$year}">{$kal.tage.3}</a>{else}{$kal.tage.3}{/if}{if $kal.events.3}<br />{$kal.events.3}{/if}</td>
+    <td align="center" valign="top" class="kal_border {if $kal.akt == 4} kal_today{/if}">&#160;{if $kal.events.4}<a href="?section=calendar&amp;action=viewday&amp;tag={$kal.tage.4}&amp;month={$monthz}&amp;year={$year}">{$kal.tage.4}</a>{else}{$kal.tage.4}{/if}{if $kal.events.4}<br />{$kal.events.4}{/if}</td>
+    <td align="center" valign="top" class="kal_border {if $kal.akt == 5} kal_today{/if}">&#160;{if $kal.events.5}<a href="?section=calendar&amp;action=viewday&amp;tag={$kal.tage.5}&amp;month={$monthz}&amp;year={$year}">{$kal.tage.5}</a>{else}{$kal.tage.5}{/if}{if $kal.events.5}<br />{$kal.events.5}{/if}</td>
+    <td align="center" valign="top" class="kal_border kal_weekend{if $kal.akt == 6} kal_today{/if}">&#160;{if $kal.events.6}<a href="?section=calendar&amp;action=viewday&amp;tag={$kal.tage.6}&amp;month={$monthz}&amp;year={$year}">{$kal.tage.6}</a>{else}{$kal.tage.6}{/if}{if $kal.events.6}<br />{$kal.events.6}{/if}</td>
+    <td align="center" valign="top" class="kal_border kal_weekend{if $kal.akt == 0} kal_today{/if}">&#160;{if $kal.events.0}<a href="?section=calendar&amp;action=viewday&amp;tag={$kal.tage.0}&amp;month={$monthz}&amp;year={$year}">{$kal.tage.0}</a>{else}{$kal.tage.0}{/if}{if $kal.events.0}<br />{$kal.events.0}{/if}</td>
+  </tr>
+  {assign var=count value=$count+1}{/foreach}
+</table>

@@ -1,0 +1,125 @@
+<div class="div_headline">{$smarty.const.GENERAL}</div>
+<table width="100%" border="0" cellspacing="0" cellpadding="1">
+  <tr class="{cycle name="user_stats" values="row_odd, row_even"}">
+    <td width="35%"><strong>{$smarty.const.MEMBER_SINCE}:</strong></td>
+    <td width="65%">{$registerdate} ({$tage} {$smarty.const.DAYS})</td>
+  </tr>
+  <tr class="{cycle name="user_stats" values="row_odd, row_even"}">
+    <td><strong>{$smarty.const.PROFIL_VIEWS}:</strong></td>
+    <td>{$profilhits}</td>
+  </tr>
+  <tr class="{cycle name="user_stats" values="row_odd, row_even"}">
+    <td><strong>{$smarty.const.LOGINS}:</strong></td>
+    <td>{$logins}</td>
+  </tr>
+  <tr class="{cycle name="user_stats" values="row_odd, row_even"}">
+    <td><strong>{$smarty.const.COMMENTS}:</strong></td>
+    <td>{$comments}</td>
+  </tr>
+  <tr class="{cycle name="user_stats" values="row_odd, row_even"}">
+    <td><strong>{$smarty.const.RANG}:</strong></td>
+    <td><img src="images/ranks/{$iconname}" alt="" title="{$rankname}" /> {$rankname}</td>
+  </tr>
+  <tr class="{cycle name="user_stats" values="row_odd, row_even"}">
+    <td><strong>{$smarty.const.PAGE_HITS}:</strong></td>
+    <td>{$clicks}</td>
+  </tr>
+  <tr class="{cycle name="user_stats" values="row_odd, row_even"}">
+    <td><strong>{$smarty.const.MONEY}:</strong></td>
+    <td>{$money} {$smarty.const.VIRTUELL_MONEY_UNIT}</td>
+  </tr>
+  <tr class="{cycle name="user_stats" values="row_odd, row_even"}">
+    <td><strong>{$smarty.const.MSG_SEND}:</strong></td>
+    <td>{$msg_s}</td>
+  </tr>
+  <tr class="{cycle name="user_stats" values="row_odd, row_even"}">
+    <td><strong>{$smarty.const.MSG_RECI}:</strong></td>
+    <td>{$msg_r}</td>
+  </tr>
+</table>
+<br />
+<div class="div_headline">{$smarty.const.LOTTO}</div>
+<table width="100%" border="0" cellspacing="0" cellpadding="1">
+  <tr class="{cycle name="user_stats" values="row_odd, row_even"}">
+    <td width="35%"><strong>{$smarty.const.LOTTO_SCHEIN}:</strong></td>
+    <td width="65%">{$scheine} ({$smarty.const.LOTTO_SCHEIN}/{$smarty.const.LOTTO_ROUND}: {$scheinrunde})</td>
+  </tr>
+  <tr class="{cycle name="user_stats" values="row_odd, row_even"}">
+    <td><strong>{$smarty.const.LOTTO_RUNDEN_TEIL}:</strong></td>
+    <td>{$runden} {$smarty.const.FROM} {$gesamtrunden} ({$smarty.const.LOTTO_TEIL_QOUTE}: {$teilqoute}%)</td>
+  </tr>
+  <tr class="{cycle name="user_stats" values="row_odd, row_even"}">
+    <td><strong>{$smarty.const.LOTTO_WIN}:</strong></td>
+    <td>{$winscheine} ({$smarty.const.LOTTO_QUOTE}: {$winqoute}%)</td>
+  </tr>
+  <tr class="{cycle name="user_stats" values="row_odd, row_even"}">
+    <td><strong>{$smarty.const.LOTTO_WIN_MONEY}:</strong></td>
+    <td>{$wonmoney} {$smarty.const.VIRTUELL_MONEY_UNIT}</td>
+  </tr>
+  <tr class="{cycle name="user_stats" values="row_odd, row_even"}">
+    <td><strong>2 {$smarty.const.LOTTO_RIGHTS}:</strong></td>
+    <td>{$2er} ({$2erpro}%)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$2ermoney} {$smarty.const.VIRTUELL_MONEY_UNIT} ({$2ermpro}%)</td>
+  </tr>
+  <tr class="{cycle name="user_stats" values="row_odd, row_even"}">
+    <td><strong>3 {$smarty.const.LOTTO_RIGHTS}:</strong></td>
+    <td>{$3er} ({$3erpro}%)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$3ermoney} {$smarty.const.VIRTUELL_MONEY_UNIT} ({$3ermpro}%)</td>
+  </tr>
+  <tr class="{cycle name="user_stats" values="row_odd, row_even"}">
+    <td><strong>4 {$smarty.const.LOTTO_RIGHTS}:</strong></td>
+    <td>{$4er} ({$4erpro}%)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$4ermoney} {$smarty.const.VIRTUELL_MONEY_UNIT} ({$4ermpro}%)</td>
+  </tr>
+</table>
+<br />
+<div class="div_headline">{$smarty.const.AWARDS} ({$award})</div>
+<table width="100%" border="0" cellspacing="0" cellpadding="1">
+  <tr>
+    <td width="15%"><strong>{$smarty.const.DATE}:</strong></td>
+    <td width="35%"><strong>{$smarty.const.NAME}:</strong></td>
+    <td width="25%"><strong>{$smarty.const.TEAM}:</strong></td>
+    <td width="15%"><strong>{$smarty.const.AWARDS_POS}:</strong></td>
+    <td width="10%">&nbsp;</td>
+  </tr>
+  {if $awards}
+  {foreach from=$awards item=a}
+  <tr class="{cycle values="row_odd,row_even"}">
+    <td>{$a.eventdatum}</td>
+    <td>{if $a.url}<a href="{$a.url}" target="_blank">{$a.eventname}</a>{else}{$a.eventname}{/if}</td>
+    <td><img src="images/games/{$a.icon}" alt="" title="{$a.gamename}" /> {$a.tname}</td>
+    <td>{if platz < 4}<img src="templates/{$smarty.const.DESIGN}/images/award_{$a.platz}.png" alt="" title="{$a.platz}. {$smarty.const.PLACE}"/>{else}{$a.platz}.{/if}</td>
+    <td><img src="templates/{$smarty.const.DESIGN}/images/comments.png" alt="" title="{$smarty.const.COMMENTS}" / > <a href="?section=awards&action=view&id={$a.awardID}">({$a.comments})</a></td>
+  </tr>
+  {/foreach}
+  {else}
+  <tr class="{cycle values="row_odd,row_even"}">
+    <td colspan="5" align="center">{$smarty.const.NO_ENTRIES}</td>
+  </tr>
+  {/if}
+</table>
+<br />
+<div class="div_headline">{$smarty.const.CLANWARS} ({$clanwar})</div>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" id="clanwars_table">
+  <tr>
+    <td width="10%"><strong>{$smarty.const.DATE}</strong><a href="?section=clanwars&gameID={$smarty.get.gameID}&teamID={$smarty.get.teamID}&matchtypeID={$smarty.get.matchtypeID}&xonx={$smarty.get.xonx}&sortby=datum&art=desc&page={$smarty.get.page}" onclick="return load_wars('{$smarty.get.gameID}', '{$smarty.get.teamID}', '{$smarty.get.matchtypeID}', '{$smarty.get.xonx}', 'datum', 'desc', '{$smarty.get.page}');"></td>
+    <td width="30%"><strong>{$smarty.const.OPP}</strong></td>
+    <td width="20%"><strong>{$smarty.const.MATCHTYP}</strong></td>
+    <td width="20%"><strong>{$smarty.const.TEAM}</strong></td>
+    <td width="11%"><strong>{$smarty.const.RESULT}</strong></td>
+    <td width="9%">&nbsp;</td>
+  </tr>
+  {if $clanwars}
+  {foreach from=$clanwars item=c}
+  <tr class="{cycle values="row_odd,row_even"}">
+    <td><img src="images/games/{$c.icon}" alt="" title="{$c.gamename}" />{$c.datum}</td>
+    <td><img src="images/flaggen/{$c.country}.gif" alt="" title="{$c.countryname}" /> {if $c.homepage}<a href="{$c.homepage}" target="_blank">{$c.oppname}</a>{else}{$c.oppname}{/if}</td>
+    <td>{$c.matchtypename}</td>
+    <td>{$c.tname}</td>
+    <td><span class="clanwar_{$c.result}">{$c.resultscore}</span></td>
+    <td><img src="templates/{$smarty.const.DESIGN}/images/comments.png" alt="" title="{$smarty.const.COMMENTS}" / > <a href="?section=clanwars&action=view&id={$c.warID}">({$c.comments})</a></td>
+  </tr>
+  {/foreach}
+  {else}
+  <tr class="{cycle values="row_odd,row_even"}">
+    <td colspan="6" align="center">{$smarty.const.NO_ENTRIES}</td>
+  </tr>
+  {/if}
+</table>

@@ -1,0 +1,89 @@
+{if !$ajax}
+<div id="comments_bereich"><a name="comments"></a>{/if}
+  {if $seiten}<div class="pageLinks">{$seiten}</div>{/if}
+  <div class="forum_answer_button">{if $threadclose OR $threaddel OR $threadmove OR $threadpin}<img src="templates/{$smarty.const.DESIGN}/images/admin.png" alt="" title="{$smarty.const.ADMINISTRATION}" style="cursor:pointer" onclick="open_sub_menu('thread_admin', this);" />{/if} <span class="thread_answer"{if $closed OR !bclosed OR !$postcom} style="display:none" {/if}><img src="templates/{$smarty.const.DESIGN}/images/comment_add.png" alt="" title="{$smarty.const.FORUM_ADD_COMMENT}" /> <a href="?section=forum&action=replay&boardID={$smarty.get.boardID}&threadID={$smarty.get.threadID}">{$smarty.const.FORUM_ADD_COMMENT}</a></span></div>
+  {if $umfrage}
+  <div id="forum_survey">
+    <div id="forum_survey_quest">{$frage} {if ($smarty.session.userID == vonID AND $editcom) OR $editmocom OR $delcom}<img src="templates/{$smarty.const.DESIGN}/images/survey_edit.png" class="imgpointer" title="{$smarty.const.SURVEY_EDIT}" alt="" onclick="forum_survey_edit({$fsurveyID});" /> <img src="templates/{$smarty.const.DESIGN}/images/survey_delete.png" class="imgpointer" title="{$smarty.const.SURVEY_DELETE}" alt="" onclick="forum_survey_delete({$fsurveyID});" />&nbsp;&nbsp;&nbsp;<img src="templates/{$smarty.const.DESIGN}/images/survey_add.png" class="imgpointer" title="{$smarty.const.SURVEY_ANSWER_ADD}" alt="" onclick="forum_answer_add({$fsurveyID});" />{/if}</div>
+    <div id="forum_survey_info">{$smarty.const.VOTES}: {$gesamt}{if $ende}<br />{$smarty.const.FORUM_SURVEY_ENDED}: {$ende}{/if}</div>
+    {if $abstimmen}
+    <div id="div_survey_{$fsurveyID}">
+      <form name="survey_{$fsurveyID}" id="survey_{$fsurveyID}" method="post" onSubmit="return submit_forum_survey({$fsurveyID}, {$antworten});" action="?section=forum&action=survey_vote&amp;id={$fsurveyID}&threadID={$smarty.get.threadID}&boardID={$smarty.get.boardID}">
+        {if $antworten > 1}
+        {foreach from=$answers item=a}
+        <input type="checkbox" name="answer_{$a.answerID}" class="checkbox" value="1" />
+        {$a.answer}<br />
+        {/foreach}
+        {else}      
+        {foreach from=$answers item=a}
+        <input type="radio" name="answer" value="{$a.answerID}" class="radio" />
+        {$a.answer}<br />
+        {/foreach}
+        {/if}
+        <input type="submit" name="submit" value="{$smarty.const.VOTE}" class="submit" id="survey_submit_{$fsurveyID}" /> <input type="button" value="{$smarty.const.VIEW_RESULTS}" class="submit" onClick="forum_survey_answers({$fsurveyID});" />
+      </form>
+    </div>
+    {else}
+    <table width="100%" border="0" cellspacing="0" cellpadding="1">
+      {foreach from=$answers item=a}
+      <tr>
+        <td colspan="2">{$a.answer}</td>
+      </tr>
+      <tr>
+        <td width="70%"><div class="survey_curve_container">
+            <div class="survey_curve" style="width: {if $a.prozent}{$a.prozent}{else}{1}{/if}%"></div>
+          </div></td>
+        <td width="30%">&nbsp;{$smarty.const.VOTES}: {$a.votes} ({$a.prozent}%) {if ($smarty.session.userID == vonID AND $editcom) OR $editmocom OR $delcom}<img src="templates/{$smarty.const.DESIGN}/images/survey_edit.png" title="{$smarty.const.SURVEY_ANSWER_EDIT}" alt="" onclick="forum_answer_edit({$a.answerID});" class="imgpointer" /> <img src="templates/{$smarty.const.DESIGN}/images/survey_delete.png" title="{$smarty.const.SURVEY_ANSWER_DELETE}" alt="" onclick="forum_answer_delete({$a.answerID}, {$fsurveyID}, '{$a.answer}');" class="imgpointer" />{/if}</td>
+      </tr>
+      {/foreach}
+    </table>
+    {/if}
+  </div>
+{if !$abstimmen}
+{literal}
+<script language="javascript" type="text/javascript">
+	elemente = $('forum_survey').getElements('div .survey_curve');
+	o = {};
+	elemente.each(function(elm, i) {
+		o[i] = { width: [0, elm.getSize().x] };
+		elm.setStyle('width', 0);
+	});				
+	var fx = new Fx.Elements(elemente, {wait: false, duration: 1500, transition: Fx.Transitions.Bounce.easeOut});
+	(function() { fx.start(o); }).delay(450);
+</script>
+{/literal} 
+{/if}
+{/if}    
+    {foreach from=$comments item=c}
+    <div id="com_{$c.comID}" class="comment_mainframe">
+  <div class="comment_user"> {if $c.userID}<img src="images/flaggen/{$c.country}.gif" alt="" title="{$c.countryname}" /> <a href="?section=user&id={$c.userID}">{$c.username}</a>{else}{$c.postname}{/if}
+        <div class="comment_user_details">{if $c.userID}<img src="templates/{$smarty.const.DESIGN}/images/{$c.sex}.gif" alt="" title="{$c.sextext}" />{if $c.online} <img src="templates/{$smarty.const.DESIGN}/images/online.png" alt="" title="{$smarty.const.ONLINE}" />{else}<img src="templates/{$smarty.const.DESIGN}/images/offline.png" alt="" title="{$smarty.const.OFFLINE}" />{/if} {if $vonID == $c.userID}<img src="templates/{$smarty.const.DESIGN}/images/forum_icon_starter.png" alt="" title="{$smarty.const.FORUM_THREAD_STARTER}" />{/if} {if $c.userID != $smarty.session.userID}<a href="?section=account&action=sendmsg&toid={$c.userID}" onclick="return send_message_user({$c.userID},'{$c.username}');"><img src="templates/{$smarty.const.DESIGN}/images/message.png" alt="" title="{$smarty.const.USER_SEND_MESSAGE}" /></a>{/if}{if $c.userID}{if $c.rID}<br /><img src="images/ranks/{$c.iconname}" alt="{$c.rankname}" title="{$c.rankname}" onclick="show_ranks();" style="cursor:pointer;padding:2px;" />{/if}{/if}<br />
+      {if $c.avatar}<img src="images/avatar/{$c.userID}_{$c.avatar}" class="avatar" /><br />
+      {/if}<a href="?section=forum&amp;action=search&userID={$c.userID}">{$smarty.const.USER_COMMENTS}: {$c.comments}</a>{/if}</div>
+      </div>
+  <div class="comment_comment">
+        <div class="comment_header"><span class="comment_date"><img src="templates/{$smarty.const.DESIGN}/images/comment.png" alt="" style="vertical-align:middle" /> {$c.adatum} {if $c.new}<img src="templates/{$smarty.const.DESIGN}/images/new.png" alt="" title="" /> {/if}</span> <a href="#com_{$c.comID}" class="comment_nr">{$c.nr}</a></div>
+        <div class="comment_beitrag"> {$c.comment} {if $c.edit}<div class="comment_edit">{$c.edit}</div>{/if}{if $c.attachs}<div class="comment_attachs">{if $c.userID}<img src="images/flaggen/{$c.country}.gif" alt="" title="{$c.countryname}" /> <a href="?section=user&id={$c.userID}">{$c.username}</a>{else}{$c.postname}{/if} {$smarty.const.FORUM_ATTACHED_FILES}:<hr />{foreach from=$c.attchs item=f}<span id="attach_{$f.attachID}"><img src="templates/{$smarty.const.DESIGN}/images/download.png" alt="" title="{$smarty.const.DOWNLOAD_START}" />{if ($editcom AND $c.userID == $smarty.session.userID) OR $editmocom OR $delcom} <img src="templates/{$smarty.const.DESIGN}/images/download_delete.png" alt="" title="{$smarty.const.FORUM_ATTACH_DELETE}" style="cursor: pointer" onclick="forum_delete_attach({$f.attachID}, '{$f.name}');" />{/if} <a href="?section=forum&action=getfile&attachID={$f.attachID}&boardID={$smarty.get.boardID}&threadID={$smarty.get.threadID}&comID={$c.comID}">{$f.name}</a> <span class="forum_smalltext">({$f.size} - {$f.downloads}x {$smarty.const.FORUM_ATTACH_DOWNLOADS})</span><br /></span>{/foreach}</div>{/if}</div>
+        {if $c.signatur}
+        <div class="comment_sig"> {$c.signatur} </div>
+        {/if} <div class="comments_buttons">{if ($editcom AND $c.userID == $smarty.session.userID) OR $editmocom OR $delcom}<div style="display:none;" id="com_menu_{$c.comID}">{if ($editcom AND $c.userID == $smarty.session.userID) OR $editmocom}<div class="comments_menu_link" onClick="location.href='?section=forum&action=editreplay&boardID={$smarty.get.boardID}&threadID={$smarty.get.threadID}&comID={$c.comID}'"><img src="templates/{$smarty.const.DESIGN}/images/comment_edit.png" title="{$smarty.const.EDIT_2}" alt=""  /> {$smarty.const.EDIT_2}</div>{/if}{if $delcom}<div class="comments_menu_link" onClick="comment_f_delete({$c.comID}, '{if $c.userID}{$c.username}{else}{$c.postname}{/if}');"><img src="templates/{$smarty.const.DESIGN}/images/comment_delete.png" title="{$smarty.const.DELETE}" alt=""  /> {$smarty.const.DELETE}</div>{/if}</div><img src="templates/{$smarty.const.DESIGN}/images/admin.png" title="{$smart.const.PAGE_TOP}" alt="" onclick="open_sub_menu('com_menu_{$c.comID}', this);" style="cursor:pointer" /> {/if}{if $quote == true}<img src="templates/{$smarty.const.DESIGN}/images/user_quote.png" alt="" title="{$smarty.const.QUOTE_USER}" class="imgpointer" onclick="add_quote('{if $c.userID}{$c.username}{else}{$c.postname}{/if}', {$c.comID}, 'com_add');" /> {/if}<a href="#top"><img src="templates/{$smarty.const.DESIGN}/images/page_up.gif" title="{$smart.const.PAGE_TOP}" alt="" /></a></div></div>
+</div><div style="display: none" id="quote_{$c.comID}">{$c.quote}</div>
+    {/foreach}    
+	{if $seiten}<div class="pageLinks">{$seiten}</div>{/if}
+  <div class="forum_answer_button">{if $threadclose OR $threaddel OR $threadmove OR $threadpin}<img src="templates/{$smarty.const.DESIGN}/images/admin.png" alt="" title="{$smarty.const.ADMINISTRATION}" style="cursor:pointer" onclick="open_sub_menu('thread_admin', this);" />{/if} <span class="thread_answer" {if $closed OR !bclosed OR !$postcom}style="display:none"{/if}><img src="templates/{$smarty.const.DESIGN}/images/comment_add.png" alt="" title="{$smarty.const.FORUM_ADD_COMMENT}" /> <a href="?section=forum&action=replay&boardID={$smarty.get.boardID}&threadID={$smarty.get.threadID}">{$smarty.const.FORUM_ADD_COMMENT}</a></span></div>  
+    {if !$ajax}
+    </div>
+    {/if}
+{if $threadclose OR $threaddel OR $threadmove OR $threadpin}<div style="display:none;" id="thread_admin">
+{if $threadclose}<div class="comments_menu_link" onclick="thread_close({$smarty.get.threadID});">
+<img src="templates/{$smarty.const.DESIGN}/images/forum_icon_thread_closed.png" title="{$smarty.const.FORUM_THREAD_CLOSE}" alt=""  /> {if $closed}{$smarty.const.FORUM_THREAD_OPEN}{else}{$smarty.const.FORUM_THREAD_CLOSE}{/if}
+</div>{/if}
+{if $threaddel}<div class="comments_menu_link" onclick="thread_delete({$smarty.get.threadID}, {$smarty.get.boardID},'{$name}');">
+<img src="templates/{$smarty.const.DESIGN}/images/forum_thread_delete.png" title="{$smarty.const.FORUM_THREAD_DELETE}" alt=""  /> {$smarty.const.FORUM_THREAD_DELETE}</div>
+{/if}
+{if $threadmove}<div class="comments_menu_link" onclick="thread_move({$smarty.get.threadID});">
+<img src="templates/{$smarty.const.DESIGN}/images/forum_thread_move.png" title="{$smarty.const.FORUM_THREAD_MOVE}" alt=""  /> {$smarty.const.FORUM_THREAD_MOVE}</div>
+{/if}
+{if $threadpin}<div class="comments_menu_link" onclick="thread_pin({$smarty.get.threadID});">
+<img src="templates/{$smarty.const.DESIGN}/images/forum_thread_pin.png" alt=""  /> {if $sticky}{$smarty.const.FORUM_THREAD_UNPIN}{else}{$smarty.const.FORUM_THREAD_PIN}{/if}</div>
+{/if}</div>{/if} 

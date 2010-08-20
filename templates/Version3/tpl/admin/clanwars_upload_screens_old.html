@@ -1,0 +1,39 @@
+{foreach from=$maps item=map key=k}
+<form action="{$smarty.const.SITE_URL}ajax_checks.php?func=admin&site=cw_upload_screens&id={$id}&scoreid={$map.scoreID}&{$sid}" id="form_{$map.scoreID}_{$k}" name="form_{$map.scoreID}_{$k}" method="post" enctype="multipart/form-data">
+<fieldset>
+		<div class="div_headline"><strong>{$map.locationname}</strong></div>
+            <table width="100%" border="0" cellspacing="0" cellpadding="1" id="score_{$map.scoreID}">
+              <tr>
+                <td width="20%"><strong>{$smarty.const.NUMBER}:</strong></td>
+                <td width="20%"><strong>{$smarty.const.DATE}:</strong></td>
+                <td width="20%"><strong>{$smarty.const.SIZE}:</strong></td>
+                <td width="10%"><strong>{$smarty.const.VIEW}:</strong></td>
+                <td width="10%">&nbsp;</td>
+              </tr>
+             {foreach from=$map.screens item=s}
+              <tr class="{cycle values="row_odd,row_even"}" id="file_{$s.screenID}">
+                <td>{$smarty.const.CLANWARS_SCREEN} {$s.i}</td>
+                <td>{$s.uploaddate}</td>
+                <td>{$s.size}</td>
+                <td><a href="images/screens/{$s.filename}" rel="lightbox[{$map.scoreID}]">{$smarty.const.VIEW}</a></td>
+                <td><img src="templates/{$smarty.const.DESIGN}/images/delete.png" style="cursor: pointer" onclick="cw_screen_del({$s.screenID}, {$map.scoreID});" alt="" title="{$smarty.const.DELETE}"/></td>
+              </tr>
+              {/foreach}
+            </table>  
+            <fieldset id="upload-fallback-{$map.scoreID}">
+                    <input type="file" name="score_{$map.scoreID}" id="score_{$map.scoreID}" />
+            </fieldset>   
+    <input type="submit" value="{$smarty.const.SUBMIT}" id="screen_submit_{$map.scoreID}" name="submit" class="submit" /> <img style="visibility: hidden" src="templates/{$smarty.const.DESIGN}/images/spinner.gif" id="screens_spinner" alt="" title="{$smarty.const.LOADING}" />
+</fieldset>
+</form>
+<script language="javascript" type="text/javascript">	
+	window.addEvent('domready', function(){ldelim}
+	new MultiUpload($('form_{$map.scoreID}_{$k}').score_{$map.scoreID});	
+	{rdelim});						
+</script> 
+{/foreach}
+{literal}
+<script type="text/javascript" language="javascript">
+new Lightbox({zIndex: 999999});
+</script>
+{/literal}

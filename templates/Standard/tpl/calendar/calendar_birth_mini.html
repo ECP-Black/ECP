@@ -1,0 +1,11 @@
+<div class="div_headline">{$smarty.const.BIRTHDAYS}</div>
+<table width="100%" border="0" cellspacing="0" cellpadding="1">
+  <tr>
+    <td><strong>{$smarty.const.USERNAME}:</strong></td>
+    <td><strong>{$smarty.const.AGE}:</strong></td>
+  </tr>{foreach from=$data item=b}
+  <tr>
+    <td><img src="images/flaggen/{$b.country}.gif" alt="" title="{$b.countryname}" /> <a href="?section=user&id={$b.ID}">{$b.username}</a></td>
+    <td>{$b.alter}</td>
+  </tr>{/foreach}
+</table>

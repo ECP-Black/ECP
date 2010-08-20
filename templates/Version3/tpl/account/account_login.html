@@ -1,0 +1,30 @@
+<form name="login" method="post" action="?section=account&amp;action=login" id="login">
+<fieldset>
+	<legend> {$smarty.const.LOGIN} </legend>
+	<div id="login_error">{$error}</div>
+	<div><label for="l_username">{$smarty.const.USERNAME}:</label><input class="required" type="text" name="username" id="l_username" /></div>
+	<div><label for="l_password">{$smarty.const.PASSWORD}:</label><input class="required check_login" type="password" name="password" id="l_password" /></div>	
+    <div><label for="autologin">{$smarty.const.AUTO_LOGIN}:</label><input type="checkbox" name="autologin" class="checkbox" value="1" /></div>
+    <div style="clear:both">
+	<input class="submit" type="submit" name="submit" value="{$smarty.const.LOGIN}" />
+    </div>
+</fieldset>
+    <a href="?section=account&amp;action=sendpw">{$smarty.const.FORGOT_PW}</a>
+</form>
+<script language="javascript" type="text/javascript">
+{literal} 
+FormValidator.add('check_login', { 
+	errorMsg: '{/literal}{$smarty.const.WRONG_LOGIN_DATA}{literal}', 
+	test: 		function (v) {
+		if(!FormValidator.getValidator('IsEmpty').test($("l_username")) && !FormValidator.getValidator('IsEmpty').test($('l_password'))) {
+			var myXHR = new Request({url: 'ajax_checks.php?func=check_login', data: "username="+$('l_username').value+"&passwort="+$('l_password').value, async: false}).send();
+			return (myXHR.xhr.responseText == '0')? false: true;
+		 } else {
+			return true;
+		}
+	}
+});
+new FormValidator($('login'));
+</script>
+{/literal}
+

@@ -1,0 +1,115 @@
+<form method="post"> 
+      <fieldset>
+      <legend>{$smarty.const.TEXTE}</legend>     
+      <div id="tabBoxExample">
+        <ul class="tabSet">
+          {foreach from=$lang item=l}
+          <li class="off"><a><img src="images/flaggen/{$l.lang}.gif" alt="" title="{$l.name}" /></a></li>
+          {/foreach}
+        </ul>
+        <div class="panelSet"> {foreach from=$lang item=l}
+          <div class="panel" id="discription_{$l.lang}_div">
+            <table width="100%" border="0" cellspacing="0" cellpadding="1">
+              <tr>
+                <td valign="top"><strong>{$smarty.const.TEXT_SEND_PW}:</strong></td>
+                <td><input type="text" name="{$l.lang}_h_ACCOUNT_SEND_PW" value="{$l.headline.ACCOUNT_SEND_PW}" />
+                  <br />
+                <textarea name="{$l.lang}_ACCOUNT_SEND_PW" style="width:36em; height: 13em;">{$l.data.ACCOUNT_SEND_PW}</textarea>
+                  {ldelim}link{rdelim}</td>
+              </tr>
+              <tr>
+                <td valign="top"><strong>{$smarty.const.TEXT_LOTTO_WIN}:</strong></td>
+                <td><input type="text" name="{$l.lang}_h_LOTTO_WIN" value="{$l.headline.LOTTO_WIN}" />
+                  <br />
+                <textarea name="{$l.lang}_LOTTO_WIN" style="width:36em; height: 13em;">{$l.data.LOTTO_WIN}</textarea>
+                  {ldelim}richtige{rdelim}, {ldelim}zahlen{rdelim}, {ldelim}tippzahlen{rdelim}, {ldelim}gewinn{rdelim}, {ldelim}rundenid{rdelim}<br /></td>
+              </tr>
+              <tr>
+                <td valign="top"><strong>{$smarty.const.TEXT_NEW_FIGHTUS}:</strong></td>
+                <td><input type="text" name="{$l.lang}_h_NEW_FIGHTUS" value="{$l.headline.NEW_FIGHTUS}" />
+                  <br />
+                <textarea name="{$l.lang}_NEW_FIGHTUS" style="width:36em; height: 13em;">{$l.data.NEW_FIGHTUS}</textarea>
+                {ldelim}username{rdelim}, {ldelim}from_clan{rdelim}, {ldelim}id{rdelim}</td>
+              </tr>
+              <tr>
+                <td valign="top"><strong>{$smarty.const.TEXT_NEW_JOINUS}:</strong></td>
+                <td><input type="text" name="{$l.lang}_h_NEW_JOINUS" value="{$l.headline.NEW_JOINUS}" />
+                  <br />
+                <textarea name="{$l.lang}_NEW_JOINUS" style="width:36em; height: 13em;">{$l.data.NEW_JOINUS}</textarea>
+                {ldelim}username{rdelim}, {ldelim}from_username{rdelim}, {ldelim}id{rdelim}</td>
+              </tr>
+              <tr>
+                <td valign="top"><strong>{$smarty.const.TEXT_NEXT_WAR_MSG}:</strong></td>
+                <td><input type="text" name="{$l.lang}_h_NEXT_WAR_MSG" value="{$l.headline.NEXT_WAR_MSG}" />
+                  <br />
+                <textarea name="{$l.lang}_NEXT_WAR_MSG" style="width:36em; height: 13em;">{$l.data.NEXT_WAR_MSG}</textarea>
+                {ldelim}link{rdelim}</td>
+              </tr>
+              <tr>
+                <td valign="top"><strong>{$smarty.const.TEXT_REGISTER_EMAIL}:</strong></td>
+                <td><input type="text" name="{$l.lang}_h_REGISTER_EMAIL" value="{$l.headline.REGISTER_EMAIL}" />
+                  <br />
+                <textarea name="{$l.lang}_REGISTER_EMAIL" style="width:36em; height: 13em;">{$l.data.REGISTER_EMAIL}</textarea>
+                {ldelim}username{rdelim}, {ldelim}clanname{rdelim}, {ldelim}pageurl{rdelim}, {ldelim}aktivcode{rdelim}, {ldelim}aktivlink{rdelim}</td>
+              </tr>
+              <tr>
+                <td valign="top"><strong>{$smarty.const.TEXT_THREAD_ABO}:</strong></td>
+                <td><input type="text" name="{$l.lang}_h_THREAD_ABO" value="{$l.headline.THREAD_ABO}" />
+                  <br />
+                <textarea name="{$l.lang}_THREAD_ABO" style="width:36em; height: 13em;">{$l.data.THREAD_ABO}</textarea>
+                {ldelim}username{rdelim},{ldelim}link{rdelim},{ldelim}threadname{rdelim}, </td>
+              </tr>
+              <tr>
+                <td valign="top"><strong>{$smarty.const.TEXT_THREAD_MOVE}:</strong></td>
+                <td><input type="text" name="{$l.lang}_h_THREAD_MOVE" value="{$l.headline.THREAD_MOVE}" />
+                  <br />
+                <textarea name="{$l.lang}_THREAD_MOVE" style="width:36em; height: 13em;">{$l.data.THREAD_MOVE}</textarea>
+                {ldelim}username{rdelim},{ldelim}link{rdelim}</td>
+              </tr>
+              <tr>
+                <td valign="top"><strong>{$smarty.const.TEXT_USER_ADD}:</strong></td>
+                <td><input type="text" name="{$l.lang}_h_USER_ADD" value="{$l.headline.USER_ADD}" />
+                  <br />
+                <textarea name="{$l.lang}_USER_ADD" style="width:36em; height: 13em;">{$l.data.USER_ADD}</textarea>
+                {ldelim}username{rdelim},{ldelim}pageurl{rdelim},{ldelim}password{rdelim},{ldelim}clanname{rdelim}</td>
+              </tr>
+            </table>
+          
+            	<div><label for="{$l.lang}_ACCOUNT_SEND_PW"></label></div>
+            	<div><label for="{$l.lang}_LOTTO_WIN"></label>
+            	</div>
+            	<div><label for="{$l.lang}_NEW_FIGHTUS"></label>
+            	</div>
+            	<div><label for="{$l.lang}_NEW_JOINUS"></label>
+            	</div>
+            	<div><label for="{$l.lang}_NEXT_WAR_MSG"></label>
+            	</div>
+            	<div><label for="{$l.lang}_REGISTER_EMAIL"></label>
+            	</div>
+            	<div><label for="{$l.lang}_THREAD_ABO"></label>
+            	</div>
+            	<div><label for="{$l.lang}_THREAD_MOVE"></label>
+            	</div>
+           	<div><label for="{$l.lang}_USER_ADD"></label>
+           	</div>
+          </div>
+          {/foreach} </div>
+      </div>
+      <input type="submit" name="submit" value="{$smarty.const.EDIT_2}" class="submit" />
+     </fieldset>
+</form>
+<script type="text/javascript">
+{literal}
+new TabSwapper({
+  selectedClass: 'on',
+  deselectedClass: 'off',
+  tabs: $$('#tabBoxExample li'),
+  clickers: $$('#tabBoxExample li a'),
+  sections: $$('div.panelSet div.panel'),
+  /*remember what the last tab the user clicked was*/
+  /*use transitions to fade across*/
+  cookieName: 'lang',
+  smooth: true
+});
+{/literal}
+</script>      

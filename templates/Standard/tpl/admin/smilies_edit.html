@@ -1,0 +1,18 @@
+<input type="text" maxlength="255" style="width:15em" name="edit_bedeutung" id="edit_bedeutung" value="{$bedeutung}" /> <input type="button" id="smilie_submit" name="smilie_submit" value="{$smarty.const.EDIT_2}" />
+<script type="text/javascript">
+{literal}
+$('smilie_submit').addEvent('click', function(e) {
+	new Request({url: '?section=admin&site=smilies&func=edit&id={/literal}{$id}{literal}', 
+		data: 'bedeutung='+$('edit_bedeutung').get('inputValue'),
+		onSuccess: function(r) {
+			if(r =='ok') {
+				new Request.HTML({url: '?section=admin&site=smilies&func=get_smilies&ajax=1', update: 'smilie_overview', useWaiter: true }).get();
+				win_smilies.hide();
+			} else {
+				errorAlert(ERROR, r);
+			}
+		}
+	}).post();
+});
+</script>
+{/literal}

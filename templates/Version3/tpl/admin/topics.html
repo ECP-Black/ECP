@@ -1,0 +1,62 @@
+<form name="topic_form" id="topic_form" method="post" action="?section=admin&site=topics&func=add">
+	<fieldset>
+    	<legend>{$smarty.const.TOPIC}</legend>
+        <div><label for="topicname">{$smarty.const.NAME}:</label><input type="text" name="topicname" id="topicname" maxlength="30" class="required" /></div>
+        <div><label for="beschreibung">{$smarty.const.DISCRIPTION}:</label><input type="text" name="beschreibung" id="beschreibung" maxlength="255" /></div>
+        <div><label for="topicbild">{$smarty.const.TOPIC_PIC}:</label><select name="topicbild" class="validate-selection selected" id="topicbild">{$pics}</select></div>
+        <br />
+        <input type="submit" name="submit" value="{$smarty.const.ADD}" class="submit" id="submit_topic" /> <img src="templates/{$smarty.const.DESIGN}/images/spinner.gif" alt="" title="{$smarty.const.LOADING}" id="topic_submit_spinner" style="visibility:hidden" />
+  </fieldset>
+</form>
+<br />
+<div id="topic_div">
+    <table width="100%" border="0" cellspacing="0" cellpadding="1" id="topic_table">
+      <tr>
+        <td width="20%"><strong>{$smarty.const.NAME}:</strong></td>
+        <td width="70%"><strong>{$smarty.const.DISCRIPTION}:</strong></td>
+        <td width="10%">&nbsp;</td>
+      </tr>
+      {foreach from=$topics item=t}
+      <tr class="{cycle values="row_odd,row_even"}" id="topic_{$t.tID}">
+        <td>{$t.topicname}</td>
+        <td>{$t.beschreibung}</td>
+        <td><img src="templates/{$smarty.const.DESIGN}/images/edit.png" alt="" title="{$smarty.const.EDIT}" onclick="topic_edit({$t.tID})" style="cursor:pointer" /> <img src="templates/{$smarty.const.DESIGN}/images/delete.png" alt="" title="{$smarty.const.DELETE}" onclick="topic_del({$t.tID}, '{$t.topicname}')" style="cursor:pointer" /></td>
+      </tr>
+      {/foreach}
+    </table>
+</div>
+<script type="text/javascript" language="javascript">
+{literal}
+t_form = new FormValidator($('topic_form')); 	
+$('topic_form').addEvent('submit', function(e) {
+	new Event(e).stop();
+	if(t_form.validate()) {
+		$('topic_submit_spinner').style.visibility = '';
+		$('submit_topic').disabled = true;
+		new Request({
+			url: $('topic_form').action,
+			onSuccess: function(r) {
+				$('topic_submit_spinner').style.visibility = 'hidden';
+				$('submit_topic').disabled = false;			
+				if(r == 'ok') {			
+					if($('topic_form').action.contains('edit')) {
+						make_info(TOPIC_EDIT_SUCCESS, 'accept');
+					} else {
+						make_info(TOPIC_ADD_SUCCESS, 'accept');
+					}		
+					$('topic_form').action = '?section=admin&site=topics&func=add';
+					$('submit_topic').value = ADD;						
+					new Request.HTML({url: 'ajax_checks.php?func=admin&site=topics_overview', 
+						useWaiter: true,
+						update: $('topic_div')
+					}).get();							
+					$('topic_form').reset();						
+				} else {
+					errorAlert(ERROR, r);
+				}
+			}
+		}).send($('topic_form'));
+	}
+});
+</script>
+{/literal}

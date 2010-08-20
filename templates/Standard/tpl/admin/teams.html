@@ -1,0 +1,103 @@
+<div id="swf"></div>
+<form method="post" action="?section=admin&site=teams&func=add" name="team_form" id="team_form">
+  <fieldset>
+  <legend>{$smarty.const.TEAMS_ADD}</legend>
+  <label for="name">{$smarty.const.NAME}: </label>
+  <div>
+    <input type="text" class="required" maxlength="40" name="name" value="{$name}" id="name" />
+  </div>
+  <label for="tpic">{$smarty.const.TEAMS_PIC}:</label>
+  <div>
+    <select class="selected" name="tpic" id="tpic">
+      
+      {$pics}
+    
+    </select> <a href="#" onclick="team_upload();return false;">{$smarty.const.UPLOAD}</a>
+  </div>
+  <label for="grID">{$smarty.const.TEAMS_GROUP}:</label>
+  <div>
+    <select class="selected" name="grID" id="grID">
+      
+      {$groups}
+    
+    </select>
+  </div>
+  <label for="cw">{$smarty.const.TEAMS_CW}</label>
+  <div>
+    <input type="checkbox" class="checkbox" name="cw" id="cw" {if $cw}checked{/if} value="1" />
+  </div>
+  <label for="fightus">{$smarty.const.TEAMS_FIGHTUS}</label>
+  <div>
+    <input type="checkbox" class="checkbox" name="fightus" id="fightus" {if $fightus}checked{/if} value="1" />
+  </div>
+  <label for="joinus">{$smarty.const.TEAMS_JOINUS}</label>
+  <div>
+    <input type="checkbox" class="checkbox" name="joinus" id="joinus" {if $joinus}checked{/if} value="1" />
+  </div>  
+  <label>{$smarty.const.DISCRIPTION}: </label>
+  <p>
+  <div id="tabBoxExample">
+    <ul class="tabSet">
+      {foreach from=$lang item=l}
+      <li class="off"><a><img src="images/flaggen/{$l.lang}.gif" alt="" title="{$l.name}" /></a></li>
+      {/foreach}
+    </ul>
+    <div class="panelSet"> {foreach from=$lang item=l}
+      <div class="panel" id="discription_{$l.lang}_div">
+        <textarea class="admininput" rows="7" cols="60" name="discription_{$l.lang}" id="discription_{$l.lang}">{$l.content}</textarea>
+        <div align="center"><a onclick="tinyMCE.execCommand('mceToggleEditor',false,'discription_{$l.lang}');">{$smarty.const.TOGGLE_EDITOR}</a></div>
+      </div>
+    {/foreach} </div>
+  </div>
+  </p>
+  <input type="submit" id="team_submit" name="submit" class="submit" value="{$smarty.const.ADD}" />
+  <img src="templates/{$smarty.const.DESIGN}/images/spinner.gif" alt="" title="{$smarty.const.LOADING}" id="loader" style="visibility:hidden" />
+  </fieldset>
+</form>
+{literal}
+<script language="javascript" type="text/javascript">
+new TabSwapper({
+  selectedClass: 'on',
+  deselectedClass: 'off',
+  tabs: $$('#tabBoxExample li'),
+  clickers: $$('#tabBoxExample li a'),
+  sections: $$('div.panelSet div.panel'),
+  /*remember what the last tab the user clicked was*/
+  cookieName: 'teams',
+  /*use transitions to fade across*/
+  smooth: true
+});
+teams_form = new FormValidator($('team_form')); 		
+$('team_form').addEvent('submit', function(e) {
+	if(teams_form.validate()) {
+		new Event(e).stop();
+		$('loader').style.visibility = '';
+		$('team_submit').disabled = true;
+		$$('#team_form textarea').each( function (e) { 
+			el = tinyMCE.get(e.name);					
+			if(el.isDirty()) el.save();
+		});		
+		new Request({
+			url: $('team_form').action,
+			onSuccess: function(r) {
+				$('loader').style.visibility = 'hidden';
+				$('team_submit').disabled = false;					
+				if(r == 'ok') {			
+					if($('team_form').action.contains('edit')) {
+						make_info(TEAM_EDIT_SUCCESS, 'accept');
+					} else {
+						make_info(TEAM_ADD_SUCCESS, 'accept');	
+					}	
+					update_admin_teams();																	
+					$('team_form').action = '?section=admin&site=teams&func=add';
+					$('team_form').reset();
+					$('team_submit').value = ADD;					
+				} else {
+					errorAlert(ERROR, r);
+				}
+			}
+		}).send($('team_form'));
+	}
+});
+</script>
+{/literal} 

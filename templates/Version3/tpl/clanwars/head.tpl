@@ -1,0 +1,1 @@
+<div id="clanwars_score"><span class="klammer">[</span> {$smarty.const.CLANWARS}: {$anzahl} <span class="klammer">|</span> {$smarty.const.WIN}: <span class="klammer">|</span> {$smarty.const.DRAW}: <span class="klammer">|</span> <span class="klammer">]</span></div>

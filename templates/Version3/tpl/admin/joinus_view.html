@@ -1,0 +1,53 @@
+<table width="100%" border="0" cellspacing="0" cellpadding="1">
+  <tr class="{cycle values="row_odd,row_even"}">
+    <td width="18%"><strong>{$smarty.const.NAME}:</strong></td>
+    <td width="82%">{$name}</td>
+  </tr>
+  <tr class="{cycle values="row_odd,row_even"}">
+    <td><strong>{$smarty.const.USERNAME}:</strong></td>
+    <td>{$username}</td>
+  </tr>  
+  <tr class="{cycle values="row_odd,row_even"}">
+    <td><strong>{$smarty.const.EMAIL}:</strong></td>
+    <td>{$email}</td>
+  </tr>
+  <tr class="{cycle values="row_odd,row_even"}">
+    <td><strong>{$smarty.const.ICQ}:</strong></td>
+    <td>{$icq}</td>
+  </tr>
+  <tr class="{cycle values="row_odd,row_even"}">
+    <td><strong>{$smarty.const.MSN}:</strong></td>
+    <td>{$msn}</td>
+  </tr>
+  <tr class="{cycle values="row_odd,row_even"}">
+    <td><strong>{$smarty.const.AGE}:</strong></td>
+    <td>{$age}</td>
+  </tr>
+  <tr class="{cycle values="row_odd,row_even"}">
+    <td><strong>{$smarty.const.TEAM}:</strong></td>
+    <td>{$tname}</td>
+  </tr>
+  <tr class="{cycle values="row_odd,row_even"}">
+    <td><strong>{$smarty.const.COUNTRY}:</strong></td>
+    <td><img src="images/flaggen/{$country}.gif" title="{$countryname}" alt="" /> {$countryname}</td>
+  </tr>
+  <tr class="{cycle values="row_odd,row_even"}">
+    <td valign="top"><strong>{$smarty.const.COMMENT}:</strong></td>
+    <td>{$comment}</td>
+  </tr>
+  <tr class="{cycle values="row_odd,row_even"}">
+    <td><strong>{$smarty.const.DATE}:</strong></td>
+    <td>{$datum}</td>
+  </tr>
+  <tr class="{cycle values="row_odd,row_even"}">
+    <td><strong>{$smarty.const.IP}:</strong></td>
+    <td>{$IP}</td>
+  </tr>
+  <tr class="{cycle values="row_odd,row_even"}">
+    <td><strong>{$smarty.const.FINISHED}:</strong></td>
+    <td><span id="finish_from">{if $closed}{$smarty.const.FINISHED_FROM} <a href="?section=user&id={$closedby}">{$closedby_username}</a>{else}<a href="#" onclick="joinus_finished({$id}); return false;">{$smarty.const.MAKE_FINISHED}</a>{/if}</span></td>
+  </tr>
+</table>
+<br />
+<hr />
+<br />

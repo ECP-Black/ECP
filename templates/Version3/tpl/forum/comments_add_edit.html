@@ -1,0 +1,137 @@
+<span id="swf"></span>
+<form name="com_add" id="com_add" method="post" enctype="multipart/form-data" action="?section=forum&action={$func}replay&threadID={$smarty.get.threadID}&boardID={$smarty.get.boardID}&rand={$rand}{$func2}">
+<fieldset>
+   <legend> {$smarty.const.FORUM_POST_REPLAY} </legend>
+   {if $title}<div><label for="content">{$smarty.const.NAME}:</label><input type="text" name="title" class="required" id="title" value="{$title}" maxlength="100" /></div>{/if}   
+   {if (!$smarty.session.userID AND !$func) OR $username}<div><label for="content">{$smarty.const.USERNAME}:</label><input type="text" name="username" class="required" id="username" value="{$username}" maxlength="25" /></div>{/if}
+   <div><label for="content">{$smarty.const.CONTENT}:</label><textarea name="comment" class="com_input required" id="comment" rows="10" cols="50">{$comment}</textarea></div>
+	  {if !$smarty.session.userID AND !$func}    
+      <div><label for="captcha">{$smarty.const.CAPTCHA}:</label><div style="float: left;"><img id="captcha_pic" src="captcha.php?chars=4&minsize=22&maxsize=26" alt="" title="{$smarty.const.CAPTCHA}" /> <img src="templates/{$smarty.const.DESIGN}/images/refresh.png" alt="" title="{$smarty.const.CAPTCHA_RELOAD}" style="cursor:pointer" onclick="reload_captcha('captcha_pic', 'chars=4&minsize=22&maxsize=26', 'captcha');" /><br /><input name="captcha" type="text" class="required validate-captcha smallinput" id="captcha"/></div></div>{/if}         
+      {if $attach}
+      <div>
+      <div id="tabBoxExample">
+        <ul class="tabSet">    
+			<li class="off"><a>{$smarty.const.FORUM_ATTACH_FILE}</a></li>
+        </ul>
+        <div class="panelSet">             
+          <div class="panel">
+          		{$uploadinfo}
+                <fieldset id="upload-fallback">
+                    <legend>File Upload</legend>
+                    <p>
+                        Selected your photo to upload.<br />
+                        <strong>This form is just an example fallback for the unobtrusive behaviour of FancyUpload.</strong>
+                    </p>
+                    <label for="Filedata">
+                        Upload Photos:
+                        <input type="file" name="Filedata" id="Filedata" />
+                    </label>
+                </fieldset>
+                <div id="upload-status" class="hide upload-status">
+                    <p>
+                        <a href="#" id="demo-browse-all">{$smarty.const.CHOOSE_FILES}</a> |
+                        <a href="#" id="demo-clear">{$smarty.const.CLEAR_COMPLETE}</a>
+                    </p>
+                    <div>
+                         <strong class="overall-title">{$smarty.const.OVER_ALL_PROGRESS}</strong><br />
+                         <img src="templates/{$smarty.const.DESIGN}/images/bar.gif" class="progress overall-progress" />
+                     </div>
+                     <div>
+                         <strong class="current-title">{$smarty.const.FILE_PROGRESS}</strong><br />
+                         <img src="templates/{$smarty.const.DESIGN}/images/bar.gif" class="progress current-progress" />
+                     </div>
+                    <div class="current-text"></div>
+                </div> 
+                <ul id="upload-list" class="upload-list"></ul>
+                <div class="clear"></div>  
+          </div>   
+        </div>
+      </div>
+      <br />
+      </div> 
+      {/if}
+   <input type="submit" style="clear:both; float: left;" value="{$smarty.const.SUBMIT}" name="absenden" id="com_add_submit" class="submit" /> <img src="templates/{$smarty.const.DESIGN}/images/spinner.gif"  alt="" title="" id="com_add_submit_loader" style="visibility:hidden" />
+</fieldset>
+</form>
+{literal}
+<script type="text/javascript" language="javascript">
+    FormValidator.addAllThese([
+	['validate-captcha', 	{errorMsg:	'{/literal}{$smarty.const.CAPTCHA_WRONG}{literal}', 
+				  test: 	function(v) {			
+								var myXHR = new Request({method: 'get', async: false, url: 'ajax_checks.php?func=check_captcha&code=' + v.get('inputValue')}).send();
+								if(myXHR.xhr.responseText == 0)
+									reload_captcha('captcha_pic', 'chars=4&minsize=22&maxsize=26', 'captcha'); 
+								return (myXHR.xhr.responseText == 1)? true: false;
+							}
+				}]											
+	]);
+com_a = new FormValidator($('com_add'));	
+{/literal}{if $attach}{literal}
+$('com_add').addEvent('submit', function(e) {
+	val = true;
+	new Event(e).stop();	
+	swiffy.files.each(function(e) {
+		if(!$defined(e.finished) || !e.finished) val = false;
+	});
+	if(val && com_a.validate()) {
+		this.submit();
+	} else if(com_a.validate() && !val) {
+		$('com_add_submit_loader').style.visibility = '';
+		$('com_add_submit').disabled = true;
+		swiffy.upload();
+	}	
+});
+window.addEvent('domready', function() {
+		swiffy = new FancyUpload2($('upload-status'), $('upload-list'), {
+			{/literal}url: "{$smarty.const.SITE_URL}ajax_checks.php?{$sid}&func=upload_forum_files&boardID={$smarty.get.boardID}&rand={$rand}",{literal}
+			fieldName: 'Filedata',
+			error: false,
+			limitSize: {/literal}{$maxsize}{literal},
+			limitFiles: {/literal}{$maxuploads}{literal},			
+			path: 'inc/javascript/Swiff.Uploader.swf',
+			onAllComplete : function() { 
+				$('com_add_submit_loader').style.visibility = 'hidden';
+				$('com_add_submit').disabled = false;			
+				if(!this.options.error) {		
+					if(com_a.validate()) {
+						$('com_add').submit();
+					}				
+				}				
+				this.options.error = false;
+			},
+			onLoad: function() {
+					$('upload-status').removeClass('hide');
+					$('upload-fallback').destroy();
+			},
+			onError: function () {
+				$('com_add_submit_loader').style.visibility = 'hidden';
+				$('com_add_submit').disabled = false;				
+			},
+			onCancel: function () {
+				$('com_add_submit_loader').style.visibility = 'hidden';
+				$('com_add_submit').disabled = false;				
+			},
+			target: 'demo-browse-all',
+			typeFilter: {'*.bmp, *.gif, *.jpeg, *.jpg, *.pdf, *.png, *.txt, *.zip, *.rar, *.html, *.htm, *.css': '*.bmp; *.gif; *.jpeg; *.jpg; *.pdf; *.png; *.txt; *.zip; *.rar; *.html; *.htm; *.css;'}
+		}); 
+		$('demo-browse-all').addEvent('click', function() {
+			swiffy.browse();
+			return false;
+		}); 
+		$('demo-clear').addEvent('click', function() {
+			swiffy.removeFile();
+			return false;
+		}); 
+});
+{/literal}{/if}{literal}
+new TabSwapper({
+  selectedClass: 'on',
+  deselectedClass: 'off',
+  tabs: $$('#tabBoxExample li'),
+  clickers: $$('#tabBoxExample li a'),
+  sections: $$('div.panelSet div.panel'),
+  /*use transitions to fade across*/
+  smooth: true
+});	
+</script>
+{/literal}

@@ -1,0 +1,61 @@
+<div style="padding-left: 1px; margin-bottom: 2px;">
+  <table cellpadding="3" cellspacing="0" width="100%"> 
+    <tr class="foren_head">    
+      <td width="7%">&nbsp;</td>
+      <td width="43%" align="center">{$smarty.const.FORUM}</td>
+      <td width="10%" align="center">{$smarty.const.FORUM_THREADS}</td>
+      <td width="10%" align="center">{$smarty.const.FORUM_POSTS}</td>
+      <td width="30%" align="center">{$smarty.const.FORUM_LAST_POST}</td>
+    </tr>
+  </table>
+</div>
+{foreach from=$foren item=f}
+{if $f.isforum}
+<div class="forum_board">
+  <table cellpadding="3" cellspacing="0" width="100%" class="forum_single_board"> 
+    <tr class="foren_sub">
+      <td width="7%" align="center"><img src="templates/{$smarty.const.DESIGN}/images/forum_icon{if $f.closed}_closed{elseif $f.new}_new{/if}.png" alt="" title="" /></td>
+      <td width="43%"><a href="?section=forum&amp;action=board&amp;boardID={$f.boardID}">{$f.name}</a><br />
+        <span class="forum_smalltext">{$f.beschreibung}</span></td>
+      <td width="10%" align="center">{$f.threads}</td>
+      <td width="10%" align="center">{$f.posts}</td>
+      <td width="30%">{if $f.lastpost}<a href="?section=forum&action=gotolast&boardID={$f.boardID}&amp;threadID={$f.lastthreadID}"><img src="templates/{$smarty.const.DESIGN}/images/forum_goto_last.png" title="{$smarty.const.FORUM_GOTO_LAST}" alt="" style="float: left;" /></a> <a href="?section=forum&amp;action=thread&amp;boardID={$f.boardID}&amp;threadID={$f.lastthreadID}">{$f.threadname}</a><br  />
+        {if $f.lastpostuserID}<a href="?section=user&amp;id={$f.lastpostuserID}">{$f.username}</a>{else}{$f.lastpostuser}{/if} ({$f.lastpost}){/if}&nbsp;</td>
+    </tr>
+  </table>
+</div>
+{else}
+<div style="padding-left: 1px;">
+  <table cellpadding="3" cellspacing="0" width="100%"> 
+    <tr class="foren_kate">
+      <td colspan="5"><a href="#"><img src="templates/{$smarty.const.DESIGN}/images/{if $smarty.cookies.foren[$f.boardID] == "closed"}plus{else}minus{/if}.png" alt="" title="" onclick="return forum_toggle_kate({$f.boardID}, this);" /></a> <a href="?section=forum&amp;action=subboard&amp;boardID={$f.boardID}">{$f.name}</a> ({$f.threads} {$smarty.const.FORUM_THREADS}, {$f.posts} {$smarty.const.FORUM_POSTS}) </td>
+    </tr>
+  </table>
+</div>
+{if $f.subs}
+<div class="forum_board" id="board_{$f.boardID}_subs">
+  <table cellpadding="3" cellspacing="0" width="100%" class="forum_border_bottom"> 
+    {foreach from=$f.subs item=s}
+    <tr class="foren_sub">
+      <td width="7%" align="center"><img src="templates/{$smarty.const.DESIGN}/images/forum_icon{if $s.closed}_closed{elseif $s.new}_new{/if}.png" alt="" title="" /></td>
+      <td width="43%"><a href="?section=forum&amp;action=board&amp;boardID={$s.boardID}">{$s.name}</a><br />
+        <span class="forum_smalltext">{$s.beschreibung}</span></td>
+      <td width="10%" align="center">{$s.threads}</td>
+      <td width="10%" align="center">{$s.posts}</td>
+      <td width="30%">{if $s.lastpost}<a href="?section=forum&action=gotolast&boardID={$s.boardID}&amp;threadID={$s.lastthreadID}"><img src="templates/{$smarty.const.DESIGN}/images/forum_goto_last.png" title="{$smarty.const.FORUM_GOTO_LAST}" alt="" style="float: left;" /></a> <a href="?section=forum&amp;action=thread&amp;boardID={$s.boardID}&amp;threadID={$s.lastthreadID}">{$s.threadname}</a><br  />
+        {if $s.lastpostuserID}<a href="?section=user&amp;id={$s.lastpostuserID}">{$s.username}</a>{else}{$s.lastpostuser}{/if} ({$s.lastpost}){/if}&nbsp;</td>
+    </tr>
+    {/foreach}
+  </table>
+</div>
+{/if}
+{/if}
+{/foreach}
+<script type="text/javascript">
+	{literal}toggles = {};{/literal}
+	{foreach from=$foren item=f}
+	{if $f.subs}
+	toggles[{$f.boardID}] = new Fx.Slide('board_{$f.boardID}_subs'){if $smarty.cookies.foren[$f.boardID] == "closed"}.hide(){/if};
+	{/if}
+	{/foreach}
+</script>

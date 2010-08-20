@@ -1,0 +1,2440 @@
+<statements xmlns="text/javascript">
+    <if>
+        <equals>
+            <typeof>
+                <identifier text="deconcept"/>
+            </typeof>
+            <string text="undefined"/>
+        </equals>
+        <statements>
+            <var>
+                <declaration>
+                    <identifier text="deconcept"/>
+                    <new>
+                        <identifier text="Object"/>
+                        <empty/>
+                    </new>
+                </declaration>
+            </var>
+        </statements>
+        <empty/>
+    </if>
+    <if>
+        <equals>
+            <typeof>
+                <get-property>
+                    <identifier text="deconcept"/>
+                    <identifier text="util"/>
+                </get-property>
+            </typeof>
+            <string text="undefined"/>
+        </equals>
+        <statements>
+            <assignment>
+                <get-property>
+                    <identifier text="deconcept"/>
+                    <identifier text="util"/>
+                </get-property>
+                <new>
+                    <identifier text="Object"/>
+                    <empty/>
+                </new>
+            </assignment>
+        </statements>
+        <empty/>
+    </if>
+    <if>
+        <equals>
+            <typeof>
+                <get-property>
+                    <identifier text="deconcept"/>
+                    <identifier text="SWFObjectUtil"/>
+                </get-property>
+            </typeof>
+            <string text="undefined"/>
+        </equals>
+        <statements>
+            <assignment>
+                <get-property>
+                    <identifier text="deconcept"/>
+                    <identifier text="SWFObjectUtil"/>
+                </get-property>
+                <new>
+                    <identifier text="Object"/>
+                    <empty/>
+                </new>
+            </assignment>
+        </statements>
+        <empty/>
+    </if>
+    <assignment>
+        <get-property>
+            <identifier text="deconcept"/>
+            <identifier text="SWFObject"/>
+        </get-property>
+        <function>
+            <parameters>
+                <identifier text="_1"/>
+                <identifier text="id"/>
+                <identifier text="w"/>
+                <identifier text="h"/>
+                <identifier text="_5"/>
+                <identifier text="c"/>
+                <identifier text="_7"/>
+                <identifier text="_8"/>
+                <identifier text="_9"/>
+                <identifier text="_a"/>
+            </parameters>
+            <statements>
+                <if>
+                    <logical-not>
+                        <get-property>
+                            <identifier text="document"/>
+                            <identifier text="getElementById"/>
+                        </get-property>
+                    </logical-not>
+                    <statements>
+                        <return>
+                            <empty/>
+                        </return>
+                    </statements>
+                    <empty/>
+                </if>
+                <assignment>
+                    <get-property>
+                        <this text="this"/>
+                        <identifier text="DETECT_KEY"/>
+                    </get-property>
+                    <conditional>
+                        <identifier text="_a"/>
+                        <identifier text="_a"/>
+                        <string text="detectflash"/>
+                    </conditional>
+                </assignment>
+                <assignment>
+                    <get-property>
+                        <this text="this"/>
+                        <identifier text="skipDetect"/>
+                    </get-property>
+                    <invoke>
+                        <get-property>
+                            <get-property>
+                                <identifier text="deconcept"/>
+                                <identifier text="util"/>
+                            </get-property>
+                            <identifier text="getRequestParameter"/>
+                        </get-property>
+                        <arguments>
+                            <get-property>
+                                <this text="this"/>
+                                <identifier text="DETECT_KEY"/>
+                            </get-property>
+                        </arguments>
+                    </invoke>
+                </assignment>
+                <assignment>
+                    <get-property>
+                        <this text="this"/>
+                        <identifier text="params"/>
+                    </get-property>
+                    <new>
+                        <identifier text="Object"/>
+                        <empty/>
+                    </new>
+                </assignment>
+                <assignment>
+                    <get-property>
+                        <this text="this"/>
+                        <identifier text="variables"/>
+                    </get-property>
+                    <new>
+                        <identifier text="Object"/>
+                        <empty/>
+                    </new>
+                </assignment>
+                <assignment>
+                    <get-property>
+                        <this text="this"/>
+                        <identifier text="attributes"/>
+                    </get-property>
+                    <new>
+                        <identifier text="Array"/>
+                        <empty/>
+                    </new>
+                </assignment>
+                <if>
+                    <identifier text="_1"/>
+                    <statements>
+                        <invoke>
+                            <get-property>
+                                <this text="this"/>
+                                <identifier text="setAttribute"/>
+                            </get-property>
+                            <arguments>
+                                <string text="swf"/>
+                                <identifier text="_1"/>
+                            </arguments>
+                        </invoke>
+                    </statements>
+                    <empty/>
+                </if>
+                <if>
+                    <identifier text="id"/>
+                    <statements>
+                        <invoke>
+                            <get-property>
+                                <this text="this"/>
+                                <identifier text="setAttribute"/>
+                            </get-property>
+                            <arguments>
+                                <string text="id"/>
+                                <identifier text="id"/>
+                            </arguments>
+                        </invoke>
+                    </statements>
+                    <empty/>
+                </if>
+                <if>
+                    <identifier text="w"/>
+                    <statements>
+                        <invoke>
+                            <get-property>
+                                <this text="this"/>
+                                <identifier text="setAttribute"/>
+                            </get-property>
+                            <arguments>
+                                <string text="width"/>
+                                <identifier text="w"/>
+                            </arguments>
+                        </invoke>
+                    </statements>
+                    <empty/>
+                </if>
+                <if>
+                    <identifier text="h"/>
+                    <statements>
+                        <invoke>
+                            <get-property>
+                                <this text="this"/>
+                                <identifier text="setAttribute"/>
+                            </get-property>
+                            <arguments>
+                                <string text="height"/>
+                                <identifier text="h"/>
+                            </arguments>
+                        </invoke>
+                    </statements>
+                    <empty/>
+                </if>
+                <if>
+                    <identifier text="_5"/>
+                    <statements>
+                        <invoke>
+                            <get-property>
+                                <this text="this"/>
+                                <identifier text="setAttribute"/>
+                            </get-property>
+                            <arguments>
+                                <string text="version"/>
+                                <new>
+                                    <get-property>
+                                        <identifier text="deconcept"/>
+                                        <identifier text="PlayerVersion"/>
+                                    </get-property>
+                                    <arguments>
+                                        <invoke>
+                                            <get-property>
+                                                <invoke>
+                                                    <get-property>
+                                                        <identifier text="_5"/>
+                                                        <identifier text="toString"/>
+                                                    </get-property>
+                                                    <empty/>
+                                                </invoke>
+                                                <identifier text="split"/>
+                                            </get-property>
+                                            <arguments>
+                                                <string text="."/>
+                                            </arguments>
+                                        </invoke>
+                                    </arguments>
+                                </new>
+                            </arguments>
+                        </invoke>
+                    </statements>
+                    <empty/>
+                </if>
+                <assignment>
+                    <get-property>
+                        <this text="this"/>
+                        <identifier text="installedVer"/>
+                    </get-property>
+                    <invoke>
+                        <get-property>
+                            <get-property>
+                                <identifier text="deconcept"/>
+                                <identifier text="SWFObjectUtil"/>
+                            </get-property>
+                            <identifier text="getPlayerVersion"/>
+                        </get-property>
+                        <empty/>
+                    </invoke>
+                </assignment>
+                <if>
+                    <logical-and>
+                        <logical-and>
+                            <logical-not>
+                                <get-property>
+                                    <identifier text="window"/>
+                                    <identifier text="opera"/>
+                                </get-property>
+                            </logical-not>
+                            <get-property>
+                                <identifier text="document"/>
+                                <identifier text="all"/>
+                            </get-property>
+                        </logical-and>
+                        <greater-than>
+                            <get-property>
+                                <get-property>
+                                    <this text="this"/>
+                                    <identifier text="installedVer"/>
+                                </get-property>
+                                <identifier text="major"/>
+                            </get-property>
+                            <number text="7"/>
+                        </greater-than>
+                    </logical-and>
+                    <statements>
+                        <assignment>
+                            <get-property>
+                                <get-property>
+                                    <identifier text="deconcept"/>
+                                    <identifier text="SWFObject"/>
+                                </get-property>
+                                <identifier text="doPrepUnload"/>
+                            </get-property>
+                            <true text="true"/>
+                        </assignment>
+                    </statements>
+                    <empty/>
+                </if>
+                <if>
+                    <identifier text="c"/>
+                    <statements>
+                        <invoke>
+                            <get-property>
+                                <this text="this"/>
+                                <identifier text="addParam"/>
+                            </get-property>
+                            <arguments>
+                                <string text="bgcolor"/>
+                                <identifier text="c"/>
+                            </arguments>
+                        </invoke>
+                    </statements>
+                    <empty/>
+                </if>
+                <var>
+                    <declaration>
+                        <identifier text="q"/>
+                        <conditional>
+                            <identifier text="_7"/>
+                            <identifier text="_7"/>
+                            <string text="high"/>
+                        </conditional>
+                    </declaration>
+                </var>
+                <invoke>
+                    <get-property>
+                        <this text="this"/>
+                        <identifier text="addParam"/>
+                    </get-property>
+                    <arguments>
+                        <string text="quality"/>
+                        <identifier text="q"/>
+                    </arguments>
+                </invoke>
+                <invoke>
+                    <get-property>
+                        <this text="this"/>
+                        <identifier text="setAttribute"/>
+                    </get-property>
+                    <arguments>
+                        <string text="useExpressInstall"/>
+                        <false text="false"/>
+                    </arguments>
+                </invoke>
+                <invoke>
+                    <get-property>
+                        <this text="this"/>
+                        <identifier text="setAttribute"/>
+                    </get-property>
+                    <arguments>
+                        <string text="doExpressInstall"/>
+                        <false text="false"/>
+                    </arguments>
+                </invoke>
+                <var>
+                    <declaration>
+                        <identifier text="_c"/>
+                        <conditional>
+                            <group>
+                                <identifier text="_8"/>
+                            </group>
+                            <identifier text="_8"/>
+                            <get-property>
+                                <identifier text="window"/>
+                                <identifier text="location"/>
+                            </get-property>
+                        </conditional>
+                    </declaration>
+                </var>
+                <invoke>
+                    <get-property>
+                        <this text="this"/>
+                        <identifier text="setAttribute"/>
+                    </get-property>
+                    <arguments>
+                        <string text="xiRedirectUrl"/>
+                        <identifier text="_c"/>
+                    </arguments>
+                </invoke>
+                <invoke>
+                    <get-property>
+                        <this text="this"/>
+                        <identifier text="setAttribute"/>
+                    </get-property>
+                    <arguments>
+                        <string text="redirectUrl"/>
+                        <string text=""/>
+                    </arguments>
+                </invoke>
+                <if>
+                    <identifier text="_9"/>
+                    <statements>
+                        <invoke>
+                            <get-property>
+                                <this text="this"/>
+                                <identifier text="setAttribute"/>
+                            </get-property>
+                            <arguments>
+                                <string text="redirectUrl"/>
+                                <identifier text="_9"/>
+                            </arguments>
+                        </invoke>
+                    </statements>
+                    <empty/>
+                </if>
+            </statements>
+        </function>
+    </assignment>
+    <assignment>
+        <get-property>
+            <get-property>
+                <identifier text="deconcept"/>
+                <identifier text="SWFObject"/>
+            </get-property>
+            <identifier text="prototype"/>
+        </get-property>
+        <object-literal>
+            <name-value-pair>
+                <identifier text="useExpressInstall"/>
+                <function>
+                    <parameters>
+                        <identifier text="_d"/>
+                    </parameters>
+                    <statements>
+                        <assignment>
+                            <get-property>
+                                <this text="this"/>
+                                <identifier text="xiSWFPath"/>
+                            </get-property>
+                            <conditional>
+                                <logical-not>
+                                    <identifier text="_d"/>
+                                </logical-not>
+                                <string text="expressinstall.swf"/>
+                                <identifier text="_d"/>
+                            </conditional>
+                        </assignment>
+                        <invoke>
+                            <get-property>
+                                <this text="this"/>
+                                <identifier text="setAttribute"/>
+                            </get-property>
+                            <arguments>
+                                <string text="useExpressInstall"/>
+                                <true text="true"/>
+                            </arguments>
+                        </invoke>
+                    </statements>
+                </function>
+            </name-value-pair>
+            <name-value-pair>
+                <identifier text="setAttribute"/>
+                <function>
+                    <parameters>
+                        <identifier text="_e"/>
+                        <identifier text="_f"/>
+                    </parameters>
+                    <statements>
+                        <assignment>
+                            <get-element>
+                                <get-property>
+                                    <this text="this"/>
+                                    <identifier text="attributes"/>
+                                </get-property>
+                                <identifier text="_e"/>
+                            </get-element>
+                            <identifier text="_f"/>
+                        </assignment>
+                    </statements>
+                </function>
+            </name-value-pair>
+            <name-value-pair>
+                <identifier text="getAttribute"/>
+                <function>
+                    <parameters>
+                        <identifier text="_10"/>
+                    </parameters>
+                    <statements>
+                        <return>
+                            <get-element>
+                                <get-property>
+                                    <this text="this"/>
+                                    <identifier text="attributes"/>
+                                </get-property>
+                                <identifier text="_10"/>
+                            </get-element>
+                        </return>
+                    </statements>
+                </function>
+            </name-value-pair>
+            <name-value-pair>
+                <identifier text="addParam"/>
+                <function>
+                    <parameters>
+                        <identifier text="_11"/>
+                        <identifier text="_12"/>
+                    </parameters>
+                    <statements>
+                        <assignment>
+                            <get-element>
+                                <get-property>
+                                    <this text="this"/>
+                                    <identifier text="params"/>
+                                </get-property>
+                                <identifier text="_11"/>
+                            </get-element>
+                            <identifier text="_12"/>
+                        </assignment>
+                    </statements>
+                </function>
+            </name-value-pair>
+            <name-value-pair>
+                <identifier text="getParams"/>
+                <function>
+                    <empty/>
+                    <statements>
+                        <return>
+                            <get-property>
+                                <this text="this"/>
+                                <identifier text="params"/>
+                            </get-property>
+                        </return>
+                    </statements>
+                </function>
+            </name-value-pair>
+            <name-value-pair>
+                <identifier text="addVariable"/>
+                <function>
+                    <parameters>
+                        <identifier text="_13"/>
+                        <identifier text="_14"/>
+                    </parameters>
+                    <statements>
+                        <assignment>
+                            <get-element>
+                                <get-property>
+                                    <this text="this"/>
+                                    <identifier text="variables"/>
+                                </get-property>
+                                <identifier text="_13"/>
+                            </get-element>
+                            <identifier text="_14"/>
+                        </assignment>
+                    </statements>
+                </function>
+            </name-value-pair>
+            <name-value-pair>
+                <identifier text="getVariable"/>
+                <function>
+                    <parameters>
+                        <identifier text="_15"/>
+                    </parameters>
+                    <statements>
+                        <return>
+                            <get-element>
+                                <get-property>
+                                    <this text="this"/>
+                                    <identifier text="variables"/>
+                                </get-property>
+                                <identifier text="_15"/>
+                            </get-element>
+                        </return>
+                    </statements>
+                </function>
+            </name-value-pair>
+            <name-value-pair>
+                <identifier text="getVariables"/>
+                <function>
+                    <empty/>
+                    <statements>
+                        <return>
+                            <get-property>
+                                <this text="this"/>
+                                <identifier text="variables"/>
+                            </get-property>
+                        </return>
+                    </statements>
+                </function>
+            </name-value-pair>
+            <name-value-pair>
+                <identifier text="getVariablePairs"/>
+                <function>
+                    <empty/>
+                    <statements>
+                        <var>
+                            <declaration>
+                                <identifier text="_16"/>
+                                <new>
+                                    <identifier text="Array"/>
+                                    <empty/>
+                                </new>
+                            </declaration>
+                        </var>
+                        <var>
+                            <declaration>
+                                <identifier text="key"/>
+                                <empty/>
+                            </declaration>
+                        </var>
+                        <var>
+                            <declaration>
+                                <identifier text="_18"/>
+                                <invoke>
+                                    <get-property>
+                                        <this text="this"/>
+                                        <identifier text="getVariables"/>
+                                    </get-property>
+                                    <empty/>
+                                </invoke>
+                            </declaration>
+                        </var>
+                        <for-in>
+                            <identifier text="key"/>
+                            <identifier text="_18"/>
+                            <statements>
+                                <assignment>
+                                    <get-element>
+                                        <identifier text="_16"/>
+                                        <get-property>
+                                            <identifier text="_16"/>
+                                            <identifier text="length"/>
+                                        </get-property>
+                                    </get-element>
+                                    <add>
+                                        <add>
+                                            <identifier text="key"/>
+                                            <string text="="/>
+                                        </add>
+                                        <get-element>
+                                            <identifier text="_18"/>
+                                            <identifier text="key"/>
+                                        </get-element>
+                                    </add>
+                                </assignment>
+                            </statements>
+                        </for-in>
+                        <return>
+                            <identifier text="_16"/>
+                        </return>
+                    </statements>
+                </function>
+            </name-value-pair>
+            <name-value-pair>
+                <identifier text="getSWFHTML"/>
+                <function>
+                    <empty/>
+                    <statements>
+                        <var>
+                            <declaration>
+                                <identifier text="_19"/>
+                                <string text=""/>
+                            </declaration>
+                        </var>
+                        <if>
+                            <logical-and>
+                                <logical-and>
+                                    <get-property>
+                                        <identifier text="navigator"/>
+                                        <identifier text="plugins"/>
+                                    </get-property>
+                                    <get-property>
+                                        <identifier text="navigator"/>
+                                        <identifier text="mimeTypes"/>
+                                    </get-property>
+                                </logical-and>
+                                <get-property>
+                                    <get-property>
+                                        <identifier text="navigator"/>
+                                        <identifier text="mimeTypes"/>
+                                    </get-property>
+                                    <identifier text="length"/>
+                                </get-property>
+                            </logical-and>
+                            <statements>
+                                <if>
+                                    <invoke>
+                                        <get-property>
+                                            <this text="this"/>
+                                            <identifier text="getAttribute"/>
+                                        </get-property>
+                                        <arguments>
+                                            <string text="doExpressInstall"/>
+                                        </arguments>
+                                    </invoke>
+                                    <statements>
+                                        <invoke>
+                                            <get-property>
+                                                <this text="this"/>
+                                                <identifier text="addVariable"/>
+                                            </get-property>
+                                            <arguments>
+                                                <string text="MMplayerType"/>
+                                                <string text="PlugIn"/>
+                                            </arguments>
+                                        </invoke>
+                                        <invoke>
+                                            <get-property>
+                                                <this text="this"/>
+                                                <identifier text="setAttribute"/>
+                                            </get-property>
+                                            <arguments>
+                                                <string text="swf"/>
+                                                <get-property>
+                                                    <this text="this"/>
+                                                    <identifier text="xiSWFPath"/>
+                                                </get-property>
+                                            </arguments>
+                                        </invoke>
+                                    </statements>
+                                    <empty/>
+                                </if>
+                                <assignment>
+                                    <identifier text="_19"/>
+                                    <add>
+                                        <add>
+                                            <add>
+                                                <add>
+                                                    <add>
+                                                        <add>
+                                                            <add>
+                                                                <add>
+                                                                    <string text="&amp;lt;embed type=\&amp;quot;application/x-shockwave-flash\&amp;quot; src=\&amp;quot;"/>
+                                                                    <invoke>
+                                                                        <get-property>
+                                                                            <this text="this"/>
+                                                                            <identifier text="getAttribute"/>
+                                                                        </get-property>
+                                                                        <arguments>
+                                                                            <string text="swf"/>
+                                                                        </arguments>
+                                                                    </invoke>
+                                                                </add>
+                                                                <string text="\&amp;quot; width=\&amp;quot;"/>
+                                                            </add>
+                                                            <invoke>
+                                                                <get-property>
+                                                                    <this text="this"/>
+                                                                    <identifier text="getAttribute"/>
+                                                                </get-property>
+                                                                <arguments>
+                                                                    <string text="width"/>
+                                                                </arguments>
+                                                            </invoke>
+                                                        </add>
+                                                        <string text="\&amp;quot; height=\&amp;quot;"/>
+                                                    </add>
+                                                    <invoke>
+                                                        <get-property>
+                                                            <this text="this"/>
+                                                            <identifier text="getAttribute"/>
+                                                        </get-property>
+                                                        <arguments>
+                                                            <string text="height"/>
+                                                        </arguments>
+                                                    </invoke>
+                                                </add>
+                                                <string text="\&amp;quot; style=\&amp;quot;"/>
+                                            </add>
+                                            <invoke>
+                                                <get-property>
+                                                    <this text="this"/>
+                                                    <identifier text="getAttribute"/>
+                                                </get-property>
+                                                <arguments>
+                                                    <string text="style"/>
+                                                </arguments>
+                                            </invoke>
+                                        </add>
+                                        <string text="\&amp;quot;"/>
+                                    </add>
+                                </assignment>
+                                <add-and-assign>
+                                    <identifier text="_19"/>
+                                    <add>
+                                        <add>
+                                            <add>
+                                                <add>
+                                                    <string text=" id=\&amp;quot;"/>
+                                                    <invoke>
+                                                        <get-property>
+                                                            <this text="this"/>
+                                                            <identifier text="getAttribute"/>
+                                                        </get-property>
+                                                        <arguments>
+                                                            <string text="id"/>
+                                                        </arguments>
+                                                    </invoke>
+                                                </add>
+                                                <string text="\&amp;quot; name=\&amp;quot;"/>
+                                            </add>
+                                            <invoke>
+                                                <get-property>
+                                                    <this text="this"/>
+                                                    <identifier text="getAttribute"/>
+                                                </get-property>
+                                                <arguments>
+                                                    <string text="id"/>
+                                                </arguments>
+                                            </invoke>
+                                        </add>
+                                        <string text="\&amp;quot; "/>
+                                    </add>
+                                </add-and-assign>
+                                <var>
+                                    <declaration>
+                                        <identifier text="_1a"/>
+                                        <invoke>
+                                            <get-property>
+                                                <this text="this"/>
+                                                <identifier text="getParams"/>
+                                            </get-property>
+                                            <empty/>
+                                        </invoke>
+                                    </declaration>
+                                </var>
+                                <for-in>
+                                    <var>
+                                        <declaration>
+                                            <identifier text="key"/>
+                                            <empty/>
+                                        </declaration>
+                                    </var>
+                                    <identifier text="_1a"/>
+                                    <statements>
+                                        <add-and-assign>
+                                            <identifier text="_19"/>
+                                            <add>
+                                                <add>
+                                                    <add>
+                                                        <array-literal>
+                                                            <identifier text="key"/>
+                                                        </array-literal>
+                                                        <string text="=\&amp;quot;"/>
+                                                    </add>
+                                                    <get-element>
+                                                        <identifier text="_1a"/>
+                                                        <identifier text="key"/>
+                                                    </get-element>
+                                                </add>
+                                                <string text="\&amp;quot; "/>
+                                            </add>
+                                        </add-and-assign>
+                                    </statements>
+                                </for-in>
+                                <var>
+                                    <declaration>
+                                        <identifier text="_1c"/>
+                                        <invoke>
+                                            <get-property>
+                                                <invoke>
+                                                    <get-property>
+                                                        <this text="this"/>
+                                                        <identifier text="getVariablePairs"/>
+                                                    </get-property>
+                                                    <empty/>
+                                                </invoke>
+                                                <identifier text="join"/>
+                                            </get-property>
+                                            <arguments>
+                                                <string text="&amp;"/>
+                                            </arguments>
+                                        </invoke>
+                                    </declaration>
+                                </var>
+                                <if>
+                                    <greater-than>
+                                        <get-property>
+                                            <identifier text="_1c"/>
+                                            <identifier text="length"/>
+                                        </get-property>
+                                        <number text="0"/>
+                                    </greater-than>
+                                    <statements>
+                                        <add-and-assign>
+                                            <identifier text="_19"/>
+                                            <add>
+                                                <add>
+                                                    <string text="flashvars=\&amp;quot;"/>
+                                                    <identifier text="_1c"/>
+                                                </add>
+                                                <string text="\&amp;quot;"/>
+                                            </add>
+                                        </add-and-assign>
+                                    </statements>
+                                    <empty/>
+                                </if>
+                                <add-and-assign>
+                                    <identifier text="_19"/>
+                                    <string text="/>"/>
+                                </add-and-assign>
+                            </statements>
+                            <statements>
+                                <if>
+                                    <invoke>
+                                        <get-property>
+                                            <this text="this"/>
+                                            <identifier text="getAttribute"/>
+                                        </get-property>
+                                        <arguments>
+                                            <string text="doExpressInstall"/>
+                                        </arguments>
+                                    </invoke>
+                                    <statements>
+                                        <invoke>
+                                            <get-property>
+                                                <this text="this"/>
+                                                <identifier text="addVariable"/>
+                                            </get-property>
+                                            <arguments>
+                                                <string text="MMplayerType"/>
+                                                <string text="ActiveX"/>
+                                            </arguments>
+                                        </invoke>
+                                        <invoke>
+                                            <get-property>
+                                                <this text="this"/>
+                                                <identifier text="setAttribute"/>
+                                            </get-property>
+                                            <arguments>
+                                                <string text="swf"/>
+                                                <get-property>
+                                                    <this text="this"/>
+                                                    <identifier text="xiSWFPath"/>
+                                                </get-property>
+                                            </arguments>
+                                        </invoke>
+                                    </statements>
+                                    <empty/>
+                                </if>
+                                <assignment>
+                                    <identifier text="_19"/>
+                                    <add>
+                                        <add>
+                                            <add>
+                                                <add>
+                                                    <add>
+                                                        <add>
+                                                            <add>
+                                                                <add>
+                                                                    <string text="&amp;lt;object id=\&amp;quot;"/>
+                                                                    <invoke>
+                                                                        <get-property>
+                                                                            <this text="this"/>
+                                                                            <identifier text="getAttribute"/>
+                                                                        </get-property>
+                                                                        <arguments>
+                                                                            <string text="id"/>
+                                                                        </arguments>
+                                                                    </invoke>
+                                                                </add>
+                                                                <string text="\&amp;quot; classid=\&amp;quot;clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\&amp;quot; width=\&amp;quot;"/>
+                                                            </add>
+                                                            <invoke>
+                                                                <get-property>
+                                                                    <this text="this"/>
+                                                                    <identifier text="getAttribute"/>
+                                                                </get-property>
+                                                                <arguments>
+                                                                    <string text="width"/>
+                                                                </arguments>
+                                                            </invoke>
+                                                        </add>
+                                                        <string text="\&amp;quot; height=\&amp;quot;"/>
+                                                    </add>
+                                                    <invoke>
+                                                        <get-property>
+                                                            <this text="this"/>
+                                                            <identifier text="getAttribute"/>
+                                                        </get-property>
+                                                        <arguments>
+                                                            <string text="height"/>
+                                                        </arguments>
+                                                    </invoke>
+                                                </add>
+                                                <string text="\&amp;quot; style=\&amp;quot;"/>
+                                            </add>
+                                            <invoke>
+                                                <get-property>
+                                                    <this text="this"/>
+                                                    <identifier text="getAttribute"/>
+                                                </get-property>
+                                                <arguments>
+                                                    <string text="style"/>
+                                                </arguments>
+                                            </invoke>
+                                        </add>
+                                        <string text="\&amp;quot;>"/>
+                                    </add>
+                                </assignment>
+                                <add-and-assign>
+                                    <identifier text="_19"/>
+                                    <add>
+                                        <add>
+                                            <string text="&amp;lt;param name=\&amp;quot;movie\&amp;quot; value=\&amp;quot;"/>
+                                            <invoke>
+                                                <get-property>
+                                                    <this text="this"/>
+                                                    <identifier text="getAttribute"/>
+                                                </get-property>
+                                                <arguments>
+                                                    <string text="swf"/>
+                                                </arguments>
+                                            </invoke>
+                                        </add>
+                                        <string text="\&amp;quot; />"/>
+                                    </add>
+                                </add-and-assign>
+                                <var>
+                                    <declaration>
+                                        <identifier text="_1d"/>
+                                        <invoke>
+                                            <get-property>
+                                                <this text="this"/>
+                                                <identifier text="getParams"/>
+                                            </get-property>
+                                            <empty/>
+                                        </invoke>
+                                    </declaration>
+                                </var>
+                                <for-in>
+                                    <var>
+                                        <declaration>
+                                            <identifier text="key"/>
+                                            <empty/>
+                                        </declaration>
+                                    </var>
+                                    <identifier text="_1d"/>
+                                    <statements>
+                                        <add-and-assign>
+                                            <identifier text="_19"/>
+                                            <add>
+                                                <add>
+                                                    <add>
+                                                        <add>
+                                                            <string text="&amp;lt;param name=\&amp;quot;"/>
+                                                            <identifier text="key"/>
+                                                        </add>
+                                                        <string text="\&amp;quot; value=\&amp;quot;"/>
+                                                    </add>
+                                                    <get-element>
+                                                        <identifier text="_1d"/>
+                                                        <identifier text="key"/>
+                                                    </get-element>
+                                                </add>
+                                                <string text="\&amp;quot; />"/>
+                                            </add>
+                                        </add-and-assign>
+                                    </statements>
+                                </for-in>
+                                <var>
+                                    <declaration>
+                                        <identifier text="_1f"/>
+                                        <invoke>
+                                            <get-property>
+                                                <invoke>
+                                                    <get-property>
+                                                        <this text="this"/>
+                                                        <identifier text="getVariablePairs"/>
+                                                    </get-property>
+                                                    <empty/>
+                                                </invoke>
+                                                <identifier text="join"/>
+                                            </get-property>
+                                            <arguments>
+                                                <string text="&amp;"/>
+                                            </arguments>
+                                        </invoke>
+                                    </declaration>
+                                </var>
+                                <if>
+                                    <greater-than>
+                                        <get-property>
+                                            <identifier text="_1f"/>
+                                            <identifier text="length"/>
+                                        </get-property>
+                                        <number text="0"/>
+                                    </greater-than>
+                                    <statements>
+                                        <add-and-assign>
+                                            <identifier text="_19"/>
+                                            <add>
+                                                <add>
+                                                    <string text="&amp;lt;param name=\&amp;quot;flashvars\&amp;quot; value=\&amp;quot;"/>
+                                                    <identifier text="_1f"/>
+                                                </add>
+                                                <string text="\&amp;quot; />"/>
+                                            </add>
+                                        </add-and-assign>
+                                    </statements>
+                                    <empty/>
+                                </if>
+                                <add-and-assign>
+                                    <identifier text="_19"/>
+                                    <string text="&amp;lt;/object>"/>
+                                </add-and-assign>
+                            </statements>
+                        </if>
+                        <return>
+                            <identifier text="_19"/>
+                        </return>
+                    </statements>
+                </function>
+            </name-value-pair>
+            <name-value-pair>
+                <identifier text="write"/>
+                <function>
+                    <parameters>
+                        <identifier text="_20"/>
+                    </parameters>
+                    <statements>
+                        <if>
+                            <invoke>
+                                <get-property>
+                                    <this text="this"/>
+                                    <identifier text="getAttribute"/>
+                                </get-property>
+                                <arguments>
+                                    <string text="useExpressInstall"/>
+                                </arguments>
+                            </invoke>
+                            <statements>
+                                <var>
+                                    <declaration>
+                                        <identifier text="_21"/>
+                                        <new>
+                                            <get-property>
+                                                <identifier text="deconcept"/>
+                                                <identifier text="PlayerVersion"/>
+                                            </get-property>
+                                            <arguments>
+                                                <array-literal>
+                                                    <number text="6"/>
+                                                    <number text="0"/>
+                                                    <number text="65"/>
+                                                </array-literal>
+                                            </arguments>
+                                        </new>
+                                    </declaration>
+                                </var>
+                                <if>
+                                    <logical-and>
+                                        <invoke>
+                                            <get-property>
+                                                <get-property>
+                                                    <this text="this"/>
+                                                    <identifier text="installedVer"/>
+                                                </get-property>
+                                                <identifier text="versionIsValid"/>
+                                            </get-property>
+                                            <arguments>
+                                                <identifier text="_21"/>
+                                            </arguments>
+                                        </invoke>
+                                        <logical-not>
+                                            <invoke>
+                                                <get-property>
+                                                    <get-property>
+                                                        <this text="this"/>
+                                                        <identifier text="installedVer"/>
+                                                    </get-property>
+                                                    <identifier text="versionIsValid"/>
+                                                </get-property>
+                                                <arguments>
+                                                    <invoke>
+                                                        <get-property>
+                                                            <this text="this"/>
+                                                            <identifier text="getAttribute"/>
+                                                        </get-property>
+                                                        <arguments>
+                                                            <string text="version"/>
+                                                        </arguments>
+                                                    </invoke>
+                                                </arguments>
+                                            </invoke>
+                                        </logical-not>
+                                    </logical-and>
+                                    <statements>
+                                        <invoke>
+                                            <get-property>
+                                                <this text="this"/>
+                                                <identifier text="setAttribute"/>
+                                            </get-property>
+                                            <arguments>
+                                                <string text="doExpressInstall"/>
+                                                <true text="true"/>
+                                            </arguments>
+                                        </invoke>
+                                        <invoke>
+                                            <get-property>
+                                                <this text="this"/>
+                                                <identifier text="addVariable"/>
+                                            </get-property>
+                                            <arguments>
+                                                <string text="MMredirectURL"/>
+                                                <invoke>
+                                                    <identifier text="escape"/>
+                                                    <arguments>
+                                                        <invoke>
+                                                            <get-property>
+                                                                <this text="this"/>
+                                                                <identifier text="getAttribute"/>
+                                                            </get-property>
+                                                            <arguments>
+                                                                <string text="xiRedirectUrl"/>
+                                                            </arguments>
+                                                        </invoke>
+                                                    </arguments>
+                                                </invoke>
+                                            </arguments>
+                                        </invoke>
+                                        <assignment>
+                                            <get-property>
+                                                <identifier text="document"/>
+                                                <identifier text="title"/>
+                                            </get-property>
+                                            <add>
+                                                <invoke>
+                                                    <get-property>
+                                                        <get-property>
+                                                            <identifier text="document"/>
+                                                            <identifier text="title"/>
+                                                        </get-property>
+                                                        <identifier text="slice"/>
+                                                    </get-property>
+                                                    <arguments>
+                                                        <number text="0"/>
+                                                        <number text="47"/>
+                                                    </arguments>
+                                                </invoke>
+                                                <string text=" - Flash Player Installation"/>
+                                            </add>
+                                        </assignment>
+                                        <invoke>
+                                            <get-property>
+                                                <this text="this"/>
+                                                <identifier text="addVariable"/>
+                                            </get-property>
+                                            <arguments>
+                                                <string text="MMdoctitle"/>
+                                                <get-property>
+                                                    <identifier text="document"/>
+                                                    <identifier text="title"/>
+                                                </get-property>
+                                            </arguments>
+                                        </invoke>
+                                    </statements>
+                                    <empty/>
+                                </if>
+                            </statements>
+                            <empty/>
+                        </if>
+                        <if>
+                            <logical-or>
+                                <logical-or>
+                                    <get-property>
+                                        <this text="this"/>
+                                        <identifier text="skipDetect"/>
+                                    </get-property>
+                                    <invoke>
+                                        <get-property>
+                                            <this text="this"/>
+                                            <identifier text="getAttribute"/>
+                                        </get-property>
+                                        <arguments>
+                                            <string text="doExpressInstall"/>
+                                        </arguments>
+                                    </invoke>
+                                </logical-or>
+                                <invoke>
+                                    <get-property>
+                                        <get-property>
+                                            <this text="this"/>
+                                            <identifier text="installedVer"/>
+                                        </get-property>
+                                        <identifier text="versionIsValid"/>
+                                    </get-property>
+                                    <arguments>
+                                        <invoke>
+                                            <get-property>
+                                                <this text="this"/>
+                                                <identifier text="getAttribute"/>
+                                            </get-property>
+                                            <arguments>
+                                                <string text="version"/>
+                                            </arguments>
+                                        </invoke>
+                                    </arguments>
+                                </invoke>
+                            </logical-or>
+                            <statements>
+                                <var>
+                                    <declaration>
+                                        <identifier text="n"/>
+                                        <conditional>
+                                            <group>
+                                                <equals>
+                                                    <typeof>
+                                                        <identifier text="_20"/>
+                                                    </typeof>
+                                                    <string text="string"/>
+                                                </equals>
+                                            </group>
+                                            <invoke>
+                                                <get-property>
+                                                    <identifier text="document"/>
+                                                    <identifier text="getElementById"/>
+                                                </get-property>
+                                                <arguments>
+                                                    <identifier text="_20"/>
+                                                </arguments>
+                                            </invoke>
+                                            <identifier text="_20"/>
+                                        </conditional>
+                                    </declaration>
+                                </var>
+                                <assignment>
+                                    <get-property>
+                                        <identifier text="n"/>
+                                        <identifier text="innerHTML"/>
+                                    </get-property>
+                                    <invoke>
+                                        <get-property>
+                                            <this text="this"/>
+                                            <identifier text="getSWFHTML"/>
+                                        </get-property>
+                                        <empty/>
+                                    </invoke>
+                                </assignment>
+                                <if>
+                                    <logical-not>
+                                        <group>
+                                            <logical-and>
+                                                <get-property>
+                                                    <identifier text="navigator"/>
+                                                    <identifier text="plugins"/>
+                                                </get-property>
+                                                <get-property>
+                                                    <get-property>
+                                                        <identifier text="navigator"/>
+                                                        <identifier text="mimeTypes"/>
+                                                    </get-property>
+                                                    <identifier text="length"/>
+                                                </get-property>
+                                            </logical-and>
+                                        </group>
+                                    </logical-not>
+                                    <assignment>
+                                        <get-element>
+                                            <identifier text="window"/>
+                                            <invoke>
+                                                <get-property>
+                                                    <this text="this"/>
+                                                    <identifier text="getAttribute"/>
+                                                </get-property>
+                                                <arguments>
+                                                    <string text="id"/>
+                                                </arguments>
+                                            </invoke>
+                                        </get-element>
+                                        <invoke>
+                                            <get-property>
+                                                <identifier text="document"/>
+                                                <identifier text="getElementById"/>
+                                            </get-property>
+                                            <arguments>
+                                                <invoke>
+                                                    <get-property>
+                                                        <this text="this"/>
+                                                        <identifier text="getAttribute"/>
+                                                    </get-property>
+                                                    <arguments>
+                                                        <string text="id"/>
+                                                    </arguments>
+                                                </invoke>
+                                            </arguments>
+                                        </invoke>
+                                    </assignment>
+                                    <empty/>
+                                </if>
+                                <return>
+                                    <true text="true"/>
+                                </return>
+                            </statements>
+                            <statements>
+                                <if>
+                                    <not-equal>
+                                        <invoke>
+                                            <get-property>
+                                                <this text="this"/>
+                                                <identifier text="getAttribute"/>
+                                            </get-property>
+                                            <arguments>
+                                                <string text="redirectUrl"/>
+                                            </arguments>
+                                        </invoke>
+                                        <string text=""/>
+                                    </not-equal>
+                                    <statements>
+                                        <invoke>
+                                            <get-property>
+                                                <get-property>
+                                                    <identifier text="document"/>
+                                                    <identifier text="location"/>
+                                                </get-property>
+                                                <identifier text="replace"/>
+                                            </get-property>
+                                            <arguments>
+                                                <invoke>
+                                                    <get-property>
+                                                        <this text="this"/>
+                                                        <identifier text="getAttribute"/>
+                                                    </get-property>
+                                                    <arguments>
+                                                        <string text="redirectUrl"/>
+                                                    </arguments>
+                                                </invoke>
+                                            </arguments>
+                                        </invoke>
+                                    </statements>
+                                    <empty/>
+                                </if>
+                            </statements>
+                        </if>
+                        <return>
+                            <false text="false"/>
+                        </return>
+                    </statements>
+                </function>
+            </name-value-pair>
+        </object-literal>
+    </assignment>
+    <assignment>
+        <get-property>
+            <get-property>
+                <identifier text="deconcept"/>
+                <identifier text="SWFObjectUtil"/>
+            </get-property>
+            <identifier text="getPlayerVersion"/>
+        </get-property>
+        <function>
+            <empty/>
+            <statements>
+                <var>
+                    <declaration>
+                        <identifier text="_23"/>
+                        <new>
+                            <get-property>
+                                <identifier text="deconcept"/>
+                                <identifier text="PlayerVersion"/>
+                            </get-property>
+                            <arguments>
+                                <array-literal>
+                                    <number text="0"/>
+                                    <number text="0"/>
+                                    <number text="0"/>
+                                </array-literal>
+                            </arguments>
+                        </new>
+                    </declaration>
+                </var>
+                <if>
+                    <logical-and>
+                        <get-property>
+                            <identifier text="navigator"/>
+                            <identifier text="plugins"/>
+                        </get-property>
+                        <get-property>
+                            <get-property>
+                                <identifier text="navigator"/>
+                                <identifier text="mimeTypes"/>
+                            </get-property>
+                            <identifier text="length"/>
+                        </get-property>
+                    </logical-and>
+                    <statements>
+                        <var>
+                            <declaration>
+                                <identifier text="x"/>
+                                <get-element>
+                                    <get-property>
+                                        <identifier text="navigator"/>
+                                        <identifier text="plugins"/>
+                                    </get-property>
+                                    <string text="Shockwave Flash"/>
+                                </get-element>
+                            </declaration>
+                        </var>
+                        <if>
+                            <logical-and>
+                                <identifier text="x"/>
+                                <get-property>
+                                    <identifier text="x"/>
+                                    <identifier text="description"/>
+                                </get-property>
+                            </logical-and>
+                            <statements>
+                                <assignment>
+                                    <identifier text="_23"/>
+                                    <new>
+                                        <get-property>
+                                            <identifier text="deconcept"/>
+                                            <identifier text="PlayerVersion"/>
+                                        </get-property>
+                                        <arguments>
+                                            <invoke>
+                                                <get-property>
+                                                    <invoke>
+                                                        <get-property>
+                                                            <invoke>
+                                                                <get-property>
+                                                                    <get-property>
+                                                                        <identifier text="x"/>
+                                                                        <identifier text="description"/>
+                                                                    </get-property>
+                                                                    <identifier text="replace"/>
+                                                                </get-property>
+                                                                <arguments>
+                                                                    <regexp text="/([a-zA-Z]|\s)+/"/>
+                                                                    <string text=""/>
+                                                                </arguments>
+                                                            </invoke>
+                                                            <identifier text="replace"/>
+                                                        </get-property>
+                                                        <arguments>
+                                                            <regexp text="/(\s+r|\s+b[0-9]+)/"/>
+                                                            <string text="."/>
+                                                        </arguments>
+                                                    </invoke>
+                                                    <identifier text="split"/>
+                                                </get-property>
+                                                <arguments>
+                                                    <string text="."/>
+                                                </arguments>
+                                            </invoke>
+                                        </arguments>
+                                    </new>
+                                </assignment>
+                            </statements>
+                            <empty/>
+                        </if>
+                    </statements>
+                    <statements>
+                        <if>
+                            <logical-and>
+                                <get-property>
+                                    <identifier text="navigator"/>
+                                    <identifier text="userAgent"/>
+                                </get-property>
+                                <greater-than-or-equal>
+                                    <invoke>
+                                        <get-property>
+                                            <get-property>
+                                                <identifier text="navigator"/>
+                                                <identifier text="userAgent"/>
+                                            </get-property>
+                                            <identifier text="indexOf"/>
+                                        </get-property>
+                                        <arguments>
+                                            <string text="Windows CE"/>
+                                        </arguments>
+                                    </invoke>
+                                    <number text="0"/>
+                                </greater-than-or-equal>
+                            </logical-and>
+                            <statements>
+                                <var>
+                                    <declaration>
+                                        <identifier text="axo"/>
+                                        <number text="1"/>
+                                    </declaration>
+                                </var>
+                                <var>
+                                    <declaration>
+                                        <identifier text="_26"/>
+                                        <number text="3"/>
+                                    </declaration>
+                                </var>
+                                <while>
+                                    <identifier text="axo"/>
+                                    <statements>
+                                        <try>
+                                            <statements>
+                                                <post-increment>
+                                                    <identifier text="_26"/>
+                                                </post-increment>
+                                                <assignment>
+                                                    <identifier text="axo"/>
+                                                    <new>
+                                                        <identifier text="ActiveXObject"/>
+                                                        <arguments>
+                                                            <add>
+                                                                <string text="ShockwaveFlash.ShockwaveFlash."/>
+                                                                <identifier text="_26"/>
+                                                            </add>
+                                                        </arguments>
+                                                    </new>
+                                                </assignment>
+                                                <assignment>
+                                                    <identifier text="_23"/>
+                                                    <new>
+                                                        <get-property>
+                                                            <identifier text="deconcept"/>
+                                                            <identifier text="PlayerVersion"/>
+                                                        </get-property>
+                                                        <arguments>
+                                                            <array-literal>
+                                                                <identifier text="_26"/>
+                                                                <number text="0"/>
+                                                                <number text="0"/>
+                                                            </array-literal>
+                                                        </arguments>
+                                                    </new>
+                                                </assignment>
+                                            </statements>
+                                            <catch>
+                                                <identifier text="e"/>
+                                                <statements>
+                                                    <assignment>
+                                                        <identifier text="axo"/>
+                                                        <null text="null"/>
+                                                    </assignment>
+                                                </statements>
+                                            </catch>
+                                            <empty/>
+                                        </try>
+                                    </statements>
+                                </while>
+                            </statements>
+                            <statements>
+                                <try>
+                                    <statements>
+                                        <var>
+                                            <declaration>
+                                                <identifier text="axo"/>
+                                                <new>
+                                                    <identifier text="ActiveXObject"/>
+                                                    <arguments>
+                                                        <string text="ShockwaveFlash.ShockwaveFlash.7"/>
+                                                    </arguments>
+                                                </new>
+                                            </declaration>
+                                        </var>
+                                    </statements>
+                                    <catch>
+                                        <identifier text="e"/>
+                                        <statements>
+                                            <try>
+                                                <statements>
+                                                    <var>
+                                                        <declaration>
+                                                            <identifier text="axo"/>
+                                                            <new>
+                                                                <identifier text="ActiveXObject"/>
+                                                                <arguments>
+                                                                    <string text="ShockwaveFlash.ShockwaveFlash.6"/>
+                                                                </arguments>
+                                                            </new>
+                                                        </declaration>
+                                                    </var>
+                                                    <assignment>
+                                                        <identifier text="_23"/>
+                                                        <new>
+                                                            <get-property>
+                                                                <identifier text="deconcept"/>
+                                                                <identifier text="PlayerVersion"/>
+                                                            </get-property>
+                                                            <arguments>
+                                                                <array-literal>
+                                                                    <number text="6"/>
+                                                                    <number text="0"/>
+                                                                    <number text="21"/>
+                                                                </array-literal>
+                                                            </arguments>
+                                                        </new>
+                                                    </assignment>
+                                                    <assignment>
+                                                        <get-property>
+                                                            <identifier text="axo"/>
+                                                            <identifier text="AllowScriptAccess"/>
+                                                        </get-property>
+                                                        <string text="always"/>
+                                                    </assignment>
+                                                </statements>
+                                                <catch>
+                                                    <identifier text="e"/>
+                                                    <statements>
+                                                        <if>
+                                                            <equals>
+                                                                <get-property>
+                                                                    <identifier text="_23"/>
+                                                                    <identifier text="major"/>
+                                                                </get-property>
+                                                                <number text="6"/>
+                                                            </equals>
+                                                            <statements>
+                                                                <return>
+                                                                    <identifier text="_23"/>
+                                                                </return>
+                                                            </statements>
+                                                            <empty/>
+                                                        </if>
+                                                    </statements>
+                                                </catch>
+                                                <empty/>
+                                            </try>
+                                            <try>
+                                                <statements>
+                                                    <assignment>
+                                                        <identifier text="axo"/>
+                                                        <new>
+                                                            <identifier text="ActiveXObject"/>
+                                                            <arguments>
+                                                                <string text="ShockwaveFlash.ShockwaveFlash"/>
+                                                            </arguments>
+                                                        </new>
+                                                    </assignment>
+                                                </statements>
+                                                <catch>
+                                                    <identifier text="e"/>
+                                                    <statements/>
+                                                </catch>
+                                                <empty/>
+                                            </try>
+                                        </statements>
+                                    </catch>
+                                    <empty/>
+                                </try>
+                                <if>
+                                    <not-equal>
+                                        <identifier text="axo"/>
+                                        <null text="null"/>
+                                    </not-equal>
+                                    <statements>
+                                        <assignment>
+                                            <identifier text="_23"/>
+                                            <new>
+                                                <get-property>
+                                                    <identifier text="deconcept"/>
+                                                    <identifier text="PlayerVersion"/>
+                                                </get-property>
+                                                <arguments>
+                                                    <invoke>
+                                                        <get-property>
+                                                            <get-element>
+                                                                <invoke>
+                                                                    <get-property>
+                                                                        <invoke>
+                                                                            <get-property>
+                                                                                <identifier text="axo"/>
+                                                                                <identifier text="GetVariable"/>
+                                                                            </get-property>
+                                                                            <arguments>
+                                                                                <string text="$version"/>
+                                                                            </arguments>
+                                                                        </invoke>
+                                                                        <identifier text="split"/>
+                                                                    </get-property>
+                                                                    <arguments>
+                                                                        <string text=" "/>
+                                                                    </arguments>
+                                                                </invoke>
+                                                                <number text="1"/>
+                                                            </get-element>
+                                                            <identifier text="split"/>
+                                                        </get-property>
+                                                        <arguments>
+                                                            <string text=","/>
+                                                        </arguments>
+                                                    </invoke>
+                                                </arguments>
+                                            </new>
+                                        </assignment>
+                                    </statements>
+                                    <empty/>
+                                </if>
+                            </statements>
+                        </if>
+                    </statements>
+                </if>
+                <return>
+                    <identifier text="_23"/>
+                </return>
+            </statements>
+        </function>
+    </assignment>
+    <assignment>
+        <get-property>
+            <identifier text="deconcept"/>
+            <identifier text="PlayerVersion"/>
+        </get-property>
+        <function>
+            <parameters>
+                <identifier text="_29"/>
+            </parameters>
+            <statements>
+                <assignment>
+                    <get-property>
+                        <this text="this"/>
+                        <identifier text="major"/>
+                    </get-property>
+                    <conditional>
+                        <not-equal>
+                            <get-element>
+                                <identifier text="_29"/>
+                                <number text="0"/>
+                            </get-element>
+                            <null text="null"/>
+                        </not-equal>
+                        <invoke>
+                            <identifier text="parseInt"/>
+                            <arguments>
+                                <get-element>
+                                    <identifier text="_29"/>
+                                    <number text="0"/>
+                                </get-element>
+                            </arguments>
+                        </invoke>
+                        <number text="0"/>
+                    </conditional>
+                </assignment>
+                <assignment>
+                    <get-property>
+                        <this text="this"/>
+                        <identifier text="minor"/>
+                    </get-property>
+                    <conditional>
+                        <not-equal>
+                            <get-element>
+                                <identifier text="_29"/>
+                                <number text="1"/>
+                            </get-element>
+                            <null text="null"/>
+                        </not-equal>
+                        <invoke>
+                            <identifier text="parseInt"/>
+                            <arguments>
+                                <get-element>
+                                    <identifier text="_29"/>
+                                    <number text="1"/>
+                                </get-element>
+                            </arguments>
+                        </invoke>
+                        <number text="0"/>
+                    </conditional>
+                </assignment>
+                <assignment>
+                    <get-property>
+                        <this text="this"/>
+                        <identifier text="rev"/>
+                    </get-property>
+                    <conditional>
+                        <not-equal>
+                            <get-element>
+                                <identifier text="_29"/>
+                                <number text="2"/>
+                            </get-element>
+                            <null text="null"/>
+                        </not-equal>
+                        <invoke>
+                            <identifier text="parseInt"/>
+                            <arguments>
+                                <get-element>
+                                    <identifier text="_29"/>
+                                    <number text="2"/>
+                                </get-element>
+                            </arguments>
+                        </invoke>
+                        <number text="0"/>
+                    </conditional>
+                </assignment>
+            </statements>
+        </function>
+    </assignment>
+    <assignment>
+        <get-property>
+            <get-property>
+                <get-property>
+                    <identifier text="deconcept"/>
+                    <identifier text="PlayerVersion"/>
+                </get-property>
+                <identifier text="prototype"/>
+            </get-property>
+            <identifier text="versionIsValid"/>
+        </get-property>
+        <function>
+            <parameters>
+                <identifier text="fv"/>
+            </parameters>
+            <statements>
+                <if>
+                    <less-than>
+                        <get-property>
+                            <this text="this"/>
+                            <identifier text="major"/>
+                        </get-property>
+                        <get-property>
+                            <identifier text="fv"/>
+                            <identifier text="major"/>
+                        </get-property>
+                    </less-than>
+                    <statements>
+                        <return>
+                            <false text="false"/>
+                        </return>
+                    </statements>
+                    <empty/>
+                </if>
+                <if>
+                    <greater-than>
+                        <get-property>
+                            <this text="this"/>
+                            <identifier text="major"/>
+                        </get-property>
+                        <get-property>
+                            <identifier text="fv"/>
+                            <identifier text="major"/>
+                        </get-property>
+                    </greater-than>
+                    <statements>
+                        <return>
+                            <true text="true"/>
+                        </return>
+                    </statements>
+                    <empty/>
+                </if>
+                <if>
+                    <less-than>
+                        <get-property>
+                            <this text="this"/>
+                            <identifier text="minor"/>
+                        </get-property>
+                        <get-property>
+                            <identifier text="fv"/>
+                            <identifier text="minor"/>
+                        </get-property>
+                    </less-than>
+                    <statements>
+                        <return>
+                            <false text="false"/>
+                        </return>
+                    </statements>
+                    <empty/>
+                </if>
+                <if>
+                    <greater-than>
+                        <get-property>
+                            <this text="this"/>
+                            <identifier text="minor"/>
+                        </get-property>
+                        <get-property>
+                            <identifier text="fv"/>
+                            <identifier text="minor"/>
+                        </get-property>
+                    </greater-than>
+                    <statements>
+                        <return>
+                            <true text="true"/>
+                        </return>
+                    </statements>
+                    <empty/>
+                </if>
+                <if>
+                    <less-than>
+                        <get-property>
+                            <this text="this"/>
+                            <identifier text="rev"/>
+                        </get-property>
+                        <get-property>
+                            <identifier text="fv"/>
+                            <identifier text="rev"/>
+                        </get-property>
+                    </less-than>
+                    <statements>
+                        <return>
+                            <false text="false"/>
+                        </return>
+                    </statements>
+                    <empty/>
+                </if>
+                <return>
+                    <true text="true"/>
+                </return>
+            </statements>
+        </function>
+    </assignment>
+    <assignment>
+        <get-property>
+            <identifier text="deconcept"/>
+            <identifier text="util"/>
+        </get-property>
+        <object-literal>
+            <name-value-pair>
+                <identifier text="getRequestParameter"/>
+                <function>
+                    <parameters>
+                        <identifier text="_2b"/>
+                    </parameters>
+                    <statements>
+                        <var>
+                            <declaration>
+                                <identifier text="q"/>
+                                <logical-or>
+                                    <get-property>
+                                        <get-property>
+                                            <identifier text="document"/>
+                                            <identifier text="location"/>
+                                        </get-property>
+                                        <identifier text="search"/>
+                                    </get-property>
+                                    <get-property>
+                                        <get-property>
+                                            <identifier text="document"/>
+                                            <identifier text="location"/>
+                                        </get-property>
+                                        <identifier text="hash"/>
+                                    </get-property>
+                                </logical-or>
+                            </declaration>
+                        </var>
+                        <if>
+                            <equals>
+                                <identifier text="_2b"/>
+                                <null text="null"/>
+                            </equals>
+                            <statements>
+                                <return>
+                                    <identifier text="q"/>
+                                </return>
+                            </statements>
+                            <empty/>
+                        </if>
+                        <if>
+                            <identifier text="q"/>
+                            <statements>
+                                <var>
+                                    <declaration>
+                                        <identifier text="_2d"/>
+                                        <invoke>
+                                            <get-property>
+                                                <invoke>
+                                                    <get-property>
+                                                        <identifier text="q"/>
+                                                        <identifier text="substring"/>
+                                                    </get-property>
+                                                    <arguments>
+                                                        <number text="1"/>
+                                                    </arguments>
+                                                </invoke>
+                                                <identifier text="split"/>
+                                            </get-property>
+                                            <arguments>
+                                                <string text="&amp;"/>
+                                            </arguments>
+                                        </invoke>
+                                    </declaration>
+                                </var>
+                                <for>
+                                    <var>
+                                        <declaration>
+                                            <identifier text="i"/>
+                                            <number text="0"/>
+                                        </declaration>
+                                    </var>
+                                    <less-than>
+                                        <identifier text="i"/>
+                                        <get-property>
+                                            <identifier text="_2d"/>
+                                            <identifier text="length"/>
+                                        </get-property>
+                                    </less-than>
+                                    <post-increment>
+                                        <identifier text="i"/>
+                                    </post-increment>
+                                    <statements>
+                                        <if>
+                                            <equals>
+                                                <invoke>
+                                                    <get-property>
+                                                        <get-element>
+                                                            <identifier text="_2d"/>
+                                                            <identifier text="i"/>
+                                                        </get-element>
+                                                        <identifier text="substring"/>
+                                                    </get-property>
+                                                    <arguments>
+                                                        <number text="0"/>
+                                                        <invoke>
+                                                            <get-property>
+                                                                <get-element>
+                                                                    <identifier text="_2d"/>
+                                                                    <identifier text="i"/>
+                                                                </get-element>
+                                                                <identifier text="indexOf"/>
+                                                            </get-property>
+                                                            <arguments>
+                                                                <string text="="/>
+                                                            </arguments>
+                                                        </invoke>
+                                                    </arguments>
+                                                </invoke>
+                                                <identifier text="_2b"/>
+                                            </equals>
+                                            <statements>
+                                                <return>
+                                                    <invoke>
+                                                        <get-property>
+                                                            <get-element>
+                                                                <identifier text="_2d"/>
+                                                                <identifier text="i"/>
+                                                            </get-element>
+                                                            <identifier text="substring"/>
+                                                        </get-property>
+                                                        <arguments>
+                                                            <group>
+                                                                <add>
+                                                                    <invoke>
+                                                                        <get-property>
+                                                                            <get-element>
+                                                                                <identifier text="_2d"/>
+                                                                                <identifier text="i"/>
+                                                                            </get-element>
+                                                                            <identifier text="indexOf"/>
+                                                                        </get-property>
+                                                                        <arguments>
+                                                                            <string text="="/>
+                                                                        </arguments>
+                                                                    </invoke>
+                                                                    <number text="1"/>
+                                                                </add>
+                                                            </group>
+                                                        </arguments>
+                                                    </invoke>
+                                                </return>
+                                            </statements>
+                                            <empty/>
+                                        </if>
+                                    </statements>
+                                </for>
+                            </statements>
+                            <empty/>
+                        </if>
+                        <return>
+                            <string text=""/>
+                        </return>
+                    </statements>
+                </function>
+            </name-value-pair>
+        </object-literal>
+    </assignment>
+    <assignment>
+        <get-property>
+            <get-property>
+                <identifier text="deconcept"/>
+                <identifier text="SWFObjectUtil"/>
+            </get-property>
+            <identifier text="cleanupSWFs"/>
+        </get-property>
+        <function>
+            <empty/>
+            <statements>
+                <var>
+                    <declaration>
+                        <identifier text="_2f"/>
+                        <invoke>
+                            <get-property>
+                                <identifier text="document"/>
+                                <identifier text="getElementsByTagName"/>
+                            </get-property>
+                            <arguments>
+                                <string text="OBJECT"/>
+                            </arguments>
+                        </invoke>
+                    </declaration>
+                </var>
+                <for>
+                    <var>
+                        <declaration>
+                            <identifier text="i"/>
+                            <subtract>
+                                <get-property>
+                                    <identifier text="_2f"/>
+                                    <identifier text="length"/>
+                                </get-property>
+                                <number text="1"/>
+                            </subtract>
+                        </declaration>
+                    </var>
+                    <greater-than-or-equal>
+                        <identifier text="i"/>
+                        <number text="0"/>
+                    </greater-than-or-equal>
+                    <post-decrement>
+                        <identifier text="i"/>
+                    </post-decrement>
+                    <statements>
+                        <assignment>
+                            <get-property>
+                                <get-property>
+                                    <get-element>
+                                        <identifier text="_2f"/>
+                                        <identifier text="i"/>
+                                    </get-element>
+                                    <identifier text="style"/>
+                                </get-property>
+                                <identifier text="display"/>
+                            </get-property>
+                            <string text="none"/>
+                        </assignment>
+                        <for-in>
+                            <var>
+                                <declaration>
+                                    <identifier text="x"/>
+                                    <empty/>
+                                </declaration>
+                            </var>
+                            <get-element>
+                                <identifier text="_2f"/>
+                                <identifier text="i"/>
+                            </get-element>
+                            <statements>
+                                <if>
+                                    <equals>
+                                        <typeof>
+                                            <get-element>
+                                                <get-element>
+                                                    <identifier text="_2f"/>
+                                                    <identifier text="i"/>
+                                                </get-element>
+                                                <identifier text="x"/>
+                                            </get-element>
+                                        </typeof>
+                                        <string text="function"/>
+                                    </equals>
+                                    <statements>
+                                        <assignment>
+                                            <get-element>
+                                                <get-element>
+                                                    <identifier text="_2f"/>
+                                                    <identifier text="i"/>
+                                                </get-element>
+                                                <identifier text="x"/>
+                                            </get-element>
+                                            <function>
+                                                <empty/>
+                                                <statements/>
+                                            </function>
+                                        </assignment>
+                                    </statements>
+                                    <empty/>
+                                </if>
+                            </statements>
+                        </for-in>
+                    </statements>
+                </for>
+            </statements>
+        </function>
+    </assignment>
+    <if>
+        <get-property>
+            <get-property>
+                <identifier text="deconcept"/>
+                <identifier text="SWFObject"/>
+            </get-property>
+            <identifier text="doPrepUnload"/>
+        </get-property>
+        <statements>
+            <if>
+                <logical-not>
+                    <get-property>
+                        <identifier text="deconcept"/>
+                        <identifier text="unloadSet"/>
+                    </get-property>
+                </logical-not>
+                <statements>
+                    <assignment>
+                        <get-property>
+                            <get-property>
+                                <identifier text="deconcept"/>
+                                <identifier text="SWFObjectUtil"/>
+                            </get-property>
+                            <identifier text="prepUnload"/>
+                        </get-property>
+                        <function>
+                            <empty/>
+                            <statements>
+                                <assignment>
+                                    <identifier text="__flash_unloadHandler"/>
+                                    <function>
+                                        <empty/>
+                                        <statements/>
+                                    </function>
+                                </assignment>
+                                <assignment>
+                                    <identifier text="__flash_savedUnloadHandler"/>
+                                    <function>
+                                        <empty/>
+                                        <statements/>
+                                    </function>
+                                </assignment>
+                                <invoke>
+                                    <get-property>
+                                        <identifier text="window"/>
+                                        <identifier text="attachEvent"/>
+                                    </get-property>
+                                    <arguments>
+                                        <string text="onunload"/>
+                                        <get-property>
+                                            <get-property>
+                                                <identifier text="deconcept"/>
+                                                <identifier text="SWFObjectUtil"/>
+                                            </get-property>
+                                            <identifier text="cleanupSWFs"/>
+                                        </get-property>
+                                    </arguments>
+                                </invoke>
+                            </statements>
+                        </function>
+                    </assignment>
+                    <invoke>
+                        <get-property>
+                            <identifier text="window"/>
+                            <identifier text="attachEvent"/>
+                        </get-property>
+                        <arguments>
+                            <string text="onbeforeunload"/>
+                            <get-property>
+                                <get-property>
+                                    <identifier text="deconcept"/>
+                                    <identifier text="SWFObjectUtil"/>
+                                </get-property>
+                                <identifier text="prepUnload"/>
+                            </get-property>
+                        </arguments>
+                    </invoke>
+                    <assignment>
+                        <get-property>
+                            <identifier text="deconcept"/>
+                            <identifier text="unloadSet"/>
+                        </get-property>
+                        <true text="true"/>
+                    </assignment>
+                </statements>
+                <empty/>
+            </if>
+        </statements>
+        <empty/>
+    </if>
+    <if>
+        <logical-and>
+            <logical-not>
+                <get-property>
+                    <identifier text="document"/>
+                    <identifier text="getElementById"/>
+                </get-property>
+            </logical-not>
+            <get-property>
+                <identifier text="document"/>
+                <identifier text="all"/>
+            </get-property>
+        </logical-and>
+        <statements>
+            <assignment>
+                <get-property>
+                    <identifier text="document"/>
+                    <identifier text="getElementById"/>
+                </get-property>
+                <function>
+                    <parameters>
+                        <identifier text="id"/>
+                    </parameters>
+                    <statements>
+                        <return>
+                            <get-element>
+                                <get-property>
+                                    <identifier text="document"/>
+                                    <identifier text="all"/>
+                                </get-property>
+                                <identifier text="id"/>
+                            </get-element>
+                        </return>
+                    </statements>
+                </function>
+            </assignment>
+        </statements>
+        <empty/>
+    </if>
+    <var>
+        <declaration>
+            <identifier text="getQueryParamValue"/>
+            <get-property>
+                <get-property>
+                    <identifier text="deconcept"/>
+                    <identifier text="util"/>
+                </get-property>
+                <identifier text="getRequestParameter"/>
+            </get-property>
+        </declaration>
+    </var>
+    <var>
+        <declaration>
+            <identifier text="FlashObject"/>
+            <get-property>
+                <identifier text="deconcept"/>
+                <identifier text="SWFObject"/>
+            </get-property>
+        </declaration>
+    </var>
+    <var>
+        <declaration>
+            <identifier text="SWFObject"/>
+            <get-property>
+                <identifier text="deconcept"/>
+                <identifier text="SWFObject"/>
+            </get-property>
+        </declaration>
+    </var>
+</statements>

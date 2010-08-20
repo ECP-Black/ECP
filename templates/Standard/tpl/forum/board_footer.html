@@ -1,0 +1,57 @@
+	{if $smarty.get.action == 'thread'}
+    {if $smarty.session.userID}<div style="text-align:right;clear:both;padding-top: 15px;"><img src="templates/{$smarty.const.DESIGN}/images/forum_abo.png" alt="" title="" /> <a href="#" onclick="forum_abo({$smarty.get.threadID}); return false;" id="link_abo">{if $abo}{$smarty.const.FORUM_ABO_DEL}{else}{$smarty.const.FORUM_ABO}{/if}</a></div>{/if}
+    <div class="thread_rating" title="{$bewertung}" style="text-align:right;clear:both;padding-top: 15px;">{$smarty.const.FORUM_RATE}:
+    {literal}
+    <script type="text/javascript">
+      var thread_r = new Rating({
+        maxRating: 5,
+		{/literal}{if $rating}value: {$rating},
+		locked: true,
+		{/if}
+        imageDirectory: 'templates/{$smarty.const.DESIGN}{literal}/images/javascripts/rating/',
+        messageBox : new Hash( {{/literal}
+                0 : "{$smarty.const.RATING_1}",
+                1 : "{$smarty.const.RATING_2}",
+                2 : "{$smarty.const.RATING_3}",
+                3 : "{$smarty.const.RATING_4}",
+                4 : "{$smarty.const.RATING_5}"{literal}
+        }),	
+        callback: thread_rating
+      });
+    </script>
+    {/literal}
+    </div>{/if}
+    {if $forenlinks}<div id="foren_shortcuts"><br />{$smarty.const.FORUM_GOTO_BOARD}: <select id="foren_shotcuts_sel" onchange="goto_board(this);">{$forenlinks}</select></div>{/if}
+    <div class="forum_footer_online">
+        {$online}{if $members}<br />{$members}{/if}
+    </div>{if !$thread}
+    <div class="forum_footer_stats">
+        <strong>{$smarty.const.STATS}:</strong><br />
+        {$stats}
+    </div>
+</div>
+<div class="forum_footer_legende">
+<table cellspacing="0" cellpadding="0" width="100%" align="center" border="0">
+  <tr>
+    <td width="30%">
+      <img src="templates/{$smarty.const.DESIGN}/images/forum_icon_new.png" alt="" title="" align="left" /> {$smarty.const.FORUM_NEW_POSTS}
+    </td>
+    <td width="40%">
+      <img src="templates/{$smarty.const.DESIGN}/images/forum_icon_hot_new.png" align="left" alt="" title="" /> {$smarty.const.FORUM_NEW_HOT_POSTS}
+    </td>
+    <td width="30%">
+      <img src="templates/{$smarty.const.DESIGN}/images/forum_icon_closed.png" align="left" alt="" title="" /> {$smarty.const.FORUM_CLOSED}
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="templates/{$smarty.const.DESIGN}/images/forum_icon.png" align="left" alt="" title="" /> {$smarty.const.FORUM_NO_NEW}
+    </td>
+    <td>
+      <img src="templates/{$smarty.const.DESIGN}/images/forum_icon_hot.png" align="left" alt="" title="" /> {$smarty.const.FORUM_HOT}
+    </td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+</div>{else}
+</div>{/if}

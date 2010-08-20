@@ -1,0 +1,69 @@
+<form id="cms_form" action="?section=admin&site=cms&func=add" method="post">
+  <div id="tabBoxExample">
+    <ul class="tabSet">
+      {foreach from=$lang item=l}
+      <li class="off"><a><img src="images/flaggen/{$l.lang}.gif" alt="" title="{$l.name}" /></a></li>
+      {/foreach}
+    </ul>
+    <div class="panelSet"> {foreach from=$lang item=l}
+      <div class="panel" id="discription_dl_{$l.lang}_div">
+      	<fieldset style="border: none">
+        	<div><label for="headline">{$smarty.const.HEADLINE}:</label><input type="text" maxlength="50" class="headline1" id="headline_{$l.lang}" name="headline_{$l.lang}" /></div>
+	        <textarea class="admininput" rows="7" cols="60" name="discription_{$l.lang}" id="discription_{$l.lang}"></textarea>
+    	    <div align="center"><a onclick="tinyMCE.execCommand('mceToggleEditor',false,'discription_{$l.lang}');">{$smarty.const.TOGGLE_EDITOR}</a></div>
+        </fieldset>
+      </div>
+      {/foreach} </div>
+  </div>
+  <label for="rights">{$smarty.const.ACCESS_RIGHTS}:</label>
+  <div>
+    <select name="rights[]" size="5" multiple="multiple" class="selected" id="rights">
+      {$rights}
+    </select>
+  </div>
+  <input type="submit" value="{$smarty.const.ADD}" id="cms_submit" /> <img src="templates/{$smarty.const.DESIGN}/images/spinner.gif" alt="" title="{$smarty.const.LOADING}" style="visibility:hidden" id="cms_spinner" />
+</form>
+<div id="cms_div">
+{$cms}
+</div>
+{literal}
+<script language="javascript" type="text/javascript">
+new TabSwapper({
+  selectedClass: 'on',
+  deselectedClass: 'off',
+  tabs: $$('#tabBoxExample li'),
+  clickers: $$('#tabBoxExample li a'),
+  sections: $$('div.panelSet div.panel'),
+  smooth: true
+});	
+$('cms_form').addEvent('submit', function(e) {
+	new Event(e).stop();
+	$('cms_spinner').style.visibility = '';
+	$('cms_submit').disabled = true;
+	$$('#cms_form textarea').each( function (e) { 
+		el = tinyMCE.get(e.name);					
+		if(el.isDirty()) el.save();
+	});	
+	new Request({
+		url: $('cms_form').action,	
+		onSuccess: function(r) {
+			$('cms_spinner').style.visibility = 'hidden';
+			$('cms_submit').disabled = false;				
+			if(r == 'ok') {			
+				if($('cms_form').action.contains('edit')) {
+					make_info(CMS_EDIT_SUCCESS, 'accept');
+				} else {
+					make_info(CMS_ADD_SUCCESS, 'accept');
+				}		
+				new Request.HTML({url: '?section=admin&site=cms&func=getcms&ajax=1', update: 'cms_div', useWaiter: true}).get();											
+				$('cms_form').reset();
+				$('cms_form').action = '?section=admin&site=cms&func=add';
+				$('cms_submit').value = ADD;						
+			} else {
+				errorAlert(ERROR, r);
+			}
+		}
+	}).send($('cms_form'));
+});
+</script>
+{/literal}   

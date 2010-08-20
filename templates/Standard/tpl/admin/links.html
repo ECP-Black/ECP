@@ -1,0 +1,63 @@
+<form id="links_form" name="links_form" action="?section=admin&site=links&func=add" method="post">
+  <fieldset>
+  <legend> {$smarty.const.LINKS} </legend>
+  <div>
+    <label for="name">{$smarty.const.LINK_NAME}:</label>
+    <input type="text" class="required" maxlength="40" name="name" id="name" />
+  </div>
+  <div>
+    <label for="url">{$smarty.const.LINK_URL}:</label>
+    <input type="text" class="required" maxlength="255" name="url" id="url" />
+  </div>
+  <div>
+    <label for="bannerurl">{$smarty.const.LINK_BANNER}:</label>
+    <input type="text" maxlength="255" name="bannerurl" id="bannerurl" />
+  </div>  
+  <div>
+    <label for="beschreibung">{$smarty.const.DISCRIPTION}:</label>
+    <textarea id="beschreibung" name="beschreibung" class="admininput"></textarea>
+    <div align="center"><a onclick="tinyMCE.execCommand('mceToggleEditor',false,'beschreibung');">{$smarty.const.TOGGLE_EDITOR}</a></div>
+  </div>  
+  <div>
+    <label for="hits">{$smarty.const.LINK_HITS}:</label>
+    <input type="text" class="validate-number smallinput" maxlength="8" name="hits" id="hits" />
+  </div>      
+  <input type="submit" name="submit" id="links_form_submit" value="{$smarty.const.ADD}" class="submit" /> <img id="links_form_spinner" src="templates/{$smarty.const.DESIGN}/images/spinner.gif" alt="" title="{$smarty.const.LOADING}" style="visibility: hidden;" />
+  </fieldset>
+</form>
+{literal}
+<script language="javascript" type="text/javascript">
+s_form = new FormValidator($('links_form')); 		
+$('links_form').addEvent('submit', function(e) {
+	if(s_form.validate()) {
+		new Event(e).stop();
+		$('links_form_spinner').style.visibility = '';
+		$('links_form_submit').disabled = true;	
+		$$('#links_form textarea').each( function (e) { 
+			el = tinyMCE.get(e.name);					
+			if(el.isDirty()) el.save();
+		});							
+		new Request({
+			url: $('links_form').action,
+			onSuccess: function(r) {
+				$('links_form_spinner').style.visibility = 'hidden';
+				$('links_form_submit').disabled = false;			
+				if(r == 'ok') {			
+					if($('links_form').action.contains('edit')) {
+						make_info(LINKS_EDIT_SUCCESS, 'accept');
+					} else {
+						make_info(LINKS_ADD_SUCCESS, 'accept');	
+					}	
+					$('links_form').reset();
+					$('links_form').action = '?section=admin&site=links&func=add';
+					$('links_form_submit').value = ADD;					
+					new Request.HTML({url: 'ajax_checks.php?func=admin&site=get_links', useWaiter: true, update: 'links_overview' }).get();									
+				} else {
+					errorAlert(ERROR, r);
+				}
+			}
+		}).send($('links_form'));
+	}
+});
+</script>
+{/literal} 

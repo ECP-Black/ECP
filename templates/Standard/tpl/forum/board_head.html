@@ -1,0 +1,7 @@
+<div id="forum">
+    <div class="forum_header">
+    <span class="klammer">[</span> {$smarty.const.HELLO} {if $smarty.session.username}{$smarty.session.username}{else}{$smarty.const.GUEST}{/if} <span class="klammer">|</span> <a href="?section=forum&action=search">{$smarty.const.SEARCH}</a> <span class="klammer">|</span> <a href="?section=forum&action=all_readed">{$smarty.const.MARK_AS_READ}</a> <span class="klammer">]</span>
+    </div>
+    <div class="forum_path">
+    {$path}
+    </div>

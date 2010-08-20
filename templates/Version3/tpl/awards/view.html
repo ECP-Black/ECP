@@ -1,0 +1,34 @@
+<table width="100%" border="0" cellspacing="0" cellpadding="1">
+  <tr>
+    <td width="21%"><strong>{$smarty.const.NAME}:</strong></td>
+    <td width="79%">{if $url}<a href="{$url}" target="_blank">{$eventname}</a>{else}{$eventname}{/if}</td>
+  </tr>
+  <tr>
+    <td><strong>{$smarty.const.DATE}:</strong></td>
+    <td>{$eventdatum}</td>
+  </tr>
+  <tr>
+    <td><strong>{$smarty.const.TEAM}:</strong></td>
+    <td><a href="?section=teams&id={$teamID}">{$tname}</a></td>
+  </tr>
+  <tr>
+    <td><strong>{$smarty.const.AWARDS_PLAYERS}:</strong></td>
+    <td>{$players}</td>
+  </tr>
+  <tr>
+    <td><strong>{$smarty.const.GAME}:</strong></td>
+    <td><img src="images/games/{$icon}" alt="" title="{$gamename}" /> {$gamename}</td>
+  </tr>
+  <tr>
+    <td><strong>{$smarty.const.PLACE}:</strong></td>
+    <td>{if platz < 4}<img src="templates/{$smarty.const.DESIGN}/images/award_{$platz}.png" alt="" title="{$platz}. {$smarty.const.PLACE}"/> {$platz}.{else}{$platz}.{/if}</td>
+  </tr>
+  <tr>
+    <td><strong>{$smarty.const.AWARDS_PRIZE}</strong></td>
+    <td>{$preis}</td>
+  </tr>
+  <tr>
+    <td valign="top"><strong>{$smarty.const.REPORT}</strong></td>
+    <td>{$bericht}</td>
+  </tr>
+</table>

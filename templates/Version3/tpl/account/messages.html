@@ -1,0 +1,72 @@
+<div style="text-align:center"><a href="?section=account&action=newmsg">{$smarty.const.MESSAGE_NEW}</a></div>
+<form id="delin" action="?section=account&action=massdel" method="post">
+<div class="div_headline">{$smarty.const.MSGIN}</div>
+<div id="div_msgin">
+{if $seiten}<div class="pageLinks">{$seiten}</div><div style="clear: both"></div>{/if}
+<table width="100%" border="0" cellspacing="0" cellpadding="1" id="table_msgin">
+  <tr>
+    <td width="25%"><strong>{$smarty.const.DATE}:</strong></td>
+    <td width="25%"><strong>{$smarty.const.FROM_USER}:</strong></td>
+    <td width="35%"><strong>{$smarty.const.MSG_SUBJECT}:</strong></td>
+    <td width="15%" align="right"><input type="checkbox" class="checkbox" onclick="mark_all('delin', this);" /></td>
+  </tr>
+  {if $messages}
+  {foreach from=$messages item=m}
+  <tr class="{cycle values="row_odd, row_even"}" id="msg_{$m.msgID}">
+    <td>{$m.datum}</td>
+    <td>{if $m.fromuser}<img src="images/flaggen/{$m.country}.gif" alt="" /> <a href="?section=user&id={$m.fromuser}">{$m.username}</a>{else}{$smarty.const.FROM_SYSTEM}{/if}</td>
+    <td>{if $m.readed == 0}<img src="templates/{$smarty.const.DESIGN}/images/new.png" alt="" title="{$smarty.const.UNREAD}" /> {/if}<a href="?section=account&action=readmsg&id={$m.msgID}">{if $m.title}{$m.title}{else}{$smarty.const.NO_TITLE}{/if}</a></td>
+    <td align="right">{if $m.fromuser}<a href="?section=account&action=sendmsg&toid={$m.fromuser}&msgid={$m.msgID}" onclick="return send_message_user({$m.fromuser},'{$m.username}', '{$m.title}');"><img src="templates/{$smarty.const.DESIGN}/images/message_answer.png" alt="" title="{$smarty.const.ANSWER}" /></a>{/if} 
+      <input type="checkbox" value="{$m.msgID}" name="delmsg[]" /><img src="templates/{$smarty.const.DESIGN}/images/delete.png" class="imgpointer" onclick="del_message({$m.msgID}, 'in')" alt="" title="{$smarty.const.MSGES_DELETE}" /></td>
+  </tr>
+  {/foreach}
+  {else}
+  <tr>
+  	<td colspan="4" align="center">{$smarty.const.NO_ENTRIES}</td>
+  </tr>
+  {/if}
+</table>
+</div>
+<div style="text-align:right"><br /><a href="?section=account&action=msgread" onclick="read_all();return false;">{$smarty.const.MARK_AS_READ}</a> <input type="submit" class="submit" value="{$smarty.const.MSGES_DELETE}" /></div>
+</form>
+<div class="div_headline">{$smarty.const.MSGOUT}</div>
+<form id="delout" action="?section=account&action=massdel" method="post">
+<div id="div_msgout">
+{if $seitenout}<div class="pageLinks">{$seitenout}</div><div style="clear: both"></div>{/if}
+<table width="100%" border="0" cellspacing="0" cellpadding="1" id="table_msgout">
+  <tr>
+    <td width="25%"><strong>{$smarty.const.DATE}:</strong></td>
+    <td width="25%"><strong>{$smarty.const.TO_USER}:</strong></td>
+    <td width="35%"><strong>{$smarty.const.MSG_SUBJECT}:</strong></td>
+    <td width="15%" align="right"><input type="checkbox" class="checkbox" onclick="mark_all('delout', this);" /></td>
+  </tr>
+  {if $messagesout}
+  {foreach from=$messagesout item=o}
+  <tr class="{cycle values="row_odd, row_even"}" id="msg_{$o.msgID}">
+    <td>{$o.datum}</td>
+    <td><img src="images/flaggen/{$o.country}.gif" alt="" /> <a href="?section=user&id={$o.touser}">{$o.username}</a></td>
+    <td>{if $o.readed == 1}<img src="templates/{$smarty.const.DESIGN}/images/accept.png" alt="" title="{$smarty.const.UNREAD_TO}" /> {/if}<a href="?section=account&action=readmsg&id={$o.msgID}">{if $o.title}{$o.title}{else}{$smarty.const.NO_TITLE}{/if}</a></td>
+    <td align="right"><input type="checkbox" value="{$o.msgID}" name="delmsg[]" /><img src="templates/{$smarty.const.DESIGN}/images/delete.png" class="imgpointer" onclick="del_message({$o.msgID}, 'out')" alt="" title="{$smarty.const.MSG_DELETE}" /></td>
+  </tr>
+  {/foreach}
+  {else}
+  <tr>
+  	<td colspan="4" align="center">{$smarty.const.NO_ENTRIES}</td>
+  </tr>
+  {/if}
+</table>
+</div>
+<div style="text-align:right"><input type="submit" class="submit" value="{$smarty.const.MSGES_DELETE}" /></div>
+</form>
+{literal}
+<script type="text/javascript">
+$('delin').addEvent('submit', function(e) {
+	new Event(e).stop();
+	ask_massdel(this);
+});
+$('delout').addEvent('submit', function(e) {
+	new Event(e).stop();
+	ask_massdel(this);
+});
+</script>
+{/literal}

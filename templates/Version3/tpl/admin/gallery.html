@@ -1,0 +1,133 @@
+<div id="tabBoxExample">
+  <ul class="tabSet">
+    <li class="off"><a>{$smarty.const.GALLERY}</a></li>
+    <li class="off"><a>{$smarty.const.GALLERY_KATE}</a></li>
+  </ul>
+  <div class="panelSet">
+    <div class="panel">
+    	<form id="gallery" name="gallery" method="post" action="?section=admin&site=gallery&func=add">
+    	<fieldset style="width: 96%">
+        <legend> {$smarty.const.GALLERY} </legend>
+        	<div><label for="name">{$smarty.const.NAME}:</label><input type="text" maxlength="40" name="name" id="name" class="required" /></div>
+        	<div><label for="cID">{$smarty.const.GALLERY_KATE}:</label><select class="validate-selection" name="cID" id="cID"><option value="0">{$smarty.const.CHOOSE}</option>{$kategorien}</select></div>
+            <div><label for="folder">{$smarty.const.GALLERY_FOLDER}:</label><select class="validate-selection" name="folder" id="folder"><option value="0">{$smarty.const.CHOOSE}</option>{$folders}</select> <img src="templates/{$smarty.const.DESIGN}/images/folder_add.png" alt="" title="{$smarty.const.GALLERY_CREATE_FOLDER}" class="imgpointer" onclick="gallery_create_folder();"; /></div> 
+			<div><label for="access">{$smarty.const.ACCESS_RIGHTS}:</label><select id="access" name="access[]" multiple size="5" style="width:40%">{$access}</select></div>                         
+            <input type="submit" id="gallery_submit" value="{$smarty.const.ADD}" class="submit" /> <img src="templates/{$smarty.const.DESIGN}/images/spinner.gif" alt="" title="{$smarty.const.LOADING}" id="gallery_submit_spinner" style="visibility:hidden" />
+        </fieldset>
+        </form>
+        <div id="overview_galleries">{$gallery}</div>
+    </div>
+    <div class="panel">
+    	<form id="kategorie" name="kategorie" method="post" action="?section=admin&site=gallery&func=addkate">        
+    	<fieldset style="border: hidden;">
+        	<div><label for="katename">{$smarty.const.NAME}:</label><input type="text" maxlength="40" name="katename" id="katename" class="required" /></div>
+			<div><label for="access">{$smarty.const.ACCESS_RIGHTS}:</label><select id="kateaccess" name="access[]" multiple size="5" style="width:40%">{$access}</select></div>            
+            <label>{$smarty.const.DISCRIPTION}: </label><br />
+            <dl class="AccordionMulti" id="AccordionMulti">
+                {foreach from=$lang item=l}
+                <dt class="stretchtoggle"><img src="images/flaggen/{$l.lang}.gif" alt="" title="{$l.name}" /> <b>{$l.name}</b></dt>
+                <dd class="stretcher">
+                <textarea class="admininput" rows="7" cols="60" name="discription_{$l.lang}" id="discription_{$l.lang}">{$l.content}</textarea>
+                <div align="center"><a onclick="tinyMCE.execCommand('mceToggleEditor',false,'discription_{$l.lang}');">{$smarty.const.TOGGLE_EDITOR}</a></div>
+                </dd>
+                {/foreach}
+              </dl>                        
+            <input type="submit" id="kate_submit" value="{$smarty.const.ADD}" class="submit" /> <img src="templates/{$smarty.const.DESIGN}/images/spinner.gif" alt="" title="{$smarty.const.LOADING}" id="kate_submit_spinner" style="visibility:hidden" />
+        </fieldset>
+        </form>
+        <div id="overview_kate">{$kate}</div>
+    </div>
+  </div>
+</div>
+{literal}
+<script language="javascript" type="text/javascript">
+window.addEvent('domready', function() { 
+	new TabSwapper({
+	  selectedClass: 'on',
+	  deselectedClass: 'off',
+	  tabs: $$('#tabBoxExample li'),
+	  clickers: $$('#tabBoxExample li a'),
+	  sections: $$('div.panelSet div.panel'),
+	  /*use transitions to fade across*/
+	  smooth: true
+	});	
+	multi = new MultipleOpenAccordion('AccordionMulti', { togglers: $$('#AccordionMulti dt.stretchtoggle'), elements: $$('#AccordionMulti dd.stretcher'), openAll: false, allowMultipleOpen: true });	
+	g_form = new FormValidator('gallery');
+	k_form = new FormValidator('kategorie');	
+	$('kategorie').addEvent('submit', function(e) {
+		new Event(e).stop();
+		if(k_form.validate()) {
+			$('kate_submit_spinner').style.visibility = '';
+			$('kate_submit').disabled = true;
+			$$('#kategorie textarea').each( function (e) { 
+				el = tinyMCE.get(e.name);					
+				if(el.isDirty()) el.save();
+			});	
+			new Request({
+				url: $('kategorie').action,
+				onSuccess: function(r) {
+					k_form = new FormValidator('kategorie');
+					$('kate_submit_spinner').style.visibility = 'hidden';
+					$('kate_submit').disabled = false;			
+					if(r == r.toInt() || r == 'ok') {			
+						if($('kategorie').action.contains('edit')) {
+							make_info(GALLERY_KATE_EDIT_SUCCESS, 'accept');
+						} else {
+							make_info(GALLERY_KATE_ADD_SUCCESS, 'accept');
+							el = new Option($('katename').value, r.toInt(), false, false);	
+							$('cID').options[$('cID').length] = el;
+							$$('#cID option').each(function (e) { 
+									if(e.value == r.toInt()) 
+										e.selected = true; 
+									else 
+										e.selected = false; 
+							});													
+						}		
+						new Request.HTML({url: 'ajax_checks.php?func=admin&site=get_gallery_kates', update: 'overview_kate', useWaiter: true}).get();											
+						$('kategorie').action = '?section=admin&site=gallery&func=addkate';
+						$('kate_submit').value = ADD;
+						$('kategorie').reset();					
+					} else {
+						errorAlert(ERROR, r);
+					}
+				}
+			}).send($('kategorie'));
+		}
+	});	
+	$('gallery').addEvent('submit', function(e) {
+		new Event(e).stop();
+		if(g_form.validate()) {
+			$('gallery_submit_spinner').style.visibility = '';
+			$('gallery_submit').disabled = true;
+			$('folder').disabled = false;
+			new Request({
+				url: $('gallery').action,
+				onSuccess: function(r) {
+					$('gallery_submit_spinner').style.visibility = 'hidden';
+					$('gallery_submit').disabled = false;		
+					g_form = new FormValidator('gallery');	
+					if(r == 'ok') {			
+						if($('gallery').action.contains('edit')) {
+							make_info(GALLERY_EDIT_SUCCESS, 'accept');
+						} else {
+							make_info(GALLERY_ADD_SUCCESS, 'accept');
+						}	
+						val = $('folder').get('inputValue');
+						$$('#folder option').each(function (e) {
+							if(e.value == val)  e.destroy();
+						});	
+						new Request.HTML({url: 'ajax_checks.php?func=admin&site=get_gallery_kates', update: 'overview_kate'}).get();	
+						new Request.HTML({url: 'ajax_checks.php?func=admin&site=get_galleries', update: 'overview_galleries', useWaiter: true}).get();																	
+						$('gallery').action = '?section=admin&site=gallery&func=add';
+						$('gallery_submit').value = ADD;
+						$('gallery').reset();						
+					} else {
+						errorAlert(ERROR, r);
+					}
+				}
+			}).send($('gallery'));
+		}
+	});		
+});		
+</script>
+{/literal}

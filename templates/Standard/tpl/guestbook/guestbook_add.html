@@ -1,0 +1,30 @@
+<form name="comments_add" id="comments_add" method="post" action="?section=guestbook&action=add">
+	<fieldset>
+    	<div><label for="author">{$smarty.const.NAME}:</label><input name="author" class="required" type="text" id="author" value="{$smarty.post.author}" size="30" maxlength="30" /></div>
+        <div><label for="author">{$smarty.const.EMAIL}:</label><input name="email" type="text" id="email" class="validate-email" value="{$smarty.post.email}" size="30" maxlength="255" /></div>
+        <div><label for="author">{$smarty.const.HOMEPAGE}:</label><input name="homepage" type="text" id="homepage" value="{$smarty.post.homepage}" size="30" maxlength="255" /></div>
+        <div><label for="author">{$smarty.const.COMMENT}:</label><textarea name="commentstext" class="com_input required" id="commentstext" rows="10" cols="50">{$smarty.post.commentstext}</textarea></div>
+        <div><label for="captcha">{$smarty.const.CAPTCHA}:</label><div style="float: left;"><img id="captcha_pic" src="captcha.php?chars=4&minsize=22&maxsize=26" alt="" title="{$smarty.const.CAPTCHA}" /> <img src="templates/{$smarty.const.DESIGN}/images/refresh.png" alt="" title="{$smarty.const.CAPTCHA_RELOAD}" style="cursor:pointer" onclick="reload_captcha('captcha_pic', 'chars=4&minsize=22&maxsize=26', 'captcha');" /><br /><input name="captcha" type="text" class="required validate-captcha smallinput" id="captcha"/></div></div><div style="clear:both"></div>
+       <input type="submit" name="submit" id="submit" class="submit" value="{$smarty.const.SUBMIT}" />
+    </fieldset>
+</form>
+{literal}
+<script language="javascript" type="text/javascript">	
+    FormValidator.addAllThese([
+	['validate-captcha', 	{errorMsg:	'{/literal}{$smarty.const.CAPTCHA_WRONG}{literal}', 
+				  test: 	function(v) {			
+								var myXHR = new Request({method: 'get', async: false, url: 'ajax_checks.php?func=check_captcha&code=' + v.get('inputValue')}).send();
+								if(myXHR.xhr.responseText == 0)
+									reload_captcha('captcha_pic', 'chars=4&minsize=22&maxsize=26', 'captcha'); 
+								return (myXHR.xhr.responseText == 1)? true: false;
+							}
+				}]											
+	]);		
+var valid = new FormValidator('comments_add', {
+		onFormValidate: function (bool, elm) {
+			tinyMCE.execCommand('mceToggleEditor',false,'commentstext');	
+			this.validateField($('commentstext'));
+			tinyMCE.execCommand('mceToggleEditor',false,'commentstext');	
+		}}); 	
+</script>
+{/literal}

@@ -1,0 +1,52 @@
+<form name="games_form" id="games_form" action="?section=admin&site=games&func=add" method="post">
+<fieldset>
+	<legend>{$smarty.const.GAMES_ADD}</legend>
+    <div><label for="name">{$smarty.const.NAME}:</label><input type="text" id="name" name="name" class="required" /></div>
+    <div><label for="short">{$smarty.const.GAMES_SHORT}:</label><input type="text" id="short" name="short" class="required" /></div>    
+    <div><label for="icon">{$smarty.const.GAMES_ICON}:</label><select class="validate-selection selected" id="icon" name="icon">{$icons}</select><span id="game_icon"></span></div>  
+    <div><label for="fightus">{$smarty.const.TEAMS_FIGHTUS}:</label><input type="checkbox" value="1" class="checkbox" id="fightus" name="fightus" /></div>
+    <br /><br /><div style="clear:both"></div><input type="submit" class="submit" name="submit" value="{$smarty.const.ADD}" id="games_submit" /> <img style="visibility: hidden" src="templates/{$smarty.const.DESIGN}/images/spinner.gif" id="games_spinner" alt="" title="{$smarty.const.LOADING}" />
+</fieldset>
+</form>
+{literal}
+<script type="text/javascript" language="javascript">
+games_form_val = new FormValidator($('games_form')); 
+$('icon').addEvent('change', function(e) {
+	if($('icon').selectedIndex != 0) {
+		$('game_icon').set('html', '<img src="images/games/'+$('icon').options[$('icon').selectedIndex].value+'" />');
+	} else {
+		$('game_icon').empty();
+	}
+});
+$('games_form').addEvent('submit', function(e) {
+	new Event(e).stop();
+	if(games_form_val.validate()) {
+		$('games_spinner').style.visibility = '';
+		$('games_submit').disabled = true;
+		new Request({
+			url: $('games_form').get('action'),
+			onSuccess: function(r) {
+				if(r == 'ok') {	
+					$('games_form').reset();
+					$('game_icon').empty();
+					$('games_form').action = '?section=admin&site=games&func=add';
+					$('games_submit').value = ADD;
+					$('games_submit').disabled = false;
+					$('games_spinner').style.visibility = 'hidden';					
+					new Request.HTML({
+						url: 'ajax_checks.php?func=admin&site=get_games', 
+						useWaiter: true,			
+						update: $('games')
+					}).get();																	
+				} else {
+					errorAlert(ERROR, r);
+				}
+			}
+		}).send($('games_form'));
+	}
+});	
+</script>
+{/literal}
+<div id="games">
+	{$games}
+</div>

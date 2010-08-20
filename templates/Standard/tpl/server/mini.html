@@ -1,0 +1,8 @@
+    <div class="server_mini">
+        <strong>{$data.s.name}</strong><br>
+        <a href="?section=server"><img src="{$image}" width="140" alt="{$data.s.map}" title="{$data.s.map}" style="border: 1px solid #333333" align="center" /></a><br />
+        <a href="hlsw://{$data.b.ip}:{$data.b.c_port}{if $data.b.q_port}:{$data.b.q_port}{/if}">{$data.b.ip}:{$data.b.c_port}</a><br>
+        <strong>{$smarty.const.GAME}:</strong> {if $icon}<img src="{$icon}" alt="" title="{if $gamename}{$gamename}{else}{$data.s.game}{/if}" /> {/if}{if $gamename}{$gamename}{else}{$data.s.game}{/if} <br />
+        <strong>{$smarty.const.PLAYERS}:</strong> {$data.s.players}/{$data.s.playersmax}<br>
+        <strong>{$smarty.const.MAP}:</strong> {$data.s.map} <br />
+    </div>

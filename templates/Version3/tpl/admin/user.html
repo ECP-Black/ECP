@@ -1,0 +1,111 @@
+<div class="div_headline">{$smarty.const.USER_BANS}</div>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" id="bans">
+  <tr>
+    <td width="7%"><strong>{$smarty.const.USERID}:</strong></td>
+    <td width="18%"><strong>{$smarty.const.USERNAME}:</strong></td>
+    <td width="18%"><strong>{$smarty.const.BANNED_UNTIL}:</strong></td>
+    <td width="35%"><strong>{$smarty.const.BAN_REASON}:</strong></td>
+    <td width="15%"><strong>{$smarty.const.BANNED_BY}:</strong></td>
+    <td width="7%">&nbsp;</td>
+  </tr>
+  {foreach from=$bans item=b}
+  <tr class="{cycle name="ba" values="row_odd,row_even"}" id="ban_{$b.userID}_{$b.bantime}">
+    <td valign="top">{$b.userID}</td>
+    <td valign="top"><a href="?section=user&id={$b.userID}">{$b.username}</a></td>
+    <td valign="top">{$b.endbantime}</td>
+    <td valign="top">{$b.grund}</td>
+    <td valign="top"><a href="?section=user&id={$b.vonID}">{$b.banusername}</a></td>
+    <td valign="top" align="right"><img src="templates/{$smarty.const.DESIGN}/images/delete.png" alt="" title="{$smarty.const.DELETE}" class="imgpointer" onclick="delete_ban({$b.userID}, {$b.bantime}, '{$b.username}');" /> <img src="templates/{$smarty.const.DESIGN}/images/admin.png" alt="" title="{$smarty.const.ADMINISTRATION}" style="cursor:pointer" onclick="open_sub_menu('user_ban_{$b.userID}', this);" /></td>
+  </tr>
+  {/foreach}
+</table>
+<br />
+<div class="div_headline">{$smarty.const.USER_UNAKTIV}</div>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" id="unaktivs">
+  <tr>
+    <td width="15%"><strong>{$smarty.const.USERID}:</strong></td>
+    <td width="35%"><strong>{$smarty.const.USERNAME}:</strong></td>
+    <td width="35%"><strong>{$smarty.const.MEMBER_SINCE}:</strong></td>
+    <td width="15%">&nbsp;</td>
+  </tr>
+  {foreach from=$inaktivs item=i}
+  <tr class="{cycle name="in" values="row_odd,row_even"}" id="unaktiv_{$i.userID}">
+    <td>{$i.userID}</td>
+    <td><a href="?section=user&id={$i.userID}">{$i.username}</a></td>
+    <td>{$i.registerdate}</td>
+    <td align="right"><img src="templates/{$smarty.const.DESIGN}/images/user_add.png" alt="" title="{$smarty.const.USER_AKTIVIEREN}" class="imgpointer" onclick="user_aktiv({$i.userID}, '{$i.username}');" /> <img src="templates/{$smarty.const.DESIGN}/images/admin.png" alt="" title="{$smarty.const.ADMINISTRATION}" style="cursor:pointer" onclick="open_sub_menu('user_inaktiv_{$i.userID}', this);" /></td>
+  </tr>
+  {/foreach}
+</table>
+<div class="div_headline">{$smarty.const.USER_SEARCH}</div>
+<input type="text" id="suche" /> <select id="suchart"><option value="ID">{$smarty.const.USERID}</option><option value="username" selected="selected">{$smarty.const.USERNAME}</option><option value="email">{$smarty.const.EMAIL}</option></select> <input type="button" value="{$smarty.const.SEARCH}" onclick="find_user();" />
+<br />
+<div id="user_suche_result"></div>
+{foreach from=$bans item=i}
+      <div id="user_ban_{$i.userID}" style="display:none">
+      	{if $smarty.session.rights.admin.user.edit OR $smarty.session.rights.superadmin}
+        <div class="comments_menu_link" onclick="location.href='?section=admin&site=user&func=edit&id={$i.userID}';">
+        <img src="templates/{$smarty.const.DESIGN}/images/user_edit.png" title="{$smarty.const.EDIT_2}" alt=""  /> {$smarty.const.EDIT_2}</div>{/if}
+        {if $smarty.session.rights.admin.user.delete OR $smarty.session.rights.superadmin}
+        <div class="comments_menu_link" onclick="user_delete({$i.userID}, '{$i.username}');">
+        <img src="templates/{$smarty.const.DESIGN}/images/user_delete.png" title="{$smarty.const.DELETE}" alt=""  /> {$smarty.const.DELETE}</div>{/if}
+        {if $smarty.session.rights.admin.user.ban OR $smarty.session.rights.superadmin}
+        <div class="comments_menu_link" onclick="user_ban({$i.userID}, '{$i.username}');">
+        <img src="templates/{$smarty.const.DESIGN}/images/user_ban.png" title="{$smarty.const.USER_BAN}" alt=""  /> {$smarty.const.USER_BAN}</div>{/if}
+        {if $smarty.session.rights.admin.user.change_pw OR $smarty.session.rights.superadmin}
+        <div class="comments_menu_link" onclick="user_pw({$i.userID});">
+        <img src="templates/{$smarty.const.DESIGN}/images/password.png" title="{$smarty.const.PASSWORD_EDIT}" alt=""  /> {$smarty.const.PASSWORD_EDIT}</div>{/if}
+        {if $smarty.session.rights.admin.user.change_rang OR $smarty.session.rights.superadmin}
+        <div class="comments_menu_link" onclick="user_change_rank({$i.userID});">
+        <img src="templates/{$smarty.const.DESIGN}/images/ranks.png" title="{$smarty.const.CHANGE_RANK}" alt=""  /> {$smarty.const.CHANGE_RANK}</div>{/if}           
+        <hr />
+        {if $smarty.session.rights.admin.teams.add_m OR $smarty.session.rights.superadmin}
+        <div class="comments_menu_link" onclick="user_add_team({$i.userID});">
+        <img src="templates/{$smarty.const.DESIGN}/images/user_add.png" title="{$smarty.const.TEAM_ADD_USER}" alt=""  /> {$smarty.const.TEAM_ADD_USER}</div>{/if}                 
+        {if $smarty.session.rights.admin.groups.add_member OR $smarty.session.rights.superadmin}
+        <div class="comments_menu_link" onclick="user_add_group({$i.userID});">
+        <img src="templates/{$smarty.const.DESIGN}/images/user_add.png" title="{$smarty.const.GROUP_ADD_USER}" alt=""  /> {$smarty.const.GROUP_ADD_USER}</div>{/if}  
+        {if $smarty.session.rights.admin.groups.del_member OR $smarty.session.rights.superadmin}
+        <hr />
+        <strong>{$smarty.const.DEL_USER_GROUP}:</strong>
+        <div id="gruppen_inaktiv_{$i.userID}">        
+        {foreach from=$i.gruppen item=g}
+        <div class="comments_menu_link" id="group_{$g.gID}" onclick="user_remove_group({$i.userID}, '{$i.username}', {$g.gID}, '{$g.name}');">
+        <img src="templates/{$smarty.const.DESIGN}/images/user_delete.png" title="{$smarty.const.DEL_USER_GROUP}" alt=""  /> {$g.name}</div>             
+        {/foreach}</div>{/if}
+      </div>
+{/foreach}
+{foreach from=$inaktivs item=i}
+      <div id="user_inaktiv_{$i.userID}" style="display:none">
+      	{if $smarty.session.rights.admin.user.edit OR $smarty.session.rights.superadmin}
+        <div class="comments_menu_link" onclick="location.href='?section=admin&site=user&func=edit&id={$i.userID}';">
+        <img src="templates/{$smarty.const.DESIGN}/images/user_edit.png" title="{$smarty.const.EDIT_2}" alt=""  /> {$smarty.const.EDIT_2}</div>{/if}
+        {if $smarty.session.rights.admin.user.delete OR $smarty.session.rights.superadmin}
+        <div class="comments_menu_link" onclick="user_delete({$i.userID}, '{$i.username}');">
+        <img src="templates/{$smarty.const.DESIGN}/images/user_delete.png" title="{$smarty.const.DELETE}" alt=""  /> {$smarty.const.DELETE}</div>{/if}
+        {if $smarty.session.rights.admin.user.ban OR $smarty.session.rights.superadmin}
+        <div class="comments_menu_link" onclick="user_ban({$i.userID}, '{$i.username}');">
+        <img src="templates/{$smarty.const.DESIGN}/images/user_ban.png" title="{$smarty.const.USER_BAN}" alt=""  /> {$smarty.const.USER_BAN}</div>{/if}
+        {if $smarty.session.rights.admin.user.change_pw OR $smarty.session.rights.superadmin}
+        <div class="comments_menu_link" onclick="user_pw({$i.userID});">
+        <img src="templates/{$smarty.const.DESIGN}/images/password.png" title="{$smarty.const.PASSWORD_EDIT}" alt=""  /> {$smarty.const.PASSWORD_EDIT}</div>{/if}
+        {if $smarty.session.rights.admin.user.change_rang OR $smarty.session.rights.superadmin}
+        <div class="comments_menu_link" onclick="user_change_rank({$i.userID});">
+        <img src="templates/{$smarty.const.DESIGN}/images/ranks.png" title="{$smarty.const.CHANGE_RANK}" alt=""  /> {$smarty.const.CHANGE_RANK}</div>{/if}        
+        <hr />
+        {if $smarty.session.rights.admin.teams.add_m OR $smarty.session.rights.superadmin}
+        <div class="comments_menu_link" onclick="user_add_team({$i.userID});">
+        <img src="templates/{$smarty.const.DESIGN}/images/user_add.png" title="{$smarty.const.TEAM_ADD_USER}" alt=""  /> {$smarty.const.TEAM_ADD_USER}</div>{/if}                 
+        {if $smarty.session.rights.admin.groups.add_member OR $smarty.session.rights.superadmin}
+        <div class="comments_menu_link" onclick="user_add_group({$i.userID});">
+        <img src="templates/{$smarty.const.DESIGN}/images/user_add.png" title="{$smarty.const.GROUP_ADD_USER}" alt=""  /> {$smarty.const.GROUP_ADD_USER}</div>{/if}  
+        {if $smarty.session.rights.admin.groups.del_member OR $smarty.session.rights.superadmin}
+        <hr />
+        <strong>{$smarty.const.DEL_USER_GROUP}:</strong>
+        <div id="gruppen_inaktiv_{$i.userID}">        
+        {foreach from=$i.gruppen item=g}
+        <div class="comments_menu_link" id="group_{$g.gID}" onclick="user_remove_group({$i.userID}, '{$i.username}', {$g.gID}, '{$g.name}');">
+        <img src="templates/{$smarty.const.DESIGN}/images/user_delete.png" title="{$smarty.const.DEL_USER_GROUP}" alt=""  /> {$g.name}</div>             
+        {/foreach}</div>{/if}
+      </div>
+{/foreach}

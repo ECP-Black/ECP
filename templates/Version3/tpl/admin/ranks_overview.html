@@ -1,0 +1,20 @@
+<table width="100%" border="0" cellspacing="0" cellpadding="1" id="table_ranks">
+  <tr>
+    <td><strong>{$smarty.const.RANG_NAME}:</strong></td>
+    <td><strong>{$smarty.const.RANG_CONST}:</strong></td>
+    <td><strong>{$smarty.const.RANG_POSTS}:</strong></td>
+    <td><strong>{$smarty.const.RANG_MONEY}:</strong></td>
+    <td><strong>{$smarty.const.RANG_PIC}:</strong></td>
+    <td>&nbsp;</td>
+  </tr>
+  {foreach from=$ranks item=r}
+  <tr class="{cycle values="row_odd, row_even"}" id="rank_{$r.rankID}">
+    <td>{$r.rankname}</td>
+    <td>{if $r.fest}{$smarty.const.YES}{else}{$smarty.const.NO}{/if}</td>
+    <td>{$r.abposts}</td>
+    <td>{$r.money} {$smarty.const.VIRTUELL_MONEY_UNIT}</td>
+    <td><img src="images/ranks/{$r.iconname}" alt="" title="{$r.rankname}" /></td>
+    <td><img src="templates/{$smarty.const.DESIGN}/images/edit.png" alt="" title="{$smarty.const.EDIT}" class="imgpointer" onclick="edit_rank({$r.rankID});" /> <img src="templates/{$smarty.const.DESIGN}/images/delete.png" alt="" title="{$smarty.const.DELETE}" class="imgpointer" onclick="del_rank({$r.rankID}, '{$r.rankname}');" /></td>
+  </tr>
+  {/foreach}
+</table>

@@ -1,0 +1,208 @@
+<div id="swf"></div>
+<div class="div_headline"><strong>{$smarty.const.DOWNLOAD_ADD} / {$smarty.const.EDIT}</strong></div>
+<select id="all_downloads">{$dls}</select> <img src="templates/{$smarty.const.DESIGN}/images/download_edit.png" alt="" title="{$smarty.const.EDIT}" style="cursor:pointer;"  onClick="load_dl();" /> <img src="templates/{$smarty.const.DESIGN}/images/download_delete.png" alt="" title="{$smarty.const.DELETE}" style="cursor:pointer;"  onClick="delete_dl();" /> <img id="dl_loader" style="visibility:hidden" src="templates/{$smarty.const.DESIGN}/images/spinner.gif" alt="" title="{$smarty.const.LOADING}" />
+<hr />
+<form method="post" action="?section=admin&site=downloads&func=add" name="download_form" id="download_form">
+  <fieldset>
+  <legend>{$smarty.const.DOWNLOAD_KATE_ADD}</legend>
+  <label for="name">{$smarty.const.NAME}: </label>
+  <div>
+    <input type="text" class="required" maxlength="70" name="name" value="{$name}" id="name" />
+  </div>
+  <label for="url">{$smarty.const.DOWNLOAD_URL}:</label>
+  <div>
+    <input type="text" class="required" maxlength="255" name="url" value="{$url}" id="url" /> 
+  <a href="#" onClick="download_browse(); return false;">{$smarty.const.DOWNLOAD_BROWSE}</a>  </div>
+  <label for="homepage">{$smarty.const.HOMEPAGE}:</label>
+  <div>
+    <input type="text" maxlength="255" name="homepage" value="{$homepage}" id="homepage" />
+  </div>
+  <label for="version">{$smarty.const.DOWNLOAD_VERSION}:</label>
+  <div>
+    <input type="text" maxlength="20" name="version" value="{$version}" id="version" />
+  </div>
+  <label for="size">{$smarty.const.DOWNLOAD_SIZE}:</label>
+  <div>
+    <input type="text" class="validate-numberdot required smallinput" maxlength="20" name="size" value="{$size}" id="size" />
+    <select size="1" name="modifkator" id="modifkator">
+      <option selected value="1"> Byte </option>
+      <option value="1024"> Kbyte </option>
+      <option value="1048576"> Mbyte </option>
+      <option value="1073741824"> Gbyte </option>
+    </select>
+  </div>
+  <label for="downloads">{$smarty.const.DOWNLOADS_HITS}:</label>
+  <div>
+    <input type="text" class="validate-number" maxlength="20" name="downloads" value="{$downloads}" id="downloads" />
+  </div>
+  <label for="cID">{$smarty.const.DOWNLOAD_KATE}: </label>
+  <div>
+    <select  class="validate-selection selected" name="cID" id="cID">
+      {$kate}
+    </select>
+  </div>
+  <label for="rights_dl">{$smarty.const.ACCESS_RIGHTS}:</label>
+  <div>
+    <select name="rights[]" size="5" multiple="multiple" class="selected" id="rights_dl">
+      {$rights}
+    </select>
+  </div>
+  <label>{$smarty.const.DISCRIPTION}: </label>
+  <p>
+  <div id="tabBoxExample">
+    <ul class="tabSet">
+      {foreach from=$lang item=l}
+      <li class="off"><a><img src="images/flaggen/{$l.lang}.gif" alt="" title="{$l.name}" /></a></li>
+      {/foreach}
+    </ul>
+    <div class="panelSet"> {foreach from=$lang item=l}
+      <div class="panel" id="discription_dl_{$l.lang}_div">
+        <textarea class="admininput" rows="7" cols="60" name="discription_dl_{$l.lang}" id="discription_dl_{$l.lang}">{$l.content}</textarea>
+        <div align="center"><a onclick="tinyMCE.execCommand('mceToggleEditor',false,'discription_dl_{$l.lang}');">{$smarty.const.TOGGLE_EDITOR}</a></div>
+      </div>
+      {/foreach} </div>
+  </div>
+  </p>
+  <input type="submit" id="dl_submit" name="submit" class="submit" value="{$smarty.const.ADD}" /> <img src="templates/{$smarty.const.DESIGN}/images/spinner.gif" alt="" title="{$smarty.const.LOADING}" id="dl_loader" style="visibility:hidden" />
+  </fieldset>
+</form>
+<br />
+<div class="div_headline"><strong>{$smarty.const.DOWNLOAD_KATE_ADD} / {$smarty.const.EDIT}</strong></div>
+<select id="all_kate">{$kate}</select> <img src="templates/{$smarty.const.DESIGN}/images/download_edit.png" alt="" title="{$smarty.const.EDIT}" style="cursor:pointer;"  onClick="load_kate();" /> <img src="templates/{$smarty.const.DESIGN}/images/download_delete.png" alt="" title="{$smarty.const.DELETE}" style="cursor:pointer;"  onClick="delete_kate();" /> <img id="kate_loader" style="visibility:hidden" src="templates/{$smarty.const.DESIGN}/images/spinner.gif" alt="" title="{$smarty.const.LOADING}" />
+<hr />
+<form method="post" action="?section=admin&site=downloads&func=addkate" id="dl_kate">
+  <fieldset>
+  <legend>{$smarty.const.DOWNLOAD_KATE_ADD}</legend>
+  <label for="kname_div">{$smarty.const.NAME}: </label>
+  <div id="kname_div">
+    <input type="text" class="required" maxlength="40" name="kname" value="{$kname}" id="kname" />
+  </div>
+  <label for="subID_div">{$smarty.const.DOWNLOAD_KATE_UP}: </label>
+  <div id="subID_div">
+    <select name="subID" id="subID">
+      {$kate}
+    </select>
+  </div>
+  <label for="rights_kate">{$smarty.const.ACCESS_RIGHTS}:</label>
+  <div id="rights_kate">
+    <select name="rights[]" size="5" multiple="multiple" class="selected" id="rights">
+      {$rights}
+    </select>
+  </div>
+  <label>{$smarty.const.DISCRIPTION}: </label>
+  <p>
+  <div id="tabBox_Example">
+    <ul class="tabSet">
+      {foreach from=$lang item=l}
+      <li class="off"><a><img src="images/flaggen/{$l.lang}.gif" alt="" title="{$l.name}" /></a></li>
+      {/foreach}
+    </ul>
+    <div class="panelSet"> {foreach from=$lang item=l}
+      <div class="panel1" id="discription_{$l.lang}_div">
+        <textarea class="admininput" rows="7" cols="60" name="discription_{$l.lang}" id="discription_{$l.lang}">{$l.content}</textarea>
+        <div align="center"><a onclick="tinyMCE.execCommand('mceToggleEditor',false,'discription_{$l.lang}');">{$smarty.const.TOGGLE_EDITOR}</a></div>
+      </div>
+      {/foreach} </div>
+  </div>
+  </p>
+  <input type="submit" id="kate_submit" name="submit" class="submit" value="{$smarty.const.SUBMIT}" /> <img src="templates/{$smarty.const.DESIGN}/images/spinner.gif" alt="" title="{$smarty.const.LOADING}" id="dl_kate_loader" style="visibility:hidden" />
+  </fieldset>
+</form>
+
+<script language="javascript" type="text/javascript">
+{if $smarty.get.show}
+{literal}
+window.addEvent('load', function() {
+	download_browse();
+});
+{/literal}
+{/if}
+{literal}
+new TabSwapper({
+  selectedClass: 'on',
+  deselectedClass: 'off',
+  tabs: $$('#tabBox_Example li'),
+  clickers: $$('#tabBox_Example li a'),
+  sections: $$('div.panelSet div.panel1'),
+  /*remember what the last tab the user clicked was*/
+  cookieName: 'dl_kate',
+  /*use transitions to fade across*/
+  smooth: true
+});
+new TabSwapper({
+  selectedClass: 'on',
+  deselectedClass: 'off',
+  tabs: $$('#tabBoxExample li'),
+  clickers: $$('#tabBoxExample li a'),
+  sections: $$('div.panelSet div.panel'),
+  /*remember what the last tab the user clicked was*/
+  cookieName: 'dl_kate',
+  /*use transitions to fade across*/
+  smooth: true
+});
+kate_form = new FormValidator($('dl_kate')); 	
+dl_form = new FormValidator($('download_form')); 	
+$('download_form').addEvent('submit', function(e) {
+	if(dl_form.validate()) {
+		new Event(e).stop();
+		$('dl_loader').style.visibility = '';
+		$('dl_submit').disabled = true;
+		$$('#download_form textarea').each( function (e) { 
+			el = tinyMCE.get(e.name);					
+			if(el.isDirty()) el.save();
+		});	
+		new Request({
+			url: $('download_form').action,
+			onSuccess: function(r) {
+				$('dl_loader').style.visibility = 'hidden';
+				$('dl_submit').disabled = false;			
+				if(r == 'ok') {			
+					if($('download_form').action.contains('editdl')) {
+						make_info(DOWNLOAD_EDIT_SUCCESS, 'accept');
+					} else {
+						make_info(DOWNLOAD_ADD_SUCCESS, 'accept');
+					}		
+					$('download_form').reset();
+					$('download_form').action = '?section=admin&site=downloads&func=add';
+					$('dl_submit').value = ADD;					
+					new Request({url: '?section=admin&site=downloads&func=getdls', onSuccess: 	function (r) { rep = JSON.decode(r); make_options(rep, 'all_downloads'); }}).get();															
+				} else {
+					errorAlert(ERROR, r);
+				}
+			}
+		}).send($('download_form'));
+	}
+});
+$('dl_kate').addEvent('submit', function(e) {
+	if(kate_form.validate()) {
+		new Event(e).stop();
+		$('dl_kate_loader').style.visibility = '';
+		$('kate_submit').disabled = true;
+		$$('#dl_kate textarea').each( function (e) { 
+			el = tinyMCE.get(e.name);					
+			if(el.isDirty()) el.save();
+		});	
+		new Request({
+			url: $('dl_kate').action,
+			onSuccess: function(r) {
+				$('dl_kate_loader').style.visibility = 'hidden';
+				$('kate_submit').disabled = false;				
+				if(r == 'ok') {			
+					if($('dl_kate').action.contains('edit')) {
+						make_info(KATE_EDIT_SUCCESS, 'accept');
+					} else {
+						make_info(KATE_ADD_SUCCESS, 'accept');
+					}	
+					$('dl_kate').reset();	
+					$('dl_kate').action = '?section=admin&site=downloads&func=addkate';
+					$('kate_submit').value = ADD;					
+					new Request({url: '?section=admin&site=downloads&func=getkates', onSuccess: 	function (r) { rep = JSON.decode(r); make_options(rep, 'subID'); make_options(rep, 'all_kate'); make_options(rep, 'cID');}}).get();															
+				} else {
+					errorAlert(ERROR, r);
+				}
+			}
+		}).send($('dl_kate'));
+	}
+});
+</script>
+{/literal} 

@@ -1,0 +1,6 @@
+{if $gruppe}
+{foreach from=$gruppe item=g}<img src="templates/{$smarty.const.DESIGN}/images/dot.gif" alt="" /> <a href="#" onclick="user_add_g({$id}, {$g.groupID}, '{$g.name}', '{$username}');">{$g.name}</a> {if $g.admin or $g.groupID == 1}<span class="error">*</span>{/if}<br />{/foreach}
+<img src="templates/{$smarty.const.DESIGN}/images/spinner.gif" alt="" title="{$smarty.const.LOADING}" id="loader_1" style="visibility:hidden" /><br /><span class="error">*</span> {$smarty.const.MARKED_GROUPS}
+{else}
+{$smart.const.USER_ALL_GROUPS}
+{/if}

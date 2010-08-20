@@ -1,0 +1,16 @@
+<table width="100%" border="0" cellspacing="0" cellpadding="1">
+  <tr>
+    <td><strong>{$smarty.const.USERNAME}:</strong></td>
+    <td><strong>{$smarty.const.LAST_KLICK}:</strong></td>
+    <td><strong>{$smarty.const.PAGE_ENTER}:</strong></td>
+    <td>&nbsp;</td>
+  </tr>
+  {foreach from=$user item=u}
+  <tr class="{cycle values="row_odd, row_even"}">
+    <td><img src="images/flaggen/{$u.country}.gif" alt="{$u.countryname}" title="{$u.countryname}" /> <a href="?section=user&id={$u.uID}">{$u.username}</a></td>
+    <td>{$u.lastklick}</td>
+    <td>{$u.betretten}</td>
+    <td align="right"><img src="templates/{$smarty.const.DESIGN}/images/message.png" alt="" onclick="return send_message_user({$u.uID},'{$u.username}');" title="{$smarty.const.USER_SEND_MESSAGE}" class="imgpointer" /> <img src="templates/{$smarty.const.DESIGN}/images/buddy_add.png" alt="" onclick="return add_buddy({$u.uID});" title="{$smarty.const.BUDDY_ADD}" class="imgpointer" /></td>
+  </tr>
+  {/foreach}
+</table>

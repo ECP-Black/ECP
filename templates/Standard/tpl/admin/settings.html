@@ -1,0 +1,117 @@
+	<form id="admin_settings" method="post">
+        <dl class="AccordionMulti" id="AccordionMulti">
+            <dt class="stretchtoggle"><b>{$smarty.const.GENERAL}</b></dt>
+            <dd class="stretcher">
+			<fieldset class="move_space_fieldset">
+            	<div><label for="CLAN_NAME">{$smarty.const.SETTINGS_CLAN_NAME}:</label><input type="text" name="CLAN_NAME" id="CLAN_NAME" value="{$smarty.const.CLAN_NAME}" maxlength="50" class="required" /></div>   
+                <div><label for="CLAN_NAME_SHORT">{$smarty.const.SETTINGS_CLAN_SHORT}:</label><input type="text" name="CLAN_NAME_SHORT" id="CLAN_NAME_SHORT" value="{$smarty.const.CLAN_NAME_SHORT}" maxlength="10" class="required" /></div>  
+                <div><label for="SITE_TITLE">{$smarty.const.SETTINGS_SITE_TITLE}:</label><input type="text" name="SITE_TITLE" id="SITE_TITLE" value="{$smarty.const.SITE_TITLE}" maxlength="555" class="required" /></div>
+                <div><label for="SITE_URL">{$smarty.const.SETTINGS_SITE_URL}:</label><input type="text" name="SITE_URL" id="SITE_URL" value="{$smarty.const.SITE_URL}" maxlength="555" class="required" /></div>                <div><label for="SITE_EMAIL">{$smarty.const.SETTINGS_SITE_EMAIL}:</label><input type="text" name="SITE_EMAIL" id="SITE_EMAIL" value="{$smarty.const.SITE_EMAIL}" maxlength="555" class="required validate-email" /></div> 
+                <div><label for="SITE_EMAIL_NAME">{$smarty.const.SETTINGS_SITE_EMAIL_NAME}:</label><input type="text" name="SITE_EMAIL_NAME" id="SITE_EMAIL_NAME" value="{$smarty.const.SITE_EMAIL_NAME}" maxlength="40" class="required" /></div>
+                <div><label for="SHOW_USER_ONLINE">{$smarty.const.SETTINGS_SHOW_USER_ONLINE}:</label><input type="text" name="SHOW_USER_ONLINE" id="SHOW_USER_ONLINE" value="{$smarty.const.SHOW_USER_ONLINE}" maxlength="5" class="required smallinput validate-number" /> {$smarty.const.SECOUNDS}</div>
+                <div><label for="ONLINE_RELOAD">{$smarty.const.SETTINGS_ONLINE_RELOAD}:</label><input type="text" name="ONLINE_RELOAD" id="ONLINE_RELOAD" value="{$smarty.const.ONLINE_RELOAD}" maxlength="6" class="required smallinput validate-number" /> {$smarty.const.SECOUNDS}</div>
+                <div><label for="DELETE_UNAKTIV">{$smarty.const.SETTINGS_DELETE_UNAKTIV}:</label><input type="text" name="DELETE_UNAKTIV" id="DELETE_UNAKTIV" value="{$smarty.const.DELETE_UNAKTIV}" maxlength="3" class="required smallinput validate-number" /> {$smarty.const.DAYS}</div>                 
+                <div><label for="STARTPAGE">{$smarty.const.SETTINGS_STARTPAGE}:</label><select name="STARTSEITE" id="STARTSEITE">{$startseite}</select></div>
+                <div><label for="DESIGN">{$smarty.const.SETTINGS_DESIGN}:</label><select name="DESIGN" id="DESIGN">{$designs}</select></div>                
+                <div><label for="LANGUAGE">{$smarty.const.LANG}:</label><select name="LANGUAGE" id="LANGUAGE">{foreach from=$langs item=l}<option value="{$l.lang}" {if $l.name == $smarty.const.DEFAULT_LANG} selected="selected"{/if}>{$l.name}</option>{/foreach}</select></div> 
+            	<div><label for="LONG_DATE">{$smarty.const.SETTINGS_LONG_DATE}:</label><input type="text" name="LONG_DATE" id="LONG_DATE" value="{$smarty.const.LONG_DATE}" maxlength="50" class="required" /><a href="http://php.net/date" target="_blank">php.net</a></div>              	
+                <div><label for="SHORT_DATE">{$smarty.const.SETTINGS_SHORT_DATE}:</label><input type="text" name="SHORT_DATE" id="SHORT_DATE" value="{$smarty.const.SHORT_DATE}" maxlength="50" class="required" /><a href="http://php.net/date" target="_blank">php.net</a></div>   
+                <div><label for="CW_SCREEN_SIZE">{$smarty.const.SETTINGS_CW_SCREEN_SIZE}:</label><input type="text" name="CW_SCREEN_SIZE" id="CW_SCREEN_SIZE" value="{$smarty.const.CW_SCREEN_SIZE}" maxlength="4" class="required smallinput validate-number" />px</div>  
+                <div><label for="GALLERY_PIC_SIZE">{$smarty.const.SETTINGS_GALLERY_PIC_SIZE}:</label><input type="text" name="GALLERY_PIC_SIZE" id="GALLERY_PIC_SIZE" value="{$smarty.const.GALLERY_PIC_SIZE}" maxlength="4" class="required smallinput validate-number" />px</div> 
+                <div><label for="GALLERY_THUMB_SIZE">{$smarty.const.SETTINGS_GALLERY_THUMB_SIZE}:</label><input type="text" name="GALLERY_THUMB_SIZE" id="GALLERY_THUMB_SIZE" value="{$smarty.const.GALLERY_THUMB_SIZE}" maxlength="3" class="required smallinput validate-number" />px</div>
+                <div><label for="MAX_IMG_WIDTH">{$smarty.const.SETTINGS_MAX_IMG_WIDTH}:</label><input type="text" name="MAX_IMG_WIDTH" id="MAX_IMG_WIDTH" value="{$smarty.const.MAX_IMG_WIDTH}" maxlength="3" class="required smallinput validate-number" />px</div>
+                <div><label for="COMMENTS_ORDER">{$smarty.const.SETTINGS_COMMENTS_ORDER}:</label><select name="COMMENTS_ORDER" id="COMMENTS_ORDER"><option value="ASC">{$smarty.const.ASC}</option><option {if $smarty.const.COMMENTS_ORDER == "DESC"}selected="selected"{/if} value="DESC">{$smarty.const.DESC}</option></select></div>
+                <div><label for="HOT_THREAD_POST">{$smarty.const.SETTINGS_HOT_THREAD_POST}:</label><input type="text" name="HOT_THREAD_POST" id="HOT_THREAD_POST" value="{$smarty.const.HOT_THREAD_POST}" maxlength="3" class="required smallinput validate-number" /> {$smarty.const.COMMENTS}</div>
+                <div><label for="HOT_THREAD_VIEWS">{$smarty.const.SETTINGS_HOT_THREAD_POST}:</label>
+                <input type="text" name="HOT_THREAD_VIEWS" id="HOT_THREAD_VIEWS" value="{$smarty.const.HOT_THREAD_VIEWS}" maxlength="4" class="required smallinput validate-number" /> {$smarty.const.FORUM_VIEWS}</div>                <div><label for="MONEY_PER_COMMENT">{$smarty.const.SETTINGS_MONEY_PER_COMMENT}:</label>
+                <input type="text" name="MONEY_PER_COMMENT" id="MONEY_PER_COMMENT" value="{$smarty.const.MONEY_PER_COMMENT}" maxlength="6" class="required smallinput validate-numberdot" /> {$smarty.const.VIRTUELL_MONEY_UNIT}</div>   
+            <div><label for="POSTS_PER_COMMENTS">{$smarty.const.SETTINGS_POSTS_PER_COMMENTS}:</label><input type="text" name="POSTS_PER_COMMENTS" id="POSTS_PER_COMMENTS" value="{$smarty.const.POSTS_PER_COMMENTS}" maxlength="3" class="required smallinput validate-number" />
+            <div><label for="SERVER_CACHE_REFRESH">{$smarty.const.SETTINGS_SERVER_CACHE_REFRESH}:</label><input type="text" name="SERVER_CACHE_REFRESH" id="SERVER_CACHE_REFRESH" value="{$smarty.const.SERVER_CACHE_REFRESH}" maxlength="5" class="required smallinput validate-number" /> {$smarty.const.SECOUNDS}           
+                </div>
+            <div><label for="SHOUTBOX_MAX_CHARS">{$smarty.const.SETTINGS_SHOUTBOX_MAX_CHARS}:</label><input type="text" name="SHOUTBOX_MAX_CHARS" id="SHOUTBOX_MAX_CHARS" value="{$smarty.const.SHOUTBOX_MAX_CHARS}" maxlength="5" class="required smallinput validate-number" />
+                </div>  
+            <div><label for="UPLOAD_METHOD">{$smarty.const.SETTINGS_UPLOAD_METHOD}:</label><select name="UPLOAD_METHOD" id="UPLOAD_METHOD"><option value="Flash">{$smarty.const.UPLOAD_FLASH}</option><option value="old"{if $smarty.const.UPLOAD_METHOD == "old"} selected="selected"{/if}>{$smarty.const.UPLOAD_STANDARD}</option></select>
+                </div> 
+            <div><label for="GOOGLE_API_KEY">{$smarty.const.SETTINGS_GOOGLE_API_KEY}:</label><input type="text" name="GOOGLE_API_KEY" id="GOOGLE_API_KEY" value="{$smarty.const.GOOGLE_API_KEY}" class="smallinput" /> <a href="http://code.google.com/intl/{$smarty.const.LANGUAGE}/apis/maps/signup.html" target="_blank">Google Maps</a>
+                </div>  
+            <div><label for="SERVER_MAX_LOG">{$smarty.const.SETTINGS_SERVER_MAX_LOG}:</label><input type="text" name="SERVER_MAX_LOG" id="SERVER_MAX_LOG" value="{$smarty.const.SERVER_MAX_LOG}" maxlength="4" class="required smallinput validate-number" />
+                </div>  
+            <div><label for="SERVER_LOG_INTERVALL">{$smarty.const.SETTINGS_SERVER_LOG_INTERVALL}:</label><input type="text" name="SERVER_LOG_INTERVALL" id="SERVER_LOG_INTERVALL" value="{$smarty.const.SERVER_LOG_INTERVALL}" maxlength="3" class="required smallinput validate-number" /> {$smarty.const.MINUTES}
+                </div>                                                                                                
+            </fieldset>
+            </dd>
+            <dt class="stretchtoggle"><b>{$smarty.const.USER}</b></dt>
+            <dd class="stretcher">
+			<fieldset class="move_space_fieldset">
+            	<div><label for="SEND_ACCOUNT_CODE">{$smarty.const.SETTINGS_SEND_ACCOUNT_CODE}:</label><select name="SEND_ACCOUNT_CODE"><option value="1">{$smarty.const.YES}</option><option value="0" {if $smarty.const.SEND_ACCOUNT_CODE == 0}selected="selected"{/if}>{$smarty.const.NO}</option></select></div>   
+                <div><label for="PW_MIN_LENGTH">{$smarty.const.SETTINGS_PW_MIN_LENGTH}:</label><input type="text" name="PW_MIN_LENGTH" id="PW_MIN_LENGTH" value="{$smarty.const.PW_MIN_LENGTH}" maxlength="5" class="required smallinput validate-number" /></div>   
+                <div><label for="AVATAR_MAX_SIZE">{$smarty.const.SETTINGS_AVATAR_MAX_SIZE}:</label><input type="text" name="AVATAR_MAX_SIZE" id="AVATAR_MAX_SIZE" value="{$smarty.const.AVATAR_MAX_SIZE}" maxlength="6" class="required smallinput validate-number" /> Bytes</div> 
+                <div><label for="AVATAR_MAX_X">{$smarty.const.SETTINGS_AVATAR_SIZE}:</label><input type="text" name="AVATAR_MAX_X" id="AVATAR_MAX_X" value="{$smarty.const.AVATAR_MAX_X}" maxlength="3" class="required shout_input validate-number" />Px * <input type="text" name="AVATAR_MAX_Y" id="AVATAR_MAX_Y" value="{$smarty.const.AVATAR_MAX_Y}" maxlength="3" class="required shout_input validate-number" />Px</div>
+                <div><label for="USER_PIC_MAX">{$smarty.const.SETTINGS_USER_PIC_MAX}:</label><input type="text" name="USER_PIC_MAX" id="USER_PIC_MAX" value="{$smarty.const.USER_PIC_MAX}" maxlength="6" class="required smallinput validate-number" /> Bytes</div> 
+                <div><label for="USER_PIC_X">{$smarty.const.SETTINGS_USER_PIC_SIZE}:</label><input type="text" name="USER_PIC_X" id="USER_PIC_X" value="{$smarty.const.USER_PIC_X}" maxlength="3" class="required shout_input validate-number" />Px * <input type="text" name="USER_PIC_Y" id="USER_PIC_Y" value="{$smarty.const.USER_PIC_Y}" maxlength="3" class="required shout_input validate-number" />Px</div>                
+                <div><label for="USER_KLICK_RELOAD">{$smarty.const.SETTINGS_USER_KLICK_RELOAD}:</label><input type="text" name="USER_KLICK_RELOAD" id="USER_KLICK_RELOAD" value="{$smarty.const.USER_KLICK_RELOAD}" maxlength="4" class="required smallinput validate-number" /> ms</div>                                                                                                      
+            </fieldset>
+            </dd>  
+            <dt class="stretchtoggle"><b>{$smarty.const.LIMIT_PAGES}</b></dt>
+            <dd class="stretcher">
+			<fieldset class="move_space_fieldset">
+                <div><label for="LIMIT_CLANKASSE_TRANS">{$smarty.const.SETTINGS_LIMIT_CLANKASSE_TRANS}:</label><input type="text" name="LIMIT_CLANKASSE_TRANS" id="LIMIT_CLANKASSE_TRANS" value="{$smarty.const.LIMIT_CLANKASSE_TRANS}" maxlength="5" class="required smallinput validate-number" /></div>
+                <div><label for="LIMIT_CLANWARS">{$smarty.const.SETTINGS_LIMIT_CLANWARS}:</label><input type="text" name="LIMIT_CLANWARS" id="LIMIT_CLANWARS" value="{$smarty.const.LIMIT_CLANWARS}" maxlength="5" class="required smallinput validate-number" /></div> 
+                <div><label for="LIMIT_COMMENTS">{$smarty.const.SETTINGS_LIMIT_COMMENTS}:</label><input type="text" name="LIMIT_COMMENTS" id="LIMIT_COMMENTS" value="{$smarty.const.LIMIT_COMMENTS}" maxlength="5" class="required smallinput validate-number" /></div>                
+                <div><label for="LIMIT_FORUM_COMMENTS">{$smarty.const.SETTINGS_LIMIT_FORUM_COMMENTS}:</label><input type="text" name="LIMIT_FORUM_COMMENTS" id="LIMIT_FORUM_COMMENTS" value="{$smarty.const.LIMIT_FORUM_COMMENTS}" maxlength="5" class="required smallinput validate-number" /></div> 
+                <div><label for="LIMIT_GALLERY">{$smarty.const.SETTINGS_LIMIT_GALLERY}:</label><input type="text" name="LIMIT_GALLERY" id="LIMIT_GALLERY" value="{$smarty.const.LIMIT_GALLERY}" maxlength="5" class="required smallinput validate-number" /></div>                 
+                <div><label for="LIMIT_GALLERY_PICS">{$smarty.const.SETTINGS_LIMIT_GALLERY_PICS}:</label><input type="text" name="LIMIT_GALLERY_PICS" id="LIMIT_GALLERY_PICS" value="{$smarty.const.LIMIT_GALLERY_PICS}" maxlength="5" class="required smallinput validate-number" /></div> 
+                <div><label for="LIMIT_GUESTBOOK">{$smarty.const.SETTINGS_LIMIT_GUESTBOOK}:</label><input type="text" name="LIMIT_GUESTBOOK" id="LIMIT_GUESTBOOK" value="{$smarty.const.LIMIT_GUESTBOOK}" maxlength="5" class="required smallinput validate-number" /></div>                 
+                <div><label for="LIMIT_LAST_WARS">{$smarty.const.SETTINGS_LIMIT_LAST_WARS}:</label><input type="text" name="LIMIT_LAST_WARS" id="LIMIT_LAST_WARS" value="{$smarty.const.LIMIT_LAST_WARS}" maxlength="5" class="required smallinput validate-number" /></div>                                 
+                <div><label for="LIMIT_LAST_THREADS">{$smarty.const.SETTINGS_LIMIT_LAST_THREADS}:</label><input type="text" name="LIMIT_LAST_THREADS" id="LIMIT_LAST_THREADS" value="{$smarty.const.LIMIT_LAST_THREADS}" maxlength="5" class="required smallinput validate-number" /></div>   
+                <div><label for="LIMIT_MINI_NEWS">{$smarty.const.SETTINGS_LIMIT_MINI_NEWS}:</label><input type="text" name="LIMIT_MINI_NEWS" id="LIMIT_MINI_NEWS" value="{$smarty.const.LIMIT_MINI_NEWS}" maxlength="5" class="required smallinput validate-number" /></div>   
+                <div><label for="LIMIT_LINKS">{$smarty.const.SETTINGS_LIMIT_LINKS}:</label><input type="text" name="LIMIT_LINKS" id="LIMIT_LINKS" value="{$smarty.const.LIMIT_LINKS}" maxlength="5" class="required smallinput validate-number" /></div>   
+                <div><label for="LIMIT_MEMBERS">{$smarty.const.SETTINGS_LIMIT_MEMBERS}:</label><input type="text" name="LIMIT_MEMBERS" id="LIMIT_MEMBERS" value="{$smarty.const.LIMIT_MEMBERS}" maxlength="5" class="required smallinput validate-number" /></div>   
+                <div><label for="LIMIT_MESSAGES">{$smarty.const.SETTINGS_LIMIT_MESSAGES}:</label><input type="text" name="LIMIT_MESSAGES" id="LIMIT_MESSAGES" value="{$smarty.const.LIMIT_MESSAGES}" maxlength="5" class="required smallinput validate-number" /></div>
+                <div><label for="LIMIT_NEWS">{$smarty.const.SETTINGS_LIMIT_NEWS}:</label><input type="text" name="LIMIT_NEWS" id="LIMIT_NEWS" value="{$smarty.const.LIMIT_NEWS}" maxlength="5" class="required smallinput validate-number" /></div>
+                <div><label for="LIMIT_NEXT_WARS">{$smarty.const.SETTINGS_LIMIT_NEXT_WARS}:</label><input type="text" name="LIMIT_NEXT_WARS" id="LIMIT_NEXT_WARS" value="{$smarty.const.LIMIT_NEXT_WARS}" maxlength="5" class="required smallinput validate-number" /></div> 
+                <div><label for="LIMIT_SHOUTBOX">{$smarty.const.SETTINGS_LIMIT_SHOUTBOX}:</label><input type="text" name="LIMIT_SHOUTBOX" id="LIMIT_SHOUTBOX" value="{$smarty.const.LIMIT_SHOUTBOX}" maxlength="5" class="required smallinput validate-number" /></div> 
+                <div><label for="LIMIT_SHOUTBOX_MINI">{$smarty.const.SETTINGS_LIMIT_SHOUTBOX_MINI}:</label><input type="text" name="LIMIT_SHOUTBOX_MINI" id="LIMIT_SHOUTBOX_MINI" value="{$smarty.const.LIMIT_SHOUTBOX_MINI}" maxlength="5" class="required smallinput validate-number" /></div> 
+                <div><label for="LIMIT_THREADS">{$smarty.const.SETTINGS_LIMIT_THREADS}:</label><input type="text" name="LIMIT_THREADS" id="LIMIT_THREADS" value="{$smarty.const.LIMIT_THREADS}" maxlength="5" class="required smallinput validate-number" /></div> 
+                <div><label for="LIMIT_SURVEY">{$smarty.const.SETTINGS_LIMIT_SURVEY}:</label><input type="text" name="LIMIT_SURVEY" id="LIMIT_SURVEY" value="{$smarty.const.LIMIT_SURVEY}" maxlength="5" class="required smallinput validate-number" /></div>                
+                <div><label for="ADMIN_ENTRIES">{$smarty.const.SETTINGS_ADMIN_ENTRIES}:</label><input type="text" name="ADMIN_ENTRIES" id="ADMIN_ENTRIES" value="{$smarty.const.ADMIN_ENTRIES}" maxlength="5" class="required smallinput validate-number" /></div>                                               
+            </fieldset>
+            </dd> 
+           <dt class="stretchtoggle"><b>{$smarty.const.SPAM_PROTECTION}</b></dt>
+            <dd class="stretcher">
+			<fieldset class="move_space_fieldset">
+                <div><label for="SPAM_AWARDS_COMMENTS">{$smarty.const.SETTINGS_SPAM_AWARDS_COMMENTS}:</label><input type="text" name="SPAM_AWARDS_COMMENTS" id="SPAM_AWARDS_COMMENTS" value="{$smarty.const.SPAM_AWARDS_COMMENTS}" maxlength="5" class="required smallinput validate-number" /> {$smarty.const.SECOUNDS}</div>
+                <div><label for="SPAM_CLANWARS_COMMENTS">{$smarty.const.SETTINGS_SPAM_CLANWARS_COMMENTS}:</label><input type="text" name="SPAM_CLANWARS_COMMENTS" id="SPAM_CLANWARS_COMMENTS" value="{$smarty.const.SPAM_CLANWARS_COMMENTS}" maxlength="5" class="required smallinput validate-number" /> {$smarty.const.SECOUNDS}</div> 
+                <div><label for="SPAM_FORUM_COMMENTS">{$smarty.const.SETTINGS_SPAM_FORUM_COMMENTS}:</label><input type="text" name="SPAM_FORUM_COMMENTS" id="SPAM_FORUM_COMMENTS" value="{$smarty.const.SPAM_FORUM_COMMENTS}" maxlength="5" class="required smallinput validate-number" /> {$smarty.const.SECOUNDS}</div> 
+                <div><label for="SPAM_FORUM_THREAD">{$smarty.const.SETTINGS_SPAM_FORUM_THREAD}:</label><input type="text" name="SPAM_FORUM_THREAD" id="SPAM_FORUM_THREAD" value="{$smarty.const.SPAM_FORUM_THREAD}" maxlength="5" class="required smallinput validate-number" /> {$smarty.const.SECOUNDS}</div>
+                <div><label for="SPAM_GALLERY_COMMENTS">{$smarty.const.SETTINGS_SPAM_GALLERY_COMMENTS}:</label><input type="text" name="SPAM_GALLERY_COMMENTS" id="SPAM_GALLERY_COMMENTS" value="{$smarty.const.SPAM_GALLERY_COMMENTS}" maxlength="5" class="required smallinput validate-number" /> {$smarty.const.SECOUNDS}</div>                                    
+                <div><label for="SPAM_GUESTBOOK">{$smarty.const.SETTINGS_SPAM_GUESTBOOK}:</label><input type="text" name="SPAM_GUESTBOOK" id="SPAM_GUESTBOOK" value="{$smarty.const.SPAM_GUESTBOOK}" maxlength="5" class="required smallinput validate-number" /> {$smarty.const.SECOUNDS}</div>    
+                <div><label for="SPAM_GUESTBOOK_COMMENTS">{$smarty.const.SETTINGS_SPAM_GUESTBOOK_COMMENTS}:</label><input type="text" name="SPAM_GUESTBOOK_COMMENTS" id="SPAM_GUESTBOOK_COMMENTS" value="{$smarty.const.SPAM_GUESTBOOK_COMMENTS}" maxlength="5" class="required smallinput validate-number" /> {$smarty.const.SECOUNDS}</div>                
+                <div><label for="SPAM_NEWS_COMMENTS">{$smarty.const.SETTINGS_SPAM_NEWS_COMMENTS}:</label><input type="text" name="SPAM_NEWS_COMMENTS" id="SPAM_NEWS_COMMENTS" value="{$smarty.const.SPAM_NEWS_COMMENTS}" maxlength="5" class="required smallinput validate-number" /> {$smarty.const.SECOUNDS}</div>                
+                <div><label for="SPAM_MESSAGE">{$smarty.const.SETTINGS_SPAM_MESSAGE}:</label><input type="text" name="SPAM_MESSAGE" id="SPAM_MESSAGE" value="{$smarty.const.SPAM_MESSAGE}" maxlength="5" class="required smallinput validate-number" /> {$smarty.const.SECOUNDS}</div>        
+                <div><label for="SPAM_DOWNLOADS_COMMENTS">{$smarty.const.SETTINGS_SPAM_DOWNLOADS_COMMENTS}:</label><input type="text" name="SPAM_DOWNLOADS_COMMENTS" id="SPAM_DOWNLOADS_COMMENTS" value="{$smarty.const.SPAM_DOWNLOADS_COMMENTS}" maxlength="5" class="required smallinput validate-number" /> {$smarty.const.SECOUNDS}</div>                                                                                                               
+                <div><label for="SPAM_SHOUTBOX">{$smarty.const.SETTINGS_SPAM_SHOUTBOX}:</label><input type="text" name="SPAM_SHOUTBOX" id="SPAM_SHOUTBOX" value="{$smarty.const.SPAM_SHOUTBOX}" maxlength="5" class="required smallinput validate-number" /> {$smarty.const.SECOUNDS}</div>      
+                <div><label for="SPAM_SURVEY_COMMENTS">{$smarty.const.SETTINGS_SPAM_SURVEY_COMMENTS}:</label><input type="text" name="SPAM_SURVEY_COMMENTS" id="SPAM_SURVEY_COMMENTS" value="{$smarty.const.SPAM_SURVEY_COMMENTS}" maxlength="5" class="required smallinput validate-number" /> {$smarty.const.SECOUNDS}</div>      
+                <div><label for="SPAM_USER_GB_COMMENTS">{$smarty.const.SETTINGS_SPAM_USER_GB_COMMENTS}:</label><input type="text" name="SPAM_USER_GB_COMMENTS" id="SPAM_USER_GB_COMMENTS" value="{$smarty.const.SPAM_USER_GB_COMMENTS}" maxlength="5" class="required smallinput validate-number" /> {$smarty.const.SECOUNDS}</div>                                                      
+            </fieldset>
+            </dd>   
+           <dt class="stretchtoggle"><b>SMTP - {$smarty.const.SETTINGS}</b></dt>
+            <dd class="stretcher">
+			<fieldset class="move_space_fieldset">
+                <div><label for="SMTP_AKTIV">{$smarty.const.SMTP_TXT_AKTIV}:</label><select name="SMTP_AKTIV"><option value="1">{$smarty.const.AKTIV}</option><option value="0" {if $smarty.const.SMTP_AKTIV == 0}selected="selected" {/if}>{$smarty.const.INAKTIV}</option></select></div>
+                <div><label for="SMTP_HOST">{$smarty.const.SMTP_TXT_HOST}:</label><input type="text" name="SMTP_HOST" id="SMTP_HOST" value="{$smarty.const.SMTP_HOST}" maxlength="200" /></div> 
+                <div><label for="SMTP_PORT">{$smarty.const.SMTP_TXT_PORT}:</label><input type="text" name="SMTP_PORT" id="SMTP_PORT" value="{$smarty.const.SMTP_PORT}" maxlength="5" class="smallinput validate-number" /></div> 
+                <div><label for="SMTP_USER">{$smarty.const.SMTP_TXT_USER}:</label><input type="text" name="SMTP_USER" id="SMTP_USER" value="{$smarty.const.SMTP_USER}" maxlength="50" /></div>
+                <div><label for="SMTP_PASS">{$smarty.const.SMTP_TXT_PASS}:</label><input type="text" name="SMTP_PASS" id="SMTP_PASS" value="{$smarty.const.SMTP_PASS}" maxlength="50" /></div>
+            </fieldset>
+            </dd>                                                               
+        </dl>
+        <input type="submit" name="submit" value="{$smarty.const.SUBMIT}" />
+    </form>
+<script type="text/javascript">
+{literal}
+	new FormValidator('admin_settings');
+	multi = new MultipleOpenAccordion('AccordionMulti', {togglers: $$('#AccordionMulti dt.stretchtoggle'), elements: $$('#AccordionMulti dd.stretcher'), openAll: false});
+	//set_flagge($('country'));
+{/literal}
+</script>

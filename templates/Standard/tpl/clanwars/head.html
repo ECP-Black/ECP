@@ -1,0 +1,41 @@
+<div id="clanwars_score"><span class="klammer">[</span> {$smarty.const.CLANWARS}: {$anzahl} <span class="klammer">|</span> <span class="clanwar_win">{$smarty.const.WIN}: {$win}</span> <span class="klammer">|</span> <span class="clanwar_draw">{$smarty.const.DRAW}: {$draw}</span> <span class="klammer">|</span> <span class="clanwar_loss">{$smarty.const.LOSS}: {$loss}</span> <span class="klammer">]</span></div>
+<div style="margin-top: 5px; margin-bottom:5px">
+    <form method="get" id="cw_form">
+        <input type="hidden" name="section" value="clanwars" />
+        <select name="gameID" id="gameID">{$games}</select>
+        <select name="teamID" id="teamID">{$teams}</select>
+        <select name="matchtypeID" id="matchtypeID">{$matchtypes}</select>
+        <select name="xonx" id="xonx">{$xonx}</select>
+        <input type="submit" value="{$smarty.const.VIEW}" class="submit" /> <img style="visibility: hidden" src="templates/{$smarty.const.DESIGN}/images/spinner.gif" id="cw_spinner" alt="" title="{$smarty.const.LOADING}" />
+    </form>
+</div>
+<div id="clanwars_overview">
+{if $anzahl}
+{$clanwars}
+{else}
+{$smarty.const.NO_ENTRIES}
+{/if}
+</div>
+{literal}
+<script language="javascript" type="text/javascript">
+window.addEvent('load', function() {
+	waitercw = new Waiter($('clanwars_overview'));
+});
+$('cw_form').addEvent('submit', function(e) {
+	new Event(e).stop();
+	new Request.JSON({
+		url: "ajax_checks.php?func=get_clanwars&gameID="+selected_value('gameID')+"&teamID="+selected_value('teamID')+"&matchtypeID="+selected_value('matchtypeID')+"&xonx="+selected_value('xonx')+"&page=1", 
+		onRequest: function () { waitercw.start();  }, 
+		onSuccess: function(data) {
+			waitercw.stop();
+			if(typeof(data.error) === 'undefined') { 
+				$('clanwars_overview').set('html', data.clanwars);
+				$('clanwars_score').set('html', data.score);
+			} else {
+				errorAlert(ERROR, data.error);
+			}
+		}
+	}).get();	
+});	
+</script>
+{/literal}

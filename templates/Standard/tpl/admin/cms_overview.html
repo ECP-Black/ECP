@@ -1,0 +1,16 @@
+<table width="100%" border="0" cellspacing="0" cellpadding="1" id="cms_overview">
+  <tr>
+    <td><strong>{$smarty.const.ID}:</strong></td>
+    <td><strong>{$smarty.const.HEADLINE}:</strong></td>
+    <td><strong>{$smarty.const.HITS}:</strong></td>
+    <td>&nbsp;</td>
+  </tr>
+  {foreach from=$cms item=c}
+  <tr class="{cycle name="abc" values="row_odd, row_even"}" id="cms_{$c.cmsID}">
+    <td>{$c.cmsID}</td>
+    <td>{$c.headline}</td>
+    <td>{$c.views}</td>
+    <td align="right"><img src="templates/{$smarty.const.DESIGN}/images/edit.png" alt="" title="{$smarty.const.EDIT_2}" onclick="edit_cms({$c.cmsID})" class="imgpointer" /> <img src="templates/{$smarty.const.DESIGN}/images/delete.png" alt="" title="{$smarty.const.DELETE}" onclick="delete_cms({$c.cmsID}, '{$c.headline}');" class="imgpointer" /></td>
+  </tr>
+  {/foreach}
+</table>

@@ -1,0 +1,9 @@
+<div id="login_mini_div">
+<form id="login_mini" name="login_mini" action="?section=account&action=login&mini=1" method="post">
+	<input maxlength="30" type="text" name="mini_username" class="overtext" id="mini_username" tabindex="1" alt="{$smarty.const.USERNAME}" />
+    <input type="password" name="mini_passwort" class="overtext" id="mini_passwort" tabindex="2" alt="{$smarty.const.PASSWORD}" />
+    <br />{$smarty.const.AUTO_LOGIN}: <input type="checkbox" name="autologin" tabindex="3" class="checkbox" value="1" />
+	<div style="clear:both"><input type="submit" class="submit" name="submit" tabindex="4" value="{$smarty.const.LOGIN}" /></div>
+</form>
+<a href="?section=account">{$smarty.const.REGISTER}</a>
+</div>

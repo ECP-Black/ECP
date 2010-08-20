@@ -1,0 +1,159 @@
+<form name="clanwar_form" id="clanwar_form" action="?section=admin&amp;site=clanwars&amp;func={$func}" method="post">
+  <fieldset class="fieldset_border">
+  <legend class="label_wars">{$smarty.const.GENERAL}</legend>
+  <div>
+    <label for="gameID">{$smarty.const.GAME}:</label>
+    <select id="gameID" name="gameID" class="validate-selection selected" onchange="game_changed(this);">
+      {$games}
+    </select>
+    <img style="visibility: hidden" src="templates/{$smarty.const.DESIGN}/images/spinner.gif" id="games_spinner" alt="" title="{$smarty.const.LOADING}" /></div>
+  <div>
+    <label for="teamID">{$smarty.const.TEAM}:</label>
+    <select id="teamID" name="teamID" class="validate-selection selected">
+      {$teams}
+    </select>
+  </div>
+  <div>
+    <label for="matchtypeID">{$smarty.const.MATCHTYP}:</label>
+    <select id="matchtypeID" name="matchtypeID" class="validate-selection selected">
+      {$matchtype}
+    </select>
+  </div>
+  <div>
+  <label for="xonx1">{$smarty.const.XONX}:</label>
+  <div>
+    <input type="text" value="{$xonx1}" name="xonx1" style="width: 3em" id="xonx1" class="required validate-number" />
+    vs.
+    <input type="text" value="{$xonx2}" name="xonx2" style="width: 3em" id="xonx2" class="required validate-number" />
+  </div>
+  </div>
+  <div>
+    <label for="datum">{$smarty.const.DATE}:</label>
+    <div>
+      <input type="text" name="datum" id="datum" value="{$datum}" size="30" class="required validate-date-eu smallinput" />
+      <img id="button_cal" src="templates/{$smarty.const.DESIGN}/images/calendar.png" alt="{$smarty.const.CHOOSE_DATE}" title="{$smarty.const.CHOOSE_DATE}" /></div>
+  </div>
+  <div>
+  <label for="matchlink">{$smarty.const.CLANWARS_MATCHLINK}:</label>
+  <div>
+    <input type="text" value="{$matchlink}" name="matchlink" maxlength="255" id="matchlink" />
+  </div>
+  </div>
+  </fieldset>
+  <br />
+  <fieldset class="fieldset_border">
+  <legend class="label_wars">{$smarty.const.CLANWARS_OPP}</legend>
+  <div>
+    <label for="oppID">{$smarty.const.CLANWAR_OLD_OPP}:</label>
+    <select id="oppID" name="oppID" class="selected" onchange="load_opp(this.options[this.selectedIndex].value);">
+      {$opps}
+    </select>
+    <img style="visibility: hidden" src="templates/{$smarty.const.DESIGN}/images/spinner.gif" id="opp_spinner" alt="" title="{$smarty.const.LOADING}" /></div>
+  <div>
+    <label for="oppname">{$smarty.const.CLANWAR_OPP_NAME}:</label>
+    <input value="{$oppname}" type="text" id="oppname" name="oppname" maxlength="40" class="required" />
+  </div>
+  <div>
+    <label for="oppshort">{$smarty.const.CLANWAR_OPP_SHORT}:</label>
+    <input value="{$oppshort}" type="text" id="oppshort" name="oppshort" maxlength="15" onchange="{literal}$$('span.owp_name').each(function(e) { e.setHTML($('oppshort').value);});{/literal}" class="required" />
+  </div>
+  <div>
+    <label for="homepage">{$smarty.const.HOMEPAGE}:</label>
+    <input type="text" value="{$homepage}" maxlength="255" id="homepage" name="homepage" />
+  </div>
+  <div>
+    <label for="country">{$smarty.const.COUNTRY}:</label>
+    <select name="country" id="country" onchange="set_flagge(this)">
+      {$countries}
+    </select>
+    <img src="images/flaggen/none.gif" height="11" width="16" alt="none" id="flagge" /></div>
+  </fieldset>
+  <br />
+  <fieldset class="fieldset_border">
+  <legend class="label_wars">{$smarty.const.PLAYERS}</legend>
+  <div>
+    <label for="ownplayers">{$smarty.const.ClANWARS_OWN_PLAYERS}:</label>
+    <input type="text" value="{$ownplayers}" id="ownplayers" name="ownplayers" class="required" />
+    <img style="visibility: hidden" src="templates/{$smarty.const.DESIGN}/images/spinner.gif" id="search_spinner_players" alt="" title="{$smarty.const.LOADING}" /></div>
+  <div>
+    <label for="oppplayers">{$smarty.const.ClANWARS_OPP_PLAYERS}:</label>
+    <input type="text" value="{$oppplayers}" id="oppplayers" name="oppplayers" />
+  </div>
+  </fieldset>
+  <br />
+  <fieldset class="fieldset_border" id="fieldset_maps">
+  <legend class="label_wars">{$smarty.const.MAPS}</legend>
+  <div>
+    <label for="winbymaps">{$smarty.const.CLANWARS_WINBYMAPS}:</label>
+    <input type="checkbox" value="1" id="winbymaps" class="checkbox" name="winbymaps" {if $resultbylocations}checked{/if} />
+  </div>
+  {foreach from=$maps item=m}
+  <div id="div_map_{$m.i}" class="clanwar_map" style="clear: both;">
+    <div>
+      <label for="map_{$m.i}">{$smarty.const.MAP} {$m.i}:</label>
+      <select name="map_{$m.i}" id="map_{$m.i}" class="validate-selection selected">
+        <option>{$smarty.const.CHOOSE}</option>
+        {$m.maps}
+      </select>
+      <img src="templates/{$smarty.const.DESIGN}/images/maps_add.png" alt="" title="{$smarty.const.CLANWARS_MAP_ADD}" onclick="clanwar_add_map({$m.i});" /> <img src="templates/{$smarty.const.DESIGN}/images/maps_delete.png" title="{$smarty.const.CLANWARS_MAP_DEL}" alt="" onclick="clanwar_del_map({$m.i});" /></div>
+    <div>
+      <label>{$smarty.const.SCORE}:</label>
+      {$smarty.const.CLAN_NAME_SHORT}
+      <input type="text" name="score_{$m.i}_own" value="{$m.ownscore}" id="score_{$m.i}_own" class="cw_score_input required validate-number" />
+      :
+      <input type="text" name="score_{$m.i}_opp" value="{$m.oppscore}" id="score_{$m.i}_opp" class="cw_score_input required validate-number" />
+      <span class="owp_name">{if $oppshort}{$oppshort}{else}{$smarty.const.OPP}{/if}</span></div>
+  </div>
+  {/foreach}
+  </fieldset>
+  <br />
+  <fieldset class="fieldset_border">
+  <legend class="label_wars">{$smarty.const.CLANWARS_REPORT}</legend>
+  <div id="tabBoxExample">
+    <ul class="tabSet">
+      {foreach from=$lang item=l}
+      <li class="off"><a><img src="images/flaggen/{$l.lang}.gif" alt="" title="{$l.name}" /></a></li>
+      {/foreach}
+    </ul>
+    <div class="panelSet"> {foreach from=$lang item=l}
+      <div class="panel" id="discription_{$l.lang}_div">
+        <textarea class="admininput" rows="7" cols="60" name="discription_{$l.lang}" id="discription_{$l.lang}">{$l.content}</textarea>
+        <div align="center"><a onclick="tinyMCE.execCommand('mceToggleEditor',false,'discription_{$l.lang}');">{$smarty.const.TOGGLE_EDITOR}</a></div>
+      </div>
+      {/foreach} </div>
+  </div>
+  </fieldset>
+  <br />
+  <input type="submit" class="submit" name="submit" value="{if $func == 'add'}{$smarty.const.ADD}{else}{$smarty.const.EDIT}{/if}" id="member_submit" />
+  <img style="visibility: hidden" src="templates/{$smarty.const.DESIGN}/images/spinner.gif" id="user_spinner" alt="" title="{$smarty.const.LOADING}" />
+</form>
+{literal}
+<script language="javascript" type="text/javascript">
+cw_form_val = new FormValidator($('clanwar_form')); 
+window.addEvent('domready', function() { 
+	set_flagge($('country'));
+	game_changed($('gameID'));
+	new Autocompleter.Ajax.Json($('ownplayers'), 'ajax_checks.php?func=search_member', { 
+				postVar: 'username', multiple: true,
+			  onRequest: function ()  { $('search_spinner_players').style.visibility = ''; },
+			  onComplete: function ()  { $('search_spinner_players').style.visibility = 'hidden'; }, 
+			  zIndex: 999999 });
+});
+new TabSwapper({
+  selectedClass: 'on',
+  deselectedClass: 'off',
+  tabs: $$('#tabBoxExample li'),
+  clickers: $$('#tabBoxExample li a'),
+  sections: $$('div.panelSet div.panel'),
+  /*remember what the last tab the user clicked was*/
+  /*use transitions to fade across*/
+  smooth: true
+});
+Calendar.setup({
+    inputField    : "datum",
+    button        : "button_cal",
+	showsTime     :    true,
+	onUpdate:	  function() { cw_form_val.validateField($('datum')); }
+});	
+</script>
+{/literal}

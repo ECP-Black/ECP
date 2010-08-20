@@ -1,0 +1,79 @@
+<div id="teams_all">
+{foreach from=$teams item=t}
+<div id="teamid_{$t.tID}" class="team">
+    <div class="team_head" style="clear: both">{$t.tname}&nbsp;&nbsp;&nbsp;<img src="templates/{$smarty.const.DESIGN}/images/group_edit.png" alt="" title="{$smarty.const.TEAM_EDIT}" onclick="teams_edit({$t.tID});" style="cursor: pointer" /> <img src="templates/{$smarty.const.DESIGN}/images/group_delete.png" alt="" title="{$smarty.const.TEAM_DEL}" onclick="teams_del({$t.tID}, '{$t.tname}');" style="cursor: pointer" /> &nbsp;&nbsp;<img src="templates/{$smarty.const.DESIGN}/images/arrow_out.png" alt="" class="dragHandle" style="cursor: move;" /></div>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="30%"><strong>{$smarty.const.USERNAME} <img src="templates/{$smarty.const.DESIGN}/images/user_add.png" alt="" title="{$smarty.const.TEAM_USER_ADD}" onclick="teams_add_user({$t.tID});" style="cursor: pointer" /></strong>&nbsp;</td>
+        <td width="30%"><strong>{$smarty.const.TASK}</strong>&nbsp;</td>
+        <td width="20%"><strong>{$smarty.const.STATUS}</strong>&nbsp;</td>
+        <td width="20%">&nbsp;</td>
+      </tr>
+      <tr>
+        <td colspan="4">
+    <div id="team_{$t.tID}"> 
+    {foreach from=$t.members item=m}
+      <div id="{$t.tID}_{$m.userID}" style="width: 540px">
+        <table cellpadding="1" cellspacing="0" width="100%">
+          <tr class="{cycle values="row_odd,row_even"}">
+           <td width="30%"><img src="images/flaggen/{$m.country}.gif" alt="" title="{$m.lang}"> <a href="?section=user&id={$m.userID}">{$m.username}</a></td>
+           <td width="30%">{$m.aufgabe}&nbsp;</td>
+           <td width="20%">{$m.aktiv}&nbsp;</td>
+           <td width="20%"><img src="templates/{$smarty.const.DESIGN}/images/arrow_out.png" alt="" class="dragHandle_{$t.tID}" style="cursor: move;" />&nbsp;&nbsp;&nbsp;<img src="templates/{$smarty.const.DESIGN}/images/user_edit.png" alt="" style="cursor:pointer" onclick="teams_edit_member({$t.tID}, {$m.userID});" title="{$smarty.const.TEAM_USER_EDIT}" /> <img src="templates/{$smarty.const.DESIGN}/images/delete.png" alt="" style="cursor:pointer" onclick="team_del_member({$t.tID}, {$m.userID});" title="{$smarty.const.TEAM_USER_DEL}" /></td>
+          </tr>
+        </table>
+      </div>
+      {/foreach} 
+          </td>
+        </td>
+      </tr>
+    </table>
+    <p>&nbsp;</p>
+</div>
+{literal}
+<script language="javascript" type="text/javascript">
+new Sortables($('team_{/literal}{$t.tID}{literal}'), {				
+				cloneOpacity:.2,
+				clone: true,
+				revert: true,
+				handle: 'img.dragHandle_{/literal}{$t.tID}{literal}', 
+				onComplete: function() { 
+					var order = '';
+					$$('#team_{/literal}{$t.tID}{literal} div').each(function (e) {
+						order += e.id.split("_")[1]+',';
+					});
+					new Request({url: 'ajax_checks.php?func=admin&site=team_order&id={/literal}{$t.tID}{literal}&order='+order, 
+						onSuccess: function(r) { 
+							if(r != 'ok') 
+								errorAlert(ERROR, r); 
+							} 
+					}).get();
+					check_color('team_{/literal}{$t.tID}{literal}'); 
+				} 
+});
+</script>
+{/literal}
+{/foreach}
+</div>
+{literal}
+<script type="text/javascript">
+new Sortables($('teams_all'), {				
+				cloneOpacity:.2,
+				clone: true,
+				revert: true,
+				handle: 'img.dragHandle', 
+				onComplete: function() { 
+						var order = '';
+						$$('div.team').each(function (e) {
+							order += e.id.split("_")[1]+',';
+						});
+						new Request({url: 'ajax_checks.php?func=admin&site=team_order_team&order='+order,  
+							onSuccess: function(r) { 
+								if(r != 'ok') 
+									errorAlert(ERROR, r); 
+								} 
+						}).get();
+				}
+});
+</script>
+{/literal}

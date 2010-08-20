@@ -1,0 +1,11 @@
+
+{if $seiten}<br />&nbsp;<div class="pageLinks">{$seiten}</div><div style="clear:both;"></div>{/if}
+{foreach from=$links item=l}
+<div class="link_body">
+	<div class="link_head">
+		<div class="link_name"><a href="?section=links&goto={$l.linkID}" target="_blank">{$l.name}</a></div><div class="link_hits">{$smarty.const.LINK_HITS}: {$l.hits}</div><div style="clear:both;"></div>
+    </div>
+    {if $l.beschreibung OR $l.bannerurl}<div class="link_disc">{$l.beschreibung}{if $l.bannerurl}<a href="?section=links&goto={$l.linkID}" target="_blank"><img src="{$l.bannerurl}" style="clear:both; max-width: 480px" alt="" title="{$l.name}" /></a>{/if}</div>{/if}
+</div>
+{/foreach}
+{if $seiten}<div style="clear:both;"></div><div class="pageLinks">{$seiten}</div><br />&nbsp;{/if}

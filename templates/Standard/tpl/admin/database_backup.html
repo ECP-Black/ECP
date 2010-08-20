@@ -1,0 +1,10 @@
+<form id="form_backup" name="form_backup" method="post">
+    <fieldset class="fieldset_border">
+        <legend class="label_wars">{$smarty.const.DATABASE_AUTOUPDATE}</legend>
+        <div><label for="backup_aktiv">{$smarty.const.AKTIV}:</label><input type="checkbox" class="checkbox" id="backup_aktiv" name="backup_aktiv" value="1" {if $smarty.const.BACKUP_AKTIV}checked{/if} /></div>
+        <div style="clear: both;"><label for="backup_email">{$smarty.const.DATABASE_BACKUP_EMAIL}:</label><input type="text" id="backup_email" name="backup_email" value="{$smarty.const.BACKUP_EMAIL}" /></div>
+        <div><label for="backup_cycle">{$smarty.const.DATABASE_BACKUP_CYCLE}:</label><select name="backup_cycle" id="backup_cycle"><option {if $smarty.const.BACKUP_CYCLE == "day"}selected{/if} value="day">{$smarty.const.DAILY}</option><option {if $smarty.const.BACKUP_CYCLE == "week"}selected{/if} value="week">{$smarty.const.WEEKLY}</option><option {if $smarty.const.BACKUP_CYCLE == "month"}selected{/if} value="month">{$smarty.const.MONTHLY}</option></select></div><br />
+        <input type="submit" value="{$smarty.const.SUBMIT}" id="submit" class="submit" name="submit" />   
+    </fieldset>
+</form>
+<a href="?section=admin&site=database&func=makebackup"><img src="templates/{$smarty.const.DESIGN}/images/database_save.png" alt="" title="{$smarty.const.DATABASE_BACKUP}" /> {$smarty.const.DATABASE_BACKUP}</a>

@@ -1,0 +1,9 @@
+<fieldset>
+    <legend>{$smarty.const.USER}</legend>
+    <div><label for="public_user_view">{$smarty.const.VIEW}:</label><input class="checkbox" type="checkbox" name="public_user_view" value="1" {if $public_user_view}checked{/if} /></div>  
+    <div><label for="public_user_list">{$smarty.const.USER_LIST}:</label><input class="checkbox" type="checkbox" name="public_user_list" value="1" {if $public_user_list}checked{/if} /></div>     
+    <div><label for="public_user_com_view">{$smarty.const.GUESTBOOK_VIEW}:</label><input class="checkbox" type="checkbox" name="public_user_com_view" value="1" {if $public_user_com_view}checked{/if} /></div>
+    <div><label for="public_user_com_add">{$smarty.const.GUESTBOOK_ADD}:</label><input class="checkbox" type="checkbox" name="public_user_com_add" value="1" {if $public_user_com_add}checked{/if} /></div>
+    <div><label for="public_user_com_edit">{$smarty.const.GUESTBOOK_EDIT}:</label><input class="checkbox" type="checkbox" name="public_user_com_edit" value="1" {if $public_user_com_edit}checked{/if} /></div>
+    <div><label for="public_user_com_del">{$smarty.const.GUESTBOOK_DELETE}:</label><input class="checkbox" type="checkbox" name="public_user_com_del" value="1" {if $public_user_com_del}checked{/if} /></div>
+</fieldset>

@@ -1,0 +1,77 @@
+<form name="calendar_form" id="calendar_form" action="?section=admin&site=calendar&func=add" method="post">
+	<fieldset>
+    	<div><label for="eventname">{$smarty.const.EVENT_NAME}:</label><input type="text" id="eventname" name="eventname" class="required" /></div>
+    	<div><label for="eventname">{$smarty.const.DATE}:</label><input type="text" name="datum" id="datum" size="30" class="required validate-date-eu smallinput" /><img id="button_cal" src="templates/{$smarty.const.DESIGN}/images/calendar.png" alt="{$smarty.const.CHOOSE_DATE}" class="imgpointer" title="{$smarty.const.CHOOSE_DATE}" /></div>
+     	<div><label for="rights">{$smarty.const.ACCESS_RIGHTS}:</label><select name="rights[]" size="5" multiple="multiple" class="selected" id="rights">{$rights}</select></div>        
+      <fieldset>
+      <legend>{$smarty.const.DISCRIPTION}</legend>
+      <div id="tabBoxExample">
+        <ul class="tabSet">
+          {foreach from=$lang item=l}
+          <li class="off"><a><img src="images/flaggen/{$l.lang}.gif" alt="" title="{$l.name}" /></a></li>
+          {/foreach}
+        </ul>
+        <div class="panelSet"> {foreach from=$lang item=l}
+          <div class="panel" id="discription_{$l.lang}_div">
+            <textarea class="admininput" rows="7" cols="60" name="discription_{$l.lang}" id="discription_{$l.lang}">{$l.content}</textarea>
+            <div align="center"><a onclick="tinyMCE.execCommand('mceToggleEditor',false,'discription_{$l.lang}');">{$smarty.const.TOGGLE_EDITOR}</a></div>
+          </div>
+          {/foreach} </div>
+      </div>
+      </fieldset>        
+    	<input type="submit" class="submit" name="submit" id="calendar_submit" value="{$smarty.const.ADD}" /> <img src="templates/{$smarty.const.DESIGN}/images/spinner.gif" alt="" title="{$smarty.const.LOADING}" style="visibility: hidden" id="cal_spinner" />
+    </fieldset>
+</form>
+<br />
+<div id="calendar_overview">{$events}</div>
+<script type="text/javascript">
+{literal}
+form_cal = new FormValidator($('calendar_form')); 
+new TabSwapper({
+  selectedClass: 'on',
+  deselectedClass: 'off',
+  tabs: $$('#tabBoxExample li'),
+  clickers: $$('#tabBoxExample li a'),
+  sections: $$('div.panelSet div.panel'),
+  smooth: true
+});
+$('calendar_form').addEvent('submit', function(e) {
+	new Event(e).stop();
+	if(form_cal.validate()) {
+		$('cal_spinner').style.visibility = '';
+		$('calendar_submit').disabled = true;
+		$$('#calendar_form textarea').each( function (e) { 
+			el = tinyMCE.get(e.name);				
+			if(el.isDirty()) el.save();
+		});	
+		new Request({	
+			url: $('calendar_form').action,
+			onSuccess: function(r) {
+				form_cal = new FormValidator($('calendar_form')); 
+				$('cal_spinner').style.visibility = 'hidden';
+				$('calendar_submit').disabled = false;				
+				if(r == 'ok') {			
+					if($('calendar_form').action.contains('edit')) {
+						make_info(CAL_EDIT_SUCCESS, 'accept');
+					} else {
+						make_info(CAL_ADD_SUCCESS, 'accept');
+					}		
+					new Request.HTML({url: '?section=admin&site=calendar&func=getevents&ajax=1', update: 'calendar_overview', useWaiter: true}).get();											
+					$('calendar_form').reset();
+					$('calendar_form').action = '?section=admin&site=calendar&func=add';
+					$('calendar_submit').value = ADD;						
+				} else {
+					errorAlert(ERROR, r);
+				}
+			}
+		}).send($('calendar_form'));
+	}
+});
+Calendar.setup({
+    inputField    : "datum",
+    button        : "button_cal",
+	showsTime     :    true,
+	onUpdate:	  function() { form_cal.validateField($('datum')); }
+});	
+{/literal}
+</script>

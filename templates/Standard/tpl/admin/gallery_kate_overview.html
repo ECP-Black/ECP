@@ -1,0 +1,14 @@
+<table width="100%" border="0" cellspacing="0" cellpadding="0" style="table-layout:fixed" id="kate_table">
+  <tr>
+    <td width="50%"><strong>{$smarty.const.NAME}</strong></td>
+    <td width="30%"><strong>{$smarty.const.GALLERY_GALLERIES}</strong>&nbsp;</td>
+    <td width="20%">&nbsp;</td>
+  </tr>
+  {foreach from=$kate item=k}
+  <tr class="{cycle values="row_odd,row_even"}" id="kate_{$k.kateID}">
+    <td>{$k.katename}</td>
+    <td>{$k.galleries}</td>
+    <td><img src="templates/{$smarty.const.DESIGN}/images/edit.png" alt="" title="{$smarty.const.EDIT}" class="imgpointer" onclick="gallery_kate_edit({$k.kateID});" /> <img src="templates/{$smarty.const.DESIGN}/images/delete.png" alt="" title="{$smarty.const.DELETE}" class="imgpointer" onclick="gallery_kate_delete({$k.kateID}, '{$k.katename}');" /></td>
+  </tr>
+  {/foreach}
+</table>

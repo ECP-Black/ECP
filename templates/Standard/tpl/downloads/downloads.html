@@ -1,0 +1,34 @@
+<div style="overflow:auto">
+	{foreach from=$dls item=d}
+    <div class="download">
+    	<div class="download_head"><a href="?section=downloads&action=viewdl&id={$d.dID}"><img src="templates/{$smarty.const.DESIGN}/images/download_button.png" style="vertical-align: bottom" alt="" title="{$smarty.const.DOWNLOAD_START}" /></a> <a href="?section=downloads&action=viewdl&id={$d.dID}">{$d.name}</a></div>
+        <!--<div class="download_vote">
+			<span class="vote"></span>
+        </div> -->
+        {if $d.info}<div class="download_info"><strong>{$smarty.const.DISCRIPTION}:</strong> {$d.info}</div>{/if}
+        <div class="download_details">
+        	<strong>{$smarty.const.NAME}: <br />
+            {$smarty.const.UPLOAD_TIME}: <br />
+        	{$smarty.const.UPLOAD_FROM}: <br />
+        	{$smarty.const.HOMEPAGE}: <br />
+        	{$smarty.const.DOWNLOAD_VERSION}: <br />
+        	{$smarty.const.DOWNLOAD_SIZE}: <br />  
+        	{$smarty.const.DOWNLOAD_HITS}: <br />              
+            {$smarty.const.TRAFFIC}: <br />   
+			{$smarty.const.COMMENTS}: </strong><br />                                                            
+      </div>
+        <div class="download_details_right">
+        	{$d.name} <br />
+            {$d.datum} <br />
+        	<a href="?section=user&amp;id={$d.userID}">{$d.username}</a>  <br />
+        	<a href="{$d.homepage}" target="_blank">{$smarty.const.VIEW}</a><br />
+        	{$d.version} <br />
+        	{$d.size} <br />  
+        	{$d.downloads} <br />              
+            {$d.traffic} <br /> 
+            {$d.comments} <br />            
+        </div>
+    </div>
+    <br />
+    {/foreach}
+</div>

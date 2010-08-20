@@ -1,0 +1,41 @@
+{if $next}
+{foreach from=$next item=n}
+<div class="Tips" title="{$smarty.const.NEXT_WAR}"><img src="images/games/{$n.icon}" alt="" title="{$n.gamename}" /> <a href="?section=clanwars&action=nextwar&id={$n.warID}">{$n.tname} {$smarty.const.VS} {$n.oppshort}</a><span class="tipcontents"><table width="250" border="0" cellspacing="0" cellpadding="1">
+  <tr>
+    <td width="10"><strong>{$smarty.const.CLANWAR_OPP_NAME}:</strong></td>
+    <td width="150"><img src="images/flaggen/{$n.country}.gif" alt="" title="{$n.countryname}" /> {$n.oppname}</td>
+  </tr>
+  <tr>
+    <td><strong>{$smarty.const.CLANWAR_OPP_SHORT}:</strong></td>
+    <td>{$n.oppshort}</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><strong>{$smarty.const.GAME}:</strong></td>
+    <td><img src="images/games/{$n.icon}" alt="" title="{$n.gamename}" /> {$n.gamename}</td>
+  </tr>
+  <tr>
+    <td><strong>{$smarty.const.TEAM}:</strong></td>
+    <td>{$n.tname}</td>
+  </tr>
+  <tr>
+    <td><strong>{$smarty.const.XONX}:</strong></td>
+    <td>{$n.xonx}</td>
+  </tr>
+  <tr>
+    <td><strong>{$smarty.const.MATCHTYP}:</strong></td>
+    <td>{$n.matchtypename}</td>
+  </tr>
+  <tr>
+    <td><strong>{$smarty.const.DATE}:</strong></td>
+    <td>{$n.datum}</td>
+  </tr>
+</table>
+</span></div>
+{/foreach}
+{else}
+{$smarty.const.NO_ENTRIES}
+{/if}

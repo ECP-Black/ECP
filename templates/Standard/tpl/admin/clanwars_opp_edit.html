@@ -1,0 +1,39 @@
+<form id="opp_edit" name="opp_edit" action="ajax_checks.php?func=admin&site=edit_opp&id={$id}" method="post">
+<fieldset>
+	<legend>{$smarty.const.CLANWARS_OPP}</legend>
+    <div><label for="oppname">{$smarty.const.CLANWAR_OPP_NAME}:</label><input value="{$oppname}" type="text" id="oppname" name="oppname" maxlength="40" class="required" /></div>
+    <div><label for="oppshort">{$smarty.const.CLANWAR_OPP_SHORT}:</label><input value="{$oppshort}" type="text" id="oppshort" name="oppshort" maxlength="15" onChange="{literal}$$('span.owp_name').each(function(e) { e.setHTML($('oppshort').value);});{/literal}" class="required" /></div>     
+    <div><label for="homepage">{$smarty.const.HOMEPAGE}:</label><input type="text" value="{$homepage}" maxlength="255" id="homepage" name="homepage" /></div>
+	<div><label for="country">{$smarty.const.COUNTRY}:</label><select name="country" id="country" onChange="set_flagge(this)">{$countries}</select> <img src="images/flaggen/none.gif" height="11" width="16" alt="none" id="flagge" /></div>
+    <br /><input type="submit" value="{$smarty.const.EDIT_2}" id="opp_submit" name="submit" class="submit" /> <img style="visibility: hidden" src="templates/{$smarty.const.DESIGN}/images/spinner.gif" id="opp_spinner" alt="" title="{$smarty.const.LOADING}" />
+</fieldset>
+</form>
+<script type="text/javascript" language="javascript">
+old_opp = "{$oppname}";{literal}
+opp_form_val = new FormValidator($('opp_edit')); 
+window.addEvent('domready', function() { 
+	set_flagge($('country'));
+});
+$('opp_edit').addEvent('submit', function(e) {
+	new Event(e).stop();
+	if(opp_form_val.validate()) {
+		$('opp_spinner').style.visibility = '';
+		$('opp_submit').disabled = true;
+		new Request({
+			url: $('opp_edit').action,
+			onSuccess: function(r) {
+				if(r == 'ok') {	
+					$$('#clanwars_overview a').each(function (e) { if (e.get('text') == old_opp) e.set('text', $('oppname').get('inputValue'));  });
+					win_opp_edit.hide();
+					make_info(EDIT_OPP_SUCCESS, 'accept');																
+				} else {
+					errorAlert(ERROR, r);
+				}
+			}
+		}).send($('opp_edit'));
+	}
+	$('opp_submit').disabled = false;
+	$('opp_spinner').style.visibility = 'hidden';
+});	
+</script>
+{/literal}

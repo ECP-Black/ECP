@@ -1,0 +1,82 @@
+<form id="forum_search" name="forum_search" action="?section=forum&amp;action=search" method="post">
+  <fieldset>
+  <legend> {$smarty.const.FORUM_SEARCH} </legend>
+  <div class="div_headline"><strong>{$smarty.const.FORUM_SEARCH_WORDS}</strong></div>
+  <div>
+    <label for="stichwort">{$smarty.const.FORUM_SEARCH_WORD}:</label>
+    <input type="text" maxlength="100" name="stichwort" id="stichwort" value="{$stichwort}" />
+  </div>
+  <div>
+    <label for="suchart">{$smarty.const.FORUM_SEARCH_ART}:</label>
+    <select name="suchart" id="suchart">
+      <option value="1">{$smarty.const.FORUM_SEARCH_THREADS}</option>
+      <option value="2">{$smarty.const.FORUM_SEARCH_TITLES}</option>
+    </select>  
+  </div>
+  <div>
+    <label for="viewas">{$smarty.const.FORUM_SEARCH_VIEWAS}:</label>
+      <select name="viewas" id="viewas">
+      <option value="topic">{$smarty.const.FORUM_THREADS}</option>
+      <option value="comments">{$smarty.const.FORUM_POSTS}</option>
+    </select>  
+  </div>  
+  <div class="div_headline"><strong>{$smarty.const.FORUM_SEARCH_USER}</strong></div>
+  <div>
+    <label for="username">{$smarty.const.USERNAME}:</label>
+    <input type="text" maxlength="100" name="username" id="username" value="{$username}" /> <img src="templates/{$smarty.const.DESIGN}/images/spinner.gif" alt="" style="visibility:hidden" id="user_spinner" title="{$smarty.const.LOADING}" />
+  </div>
+  <div>
+    <label for="usersuchart">{$smarty.const.FORUM_SEARCH_ART}:</label>
+    <select name="usersuchart" id="usersuchart">
+      <option value="1">{$smarty.const.FORUM_POSTS}</option>
+      <option value="2">{$smarty.const.FORUM_SEARCH_A_THREADS}</option>
+    </select>
+  </div>
+  <br />
+  <br />
+  <div class="div_headline"><strong>{$smarty.const.FORUM_SEARCH_ADVANCE}</strong></div>
+  <div>
+    <label for="foren">{$smarty.const.FOREN}:</label>
+    <select multiple style='width:60%;' name="foren[]" size="8" id="foren">
+      {$foren}
+    </select>
+  </div>
+  <div>
+    <label for="alterart">{$smarty.const.FORUM_SEARCH_ALTER}:</label>
+    <select name="alterart" id="alterart">
+      <option value=">=">{$smarty.const.FORUM_SEARCH_NEWER}</option>
+      <option value="<=">{$smarty.const.FORUM_SEARCH_OLDER}</option>
+    </select>
+    <input name="altervalue" type="text" id="altervalue" class="smallinput" value="{$altervalue}" size="3" maxlength="3">
+    {$smarty.const.DAYS}</div>
+  <div>
+    <label for="sortart">{$smarty.const.FORUM_SEARCH_ORDER}:</label>
+    <select name="sortart" id="sortart">
+      <option value="adatum">{$smarty.const.FORUM_SEARCH_LAST_REPLAY}</option>
+      <option value="threadname">{$smarty.const.FORUM_SEARCH_TITLE}</option>
+      <option value="posts">{$smarty.const.FORUM_SEARCH_REPLAYS}</option>
+      <option value="views">{$smarty.const.FORUM_SEARCH_HITS}</option>
+      <option value="datum">{$smarty.const.FORUM_SEARCH_POST_DATE}</option>
+      <option value="boardname">{$smarty.const.FORUM_SEARCH_BOARDNAME}</option>
+      <option value="rating">{$smarty.const.FORUM_RATING}</option>
+    </select>
+    <select name="sortorder" id="sortorder">
+      <option value="DESC">{$smarty.const.DESC}</option>
+      <option value="ASC">{$smarty.const.ASC}</option>
+    </select>    
+  </div>
+  <br />
+  <input type="submit" class="submit" name="submit" value="{$smarty.const.SEARCH}" />
+  </fieldset>
+</form>
+{literal}
+<script type="text/javascript">
+window.addEvent('domready', function() { 
+	new Autocompleter.Ajax.Json($('username'), 'ajax_checks.php?func=search_member', { 
+				postVar: 'username', multiple: false,
+			  onRequest: function ()  { $('user_spinner').style.visibility = ''; },
+			  onComplete: function ()  { $('user_spinner').style.visibility = 'hidden'; }, 
+			  zIndex: 999999 });
+});
+</script>
+{/literal}

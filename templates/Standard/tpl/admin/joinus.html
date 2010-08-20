@@ -1,0 +1,21 @@
+<div id="view_joinus">{$details}</div>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" id="joinus_table">
+  <tr>
+    <td width="15%"><strong>{$smarty.const.DATE}:</strong></td>
+    <td width="25%"><strong>{$smarty.const.NAME}:</strong></td>
+	<td width="20%"><strong>{$smarty.const.USERNAME}:</strong></td>    
+    <td width="15%"><strong>{$smarty.const.TEAM}:</strong></td>
+    <td width="15%"><strong>{$smarty.const.FINISHED}:</strong></td>
+    <td width="10%">&nbsp;</td>
+  </tr>
+ {foreach from=$joinus item=f}
+  <tr class="{cycle values="row_odd,row_even"}" id="joinus_{$f.joinID}">
+    <td>{$f.datum}</td>
+    <td>{$f.name}</td>
+    <td>{$f.username}</td>    
+    <td>{$f.tname}</td>
+    <td><span id="finished_by_{$f.joinID}">{if $f.closed}<a href="?section=user&id={$f.closedby}">{$f.closedby_username}</a>{else}-{/if}</span></td>
+    <td><img src="templates/{$smarty.const.DESIGN}/images/view.png" alt="" title="{$smarty.const.VIEW}" onclick="joinus_view({$f.joinID});" style="cursor:pointer" /> <img src="templates/{$smarty.const.DESIGN}/images/delete.png" alt="" title="{$smarty.const.DELETE}" onclick="joinus_del({$f.joinID}, '{$f.name}');" style="cursor: pointer" /></td>    
+  </tr>
+  {/foreach}
+</table>

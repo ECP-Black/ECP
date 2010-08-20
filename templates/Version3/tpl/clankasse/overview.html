@@ -1,0 +1,18 @@
+<div style="width: 49%; float: left; padding: 10px 0;"><span class="pageLink imgpointer" onclick="load_clankasse_overview({$vmonat}, {$vjahr});"><<</span></div><div style="width: 50%; float: left; text-align:right; padding: 10px 0;"><span class="pageLink imgpointer" onclick="load_clankasse_overview({$nmonat}, {$njahr});">>></span></div><div style="clear:both;"></div>
+<table width="100%" border="0" cellspacing="0" cellpadding="1">
+  <tr>
+    <td><strong>{$smarty.const.USER}:</strong></td>
+    {foreach from=$monate item=m}
+    <td><strong>{$m.datum}:</strong></td>
+    {/foreach}
+
+  </tr>
+  {foreach from=$user item=u}
+  <tr>
+    <td><a href="?section=user&id={$u.userID}">{$u.username}</a> ({$u.monatgeld} &euro;)</td>
+    {foreach from=$monate item=m}
+    <td>{if $m[$u.userID].geld}<span class="clankasse_plus">{$m[$u.userID].geld} &euro;</span>{else}<a href="#" onclick="monat_user_buchung('{$u.monatgeld}', '{$m.datum}', '{$u.username}', {$u.userID}, {$startm}, {$startj}); return false;"><span class="clankasse_minus">0 &euro; </span></a>{/if}</span></td>
+	{/foreach}
+  </tr>
+  {/foreach}
+</table>

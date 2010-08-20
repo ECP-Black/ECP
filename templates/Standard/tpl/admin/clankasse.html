@@ -1,0 +1,200 @@
+      <div id="tabBoxExample">
+        <ul class="tabSet">
+			<li class="off"><a>{$smarty.const.FINANCES_AUTO}</a></li>      
+			<li class="off"><a>{$smarty.const.FINANCES_TRANS}</a></li>
+            <li class="off"><a>{$smarty.const.FINANCES_KONTO}</a></li>               
+			<li class="off"><a>{$smarty.const.USER}</a></li>
+        </ul>
+        <div class="panelSet">  
+          <div class="panel">
+           	<form name="auto_buchung" id="auto_buchung" action="ajax_checks.php?func=admin&site=add_auto" method="post">          
+			<fieldset style="border: none">
+            	<div><label for="verwendung">{$smarty.const.FINANCES_USE}:</label><input type="text" maxlength="255" name="verwendung" id="verwendung" class="required" /></div>
+            	<div><label for="intervall">{$smarty.const.FINANCES_INTERVALL}:</label><input type="text" maxlength="3" class="smallinput required validate-number" name="intervall" id="intervall" /> {$smarty.const.MONTHS}</div>
+            	<div><label for="betrag">{$smarty.const.FINANCES_CONTRIB}:</label><input type="text" maxlength="10" class="required smallinput validate-numberdot" name="betrag" id="betrag" /> <img src="templates/{$smarty.const.DESIGN}/images/money.png" alt="" title="" /></div>
+                <div><label for="tagmonat">{$smarty.const.FINANCES_DAY}:</label><select name="tagmonat" id="tagmonat"><option value="1">{$smarty.const.FINANCES_BEGIN_MONTH}</option><option value="15">{$smarty.const.FINANCES_MIDDLE_MONTH}</option><option value="28">{$smarty.const.FINANCES_END_MONTH}</option>
+    </select></div>
+                <input type="submit" id="autobuch_submit" value="{$smarty.const.ADD}" class="submit" /> <img id="autobuch_submit_spinner" src="templates/{$smarty.const.DESIGN}/images/spinner.gif" alt="" title="{$smarty.const.LOADING}" style="visibility: hidden;" />
+            </fieldset>
+            </form> 
+            <div id="auto_trans">{$overview}</div>         
+          </div>
+          <div class="panel">
+           	<form name="buchungen" id="buchungen" action="ajax_checks.php?func=admin&site=add_buch" method="post">          
+			<fieldset style="border: none">
+            	<div><label for="art">{$smarty.const.FINANCES_ART}:</label>      <select name="art" id="art" onchange="javascript:switch_clankasse();"><option value="+">{$smarty.const.FINANCES_IN}</option><option value="-">{$smarty.const.FINANCES_OUT}</option></select><span id="vonuser" style=""> {$smarty.const.FROM} <input type="text" class="smallinput" id="userID" name="userID" /><img src="templates/{$smarty.const.DESIGN}/images/spinner.gif" alt="" style="visibility:hidden" id="user_spinner" title="{$smarty.const.LOADING}" /></span></div>            
+            	<div><label for="verwendung_buch">{$smarty.const.FINANCES_USE}:</label><input type="text" maxlength="255" name="verwendung_buch" id="verwendung_buch" class="smallinput" /> <span id="verwendungby" style=""> {$smarty.const.FINANCES_OR_FOR} <select name="verwendungby" size="1">{$options}</select></span></div>
+            	<div><label for="betrag_buch">{$smarty.const.FINANCES_CONTRIB}:</label><input type="text" maxlength="10" class="required smallinput validate-numberdot" name="betrag_buch" id="betrag_buch" /> <img src="templates/{$smarty.const.DESIGN}/images/money.png" alt="" title="" /></div>
+                <input type="submit" id="buchung_submit" value="{$smarty.const.ADD}" class="submit" /> <img id="buchung_submit_spinner" src="templates/{$smarty.const.DESIGN}/images/spinner.gif" alt="" title="{$smarty.const.LOADING}" style="visibility: hidden;" />
+            </fieldset>
+            </form> 
+            <div id="buch_trans">{$buch_overview}</div>              
+          </div> 
+          <div class="panel">
+           	<form name="kontodaten" id="kontodaten" action="ajax_checks.php?func=admin&site=set_kontodaten" method="post">          
+			<fieldset style="border: none">
+            	<div><label for="empfaenger">{$smarty.const.FINANCES_USER}:</label><input type="text" maxlength="255" value="{$empfaenger}" name="empfaenger" id="empfaenger" /></div>
+            	<div><label for="kontonummer">{$smarty.const.FINANCES_KONTO_NR}:</label><input type="text" maxlength="255" value="{$kontonummer}" name="kontonummer" id="kontonummer" /></div>
+            	<div><label for="bankleitzahl">{$smarty.const.FINANCES_BANK_NR}:</label><input type="text" maxlength="255" value="{$bankleitzahl}" name="bankleitzahl" id="bankleitzahl" /></div>
+                <div><label for="institut">{$smarty.const.FINANCES_BANK}:</label><input type="text" maxlength="255" value="{$institut}" name="institut" id="institut" /></div>
+            	<div><label for="IBAN">{$smarty.const.FINANCES_IBAN}:</label><input type="text" maxlength="255" value="{$IBAN}" name="IBAN" id="IBAN" /></div>
+            	<div><label for="SWIFT">{$smarty.const.FINANCES_SWIFT}:</label><input type="text" maxlength="255" value="{$SWIFT}" name="SWIFT" id="SWIFT" /></div>
+            	<div><label for="kontostand">{$smarty.const.FINANCES_BALANCE}:</label><input class="smallinput" type="text" value="{$kontostand}" name="kontostand" id="kontostand" /> <img src="templates/{$smarty.const.DESIGN}/images/money.png" alt="" title="" /></div>
+                <input type="submit" id="kontodaten_submit" value="{$smarty.const.EDIT_2}" class="submit" /> <img id="kontodaten_submit_spinner" src="templates/{$smarty.const.DESIGN}/images/spinner.gif" alt="" title="{$smarty.const.LOADING}" style="visibility: hidden;" />
+            </fieldset>
+            </form>
+          </div>
+          <div class="panel">
+           	<form name="user_buch" id="user_buch" action="ajax_checks.php?func=admin&site=add_user_buch" method="post">          
+			<fieldset style="border: none">
+				<div><label for="username">{$smarty.const.USER}:</label><input type="text" maxlength="255" name="username" id="username" class="required smallinput" /> <img src="templates/{$smarty.const.DESIGN}/images/spinner.gif" alt="" style="visibility:hidden" id="user_spinner_2" title="{$smarty.const.LOADING}" /></div>        
+            	<div><label for="userverwendung">{$smarty.const.FINANCES_USE}:</label><input type="text" maxlength="255" name="userverwendung" id="userverwendung" class="smallinput" /></div>
+            	<div><label for="betrag_user">{$smarty.const.FINANCES_CONTRIB}:</label><input type="text" maxlength="10" class="required smallinput validate-numberdot" name="betrag_user" id="betrag_user" /> <img src="templates/{$smarty.const.DESIGN}/images/money.png" alt="" title="" /></div>
+                <input type="submit" id="user_buch_submit" value="{$smarty.const.ADD}" class="submit" /> <img id="user_buch_submit_spinner" src="templates/{$smarty.const.DESIGN}/images/spinner.gif" alt="" title="{$smarty.const.LOADING}" style="visibility: hidden;" />
+            </fieldset>
+            </form> 
+            <div id="user_trans">{$user_trans}</div>
+          </div>                      
+        </div>
+      </div>
+{literal}
+<script type="text/javascript">
+/*Calendar.setup({
+    inputField    : "ende",
+    button        : "button_cal",
+	showsTime     :    true
+});*/	
+window.addEvent('domready', function() { 
+u_buch = new FormValidator($('user_buch'));
+$('user_buch').addEvent('submit', function(e) {
+	new Event(e).stop();
+	if(u_buch.validate()) {	
+		$('user_buch_submit_spinner').style.visibility = '';
+		$('user_buch_submit').disabled = true;	
+		new Request({
+			url: $('user_buch').action,
+			onSuccess: function(r) {
+				if(r == 'ok') {				
+					if($('user_buch').action.contains('edit')) {
+						make_info(CLANKASSE_USER_EDIT_SUCCESS, 'accept');
+					} else {
+						make_info(CLANKASSE_USER_ADD_SUCCESS, 'accept');	
+					}	
+					$('user_buch').reset();
+					$('user_buch').action = 'ajax_checks.php?func=admin&site=add_user_buch';
+					$('user_buch_submit').value = ADD;
+					$('user_buch_submit_spinner').style.visibility = 'hidden';
+					$('user_buch_submit').disabled = false;
+					new Request.HTML({url: 'ajax_checks.php?func=admin&site=get_clank_user', useWaiter: true,	update: $('user_trans')}).get();							
+				} else {
+					errorAlert(ERROR, r);
+					$('user_buch_submit_spinner').style.visibility = 'hidden';
+					$('user_buch_submit').disabled = false;
+				}
+			}
+		}).send($('user_buch'));
+	}
+}); 
+auto_buch = new FormValidator($('auto_buchung'));
+$('auto_buchung').addEvent('submit', function(e) {
+	new Event(e).stop();
+	if(auto_buch.validate()) {	
+		$('autobuch_submit_spinner').style.visibility = '';
+		$('autobuch_submit').disabled = true;	
+		new Request({
+			url: $('auto_buchung').action,
+			onSuccess: function(r) {
+				if(r == 'ok') {				
+					if($('auto_buchung').action.contains('edit')) {
+						make_info(CLANKASSE_AUTO_EDIT_SUCCESS, 'accept');
+					} else {
+						make_info(CLANKASSE_AUTO_ADD_SUCCESS, 'accept');	
+					}	
+					$('auto_buchung').reset();
+					$('auto_buchung').action = 'ajax_checks.php?func=admin&site=add_auto';
+					$('autobuch_submit').value = ADD;
+					$('autobuch_submit_spinner').style.visibility = 'hidden';
+					$('autobuch_submit').disabled = false;
+					new Request.HTML({ url: 'ajax_checks.php?func=admin&site=get_auto', useWaiter: true,	update: $('auto_trans')}).get();							
+				} else {
+					errorAlert(ERROR, r);
+					$('buchung_submit_spinner').style.visibility = 'hidden';
+					$('buchung_submit').disabled = false;
+				}
+			}
+		}).send($('auto_buchung'));
+	}
+}); 
+buch = new FormValidator($('buchungen'));
+$('buchungen').addEvent('submit', function(e) {
+	new Event(e).stop();
+	if(buch.validate()) {
+		$('buchung_submit_spinner').style.visibility = '';
+		$('buchung_submit').disabled = true;	
+		new Request({
+			url: $('buchungen').action,
+			onSuccess: function(r) {
+				if(r == 'ok') {				
+					if($('buchungen').action.contains('edit')) {
+						make_info(CLANKASSE_AUTO_EDIT_SUCCESS, 'accept');
+					} else {
+						make_info(CLANKASSE_AUTO_ADD_SUCCESS, 'accept');	
+					}	
+					$('buchungen').reset();
+					$('buchungen').action = 'ajax_checks.php?func=admin&site=add_buch';
+					switch_clankasse();
+					update_kontostand();
+					$('buchung_submit').value = ADD;
+					$('buchung_submit_spinner').style.visibility = 'hidden';
+					$('buchung_submit').disabled = false;
+					new Request.HTML({url:'ajax_checks.php?func=admin&site=get_buch', useWaiter: true,	update: $('buch_trans')}).get();							
+				} else {
+					errorAlert(ERROR, r);
+					$('buchung_submit_spinner').style.visibility = 'hidden';
+					$('buchung_submit').disabled = false;
+				}
+			}
+		}).send($('buchungen'));
+	}
+}); 
+$('kontodaten').addEvent('submit', function(e) {
+	new Event(e).stop();
+	$('kontodaten_submit_spinner').style.visibility = '';
+	$('kontodaten_submit').disabled = true;	
+	new Request({
+		url: $('kontodaten').action, 
+		onSuccess: function(r) {
+			if(r == 'ok') {			
+				make_info(CLANKASSE_EDIT_SUCCESS, 'accept');
+				$('kontodaten_submit_spinner').style.visibility = 'hidden';
+				$('kontodaten_submit').disabled = false;										
+			} else {
+				errorAlert(ERROR, r);
+				$('kontodaten_submit_spinner').style.visibility = 'hidden';
+				$('kontodaten_submit').disabled = false;
+			}
+		}
+	}).send($('kontodaten'));
+}); 	
+new TabSwapper({
+  selectedClass: 'on',
+  deselectedClass: 'off',
+  tabs: $$('#tabBoxExample li'),
+  clickers: $$('#tabBoxExample li a'),
+  sections: $$('div.panelSet div.panel'),
+  /*use transitions to fade across*/
+  smooth: true
+});	
+	new Autocompleter.Ajax.Json($('userID'), 'ajax_checks.php?func=search_member', { 
+				postVar: 'username', multi: false,
+			  onRequest: function ()  { $('user_spinner').style.visibility = ''; },
+			  onComplete: function ()  { $('user_spinner').style.visibility = 'hidden'; }, 
+			  zIndex: 999999 });
+	new Autocompleter.Ajax.Json($('username'), 'ajax_checks.php?func=search_member', { 
+				postVar: 'username', multi: false,
+			  onRequest: function ()  { $('user_spinner_2').style.visibility = ''; },
+			  onComplete: function ()  { $('user_spinner_2').style.visibility = 'hidden'; }, 
+			  zIndex: 999999 });			  
+});
+</script>
+{/literal}      

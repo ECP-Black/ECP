@@ -1,0 +1,36 @@
+<div align="center">{$pfad}</div>
+<div style="overflow:auto">
+    <div class="download">
+    	<div class="download_head"><a href="?section=downloads&action=viewdl&id={$dID}"><img src="templates/{$smarty.const.DESIGN}/images/download_button.png" style="vertical-align: bottom" alt="" title="{$smarty.const.DOWNLOAD_START}" /></a> <a href="?section=downloads&action=viewdl&id={$dID}">{$name}</a></div>
+        <!--<div class="download_vote">
+			<span class="vote"></span>
+        </div> -->
+        {if $info}<div class="download_info"><strong>{$smarty.const.DISCRIPTION}:</strong> {$info}</div>{/if}
+        <div class="download_details">
+        	<strong>{$smarty.const.NAME}: <br />
+            {$smarty.const.UPLOAD_TIME}: <br />
+        	{$smarty.const.UPLOAD_FROM}: <br />
+        	{$smarty.const.HOMEPAGE}: <br />
+        	{$smarty.const.DOWNLOAD_VERSION}: <br />
+        	{$smarty.const.DOWNLOAD_SIZE}: <br />  
+        	{$smarty.const.DOWNLOAD_HITS}: <br />              
+            {$smarty.const.TRAFFIC}: </strong><br />                                                
+      </div>
+        <div class="download_details_right">
+        	{$name} <br />
+            {$datum} <br />
+        	<a href="?section=user&amp;id={$userID}">{$username}</a>  <br />
+        	<a href="{$homepage}" target="_blank">{$smarty.const.VIEW}</a><br />
+        	{$version} <br />
+        	{$size} <br />  
+        	{$downloads} <br />              
+            {$traffic} <br />            
+        </div>
+    </div>
+    <div align="center">
+    <br />
+    <a href="?section=downloads&action=viewdl&id={$dID}">{$smarty.const.NO_DIRECT_LINK}</a>
+	<br /><br />
+    <input type="button" value="{$smarty.const.DOWNLOAD_START}" onclick="javasrcipt:location.href = '?section=downloads&action=getfile&id={$dID}';" >    
+    </div>
+</div>

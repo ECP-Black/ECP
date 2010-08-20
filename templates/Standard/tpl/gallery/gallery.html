@@ -1,0 +1,20 @@
+{if $seiten} <br /><div class="pageLinks">{$seiten}</div><div style="clear:both;"></div>{/if}
+<table width="100%" border="0" cellspacing="0" cellpadding="1">
+  <tr>
+    <td width="15%"><strong>{$smarty.const.DATE}:</strong></td>
+    <td width="25%"><strong>{$smarty.const.NAME}:</strong></td>
+    <td width="15%"><strong>{$smarty.const.GALLERY_IMAGES}:</strong></td>
+    <td width="20%"><strong>{$smarty.const.USER}:</strong></td>
+    <td width="25%" align="center"><strong>{$smarty.const.GALLERY_RANDOM_PIC}:</strong></td>
+  </tr>
+  {foreach from=$gallery item=g}
+  <tr class="{cycle values="row_odd,row_even"}" id="gallery_{$g.galleryID}">
+    <td valign="top">{$g.datum}</td>
+    <td valign="top"><a href="?section=gallery&action=gallery&id={$g.galleryID}">{$g.name}</a></td>
+    <td valign="top">{$g.images}</td>
+    <td valign="top"><a href="?section=user&amp;id={$g.userID}">{$g.username}</a></td>
+    <td align="center" valign="top"><a href="?section=gallery&action=viewpic&id={$g.imageID}"><img src="images/gallery/{$g.folder}/thumbs/{$g.imageID}_{$g.filename}" alt="" title="" /></a></td>
+  </tr>
+  {/foreach}
+</table>
+{if $seiten} <br /><div class="pageLinks">{$seiten}</div><div style="clear:both;"></div>{/if}

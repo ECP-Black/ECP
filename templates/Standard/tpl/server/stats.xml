@@ -1,0 +1,85 @@
+<settings>
+  <max_series>50</max_series>
+  <margins>5</margins>                                                   
+  <redraw>true</redraw>  
+  <data_reloading>
+    <interval>300</interval>
+  </data_reloading>
+  <data_sets>
+    <data_set>
+      <title>{$smarty.const.PLAYERS}</title>
+      <color>7f8da9</color>
+      <csv>
+	    <reverse>true</reverse>
+        <data>{$daten}</data>
+        <date_format>YYYY-MM-DD hh:mm:ss</date_format>
+        <columns>
+          <column>date</column>
+          <column>index1</column>
+        </columns>
+      </csv>
+    </data_set>
+  </data_sets>
+  <charts>
+    <chart>
+	  <height>60</height>	
+      <title>{$smarty.const.PLAYERS}</title>
+      <column_width>100</column_width>
+      <border_color>#CCCCCC</border_color>
+      <border_alpha>100</border_alpha>
+      <values>
+        <x>
+          <bg_color>#FAC303</bg_color>
+        </x>
+		<y_left>
+			<min>0</min>
+			<unit_position>left</unit_position>
+		</y_left>
+      </values>
+      <legend>
+        <show_date>true</show_date>
+      </legend>
+      <graphs>
+        <graph>
+          <title>{$smarty.const.PLAYERS}</title>
+          <color>#70DE05</color>
+          <fill_alpha>60</fill_alpha>
+          <data_sources>
+            <close>index1</close>
+          </data_sources>
+          <width>3</width>
+          <bullet>round_outline</bullet>
+          <smoothed>true</smoothed>
+		<legend>
+		<date key="true" title="false">{ldelim}close{rdelim}</date>
+		</legend>		  
+        </graph>
+      </graphs>
+    </chart>
+  </charts>
+  <data_set_selector>
+    <enabled>false</enabled>
+  </data_set_selector>  
+  <period_selector>
+    <periods>
+      <period type="hh" selected="true" count="3">3h</period>
+	  <period type="hh" count="12">12h</period>
+      <period type="DD" count="1">1D</period>
+      <period type="DD" count="7">7D</period>
+      <period type="MM" count="1">1M</period>
+    </periods>
+    <periods_title>Zoom:</periods_title>
+    <custom_period_title>Custom period:</custom_period_title>
+  </period_selector>
+  <header>
+    <enabled>false</enabled>
+  </header>
+  <scroller>
+    <graph_data_source>index1</graph_data_source>
+    <resize_button_style>dragger</resize_button_style>
+    <playback>
+      <enabled>true</enabled>
+      <speed>3</speed>
+    </playback>
+  </scroller>
+</settings>

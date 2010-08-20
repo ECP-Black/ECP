@@ -1,0 +1,18 @@
+<table width="100%" border="0" cellspacing="0" cellpadding="1" id="auto_buch_overview">
+  <tr>
+    <td width="30%"><strong>{$smarty.const.FINANCES_USE}:</strong></td>
+    <td width="20%"><strong>{$smarty.const.FINANCES_INTERVALL}:</strong></td>
+    <td width="15%"><strong>{$smarty.const.FINANCES_CONTRIB}:</strong></td>
+    <td width="20%"><strong>{$smarty.const.FINANCES_NEXT}:</strong></td>
+    <td width="15%">&nbsp;</td>
+  </tr>
+  {foreach from=$auto item=a}
+  <tr class="{cycle values="row_odd,row_even"}" id="auto_{$a.ID}">
+    <td>{$a.verwendung}</td>
+    <td>{$a.intervall} {$smarty.const.MONTHS}</td>
+    <td>{$a.betrag} &euro;</td>
+    <td>{$a.nextbuch}</td>
+    <td><img src="templates/{$smarty.const.DESIGN}/images/edit.png" class="imgpointer" alt="" title="{$smarty.const.EDIT}" onclick="clankasse_edit_auto({$a.ID});" /> <img src="templates/{$smarty.const.DESIGN}/images/delete.png" alt="" title="{$smarty.const.DELETE}" class="imgpointer" onclick="clankasse_del_auto({$a.ID}, '{$a.verwendung}');" /></td>
+  </tr>
+  {/foreach}
+</table>

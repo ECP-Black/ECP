@@ -1,0 +1,17 @@
+{if $seiten} <div class="pageLinks">{$seiten} </div><div style="clear:both;"></div>{/if}
+<table width="100%" border="0" cellspacing="0" cellpadding="1" id="buch_overview">
+  <tr>
+    <td width="20%"><strong>{$smarty.const.DATE}:</strong></td>
+    <td width="20%"><strong>{$smarty.const.FINANCES_CONTRIB}:</strong></td>
+    <td width="35%"><strong>{$smarty.const.FINANCES_USE}:</strong></td>
+    <td width="25%"><strong>{$smarty.const.FINANCES_USER_BUCH}:</strong></td>
+  </tr>
+  {foreach from=$buchung item=b}
+  <tr class="{cycle values="row_odd,row_even"}" id="buch_{$b.ID}">
+    <td>{$b.datum}</td>
+    <td>{if $b.geld < 0}<span class="clankasse_minus">{else}<span class="clankasse_plus">{/if}{$b.geld} &euro;</span></td>
+    <td>{$b.verwendung}</td>
+    <td><a href="?section=user&id={$b.userID}">{$b.buchusername}</a></td>
+  </tr>
+  {/foreach}
+</table>

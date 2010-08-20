@@ -1,0 +1,20 @@
+<table width="100%" border="0" cellspacing="0" cellpadding="1">
+  <tr>
+    <td><strong>{$smarty.const.DATE}:</strong></td>
+    <td><strong>{$smarty.const.LOTTO_NUMBERS}:</strong></td>
+    <td><strong>{$smarty.const.LOTTO_JACKPOT}:</strong></td>
+    <td><strong>{$smarty.const.LOTTO_WINNER}:</strong></td>
+    <td><strong>{$smarty.const.LOTTO_WIN}:</strong></td>
+    <td><strong>{$smarty.const.LOTTO_SCHEIN}:</strong></td>
+  </tr>
+  {foreach from=$runden item=r}
+  <tr class="{cycle values="row_odd, row_even"}">
+    <td><a href="?section=lotto&action=winlist&runde={$r.rundenID}">{$r.ende}</a></td>
+    <td>{$r.zahl1}, {$r.zahl2}, {$r.zahl3}, {$r.zahl4}</td>
+    <td>{$r.rundenjackpot} {$smarty.const.VIRTUELL_MONEY_UNIT}</td>
+    <td>{$r.winner}</td>
+    <td>{$r.auszahlung} {$smarty.const.VIRTUELL_MONEY_UNIT}</td>
+    <td>{$r.scheine}</td>
+  </tr>
+  {/foreach}
+</table>

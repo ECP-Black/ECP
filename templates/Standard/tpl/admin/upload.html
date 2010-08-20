@@ -1,0 +1,64 @@
+<form action="{$smarty.const.SITE_URL}{$url}&{$sid}" method="post" id="photoupload" enctype="multipart/form-data">
+	<fieldset id="upload-fallback">
+		<legend>File Upload</legend>
+		<p>
+			Selected your photo to upload.<br />
+			<strong>This form is just an example fallback for the unobtrusive behaviour of FancyUpload.</strong>
+		</p>
+		<label for="Filedata">
+			Upload Photos:
+			<input type="file" name="Filedata" id="Filedata" />
+		</label>
+	</fieldset>
+	<div id="upload-status" class="hide upload-status">
+		<p>
+			<a href="#" id="demo-browse-all">{$smarty.const.CHOOSE_FILES}</a> |
+			<a href="#" id="demo-clear">{$smarty.const.CLEAR_COMPLETE}</a>
+		</p>
+        <div>
+             <strong class="overall-title">{$smarty.const.OVER_ALL_PROGRESS}</strong><br />
+             <img src="templates/{$smarty.const.DESIGN}/images/bar.gif" class="progress overall-progress" />
+         </div>
+         <div>
+             <strong class="current-title">{$smarty.const.FILE_PROGRESS}</strong><br />
+             <img src="templates/{$smarty.const.DESIGN}/images/bar.gif" class="progress current-progress" />
+         </div>
+		<div class="current-text"></div>
+	</div> 
+	<ul id="upload-list" class="upload-list"></ul>
+  	<div class="clear"></div>
+  <input type="submit" class="submit" id="upload_submit" value="{$smarty.const.UPLOAD}"/>
+</form>
+{literal}
+<script language="javascript" type="text/javascript">
+		swiffy = new FancyUpload2($('upload-status'), $('upload-list'), {
+			'url': $('photoupload').action,
+			'fieldName': 'Filedata',
+			'path': 'inc/javascript/Swiff.Uploader.swf',
+			onAllComplete: function() { 
+				if(!this.options.error)		
+				new Request.HTML({url: 'ajax_checks.php?func=admin&site=team_pics', useWaiter: true, evalScripts:true, update: 'tpic'}).get();
+				this.options.error = false;	
+			},	
+			'onLoad': function() {
+					$('upload-status').removeClass('hide');
+					$('upload-fallback').destroy();
+			},
+			target: 'demo-browse-all',
+			typeFilter:  {'Images (*.jpg, *.jpeg, *.gif, *.png)': '*.jpg; *.jpeg; *.gif; *.png'}				
+		}); 
+		$('demo-browse-all').addEvent('click', function() {
+			swiffy.browse();
+			return false;
+		}); 
+		$('demo-clear').addEvent('click', function() {
+			swiffy.removeFile();
+			return false;
+		}); 
+		$('upload_submit').addEvent('click', function(e) {
+			new Event(e).stop();
+			swiffy.upload();
+			return false;
+		});
+</script>
+{/literal}

@@ -1,0 +1,19 @@
+<div id="awards_head"><span class="klammer">[</span> {$smarty.const.AWARDS}: {$anzahl} <span class="klammer">|</span> {$platz1} x <img src="templates/{$smarty.const.DESIGN}/images/award_1.png" alt="" title="1. {$smarty.const.PLACE}" /> ({$platz1pro}%) <span class="klammer">|</span> {$platz2} x <img src="templates/{$smarty.const.DESIGN}/images/award_2.png" alt="" title="2. {$smarty.const.PLACE}" /> ({$platz2pro}%) <span class="klammer">|</span> {$platz3} x <img src="templates/{$smarty.const.DESIGN}/images/award_3.png" alt="" title="3. {$smarty.const.PLACE}" /> ({$platz3pro}%) <span class="klammer">]</span></div><br />
+<table width="100%" border="0" cellspacing="0" cellpadding="1">
+  <tr>
+    <td width="15%"><strong>{$smarty.const.DATE}:</strong></td>
+    <td width="35%"><strong>{$smarty.const.NAME}:</strong></td>
+    <td width="25%"><strong>{$smarty.const.TEAM}:</strong></td>
+    <td width="15%"><strong>{$smarty.const.AWARDS_POS}:</strong></td>
+    <td width="10%">&nbsp;</td>
+  </tr>
+  {foreach from=$awards item=a}
+  <tr class="{cycle values="row_odd,row_even"}">
+    <td>{$a.eventdatum}</td>
+    <td>{if $a.url}<a href="{$a.url}" target="_blank">{$a.eventname}</a>{else}{$a.eventname}{/if}</td>
+    <td><img src="images/games/{$a.icon}" alt="" title="{$a.gamename}" /> {$a.tname}</td>
+    <td>{if $a.platz < 4}<img src="templates/{$smarty.const.DESIGN}/images/award_{$a.platz}.png" alt="" title="{$a.platz}. {$smarty.const.PLACE}"/>{else}{$a.platz}.{/if}</td>
+    <td><img src="templates/{$smarty.const.DESIGN}/images/comments.png" alt="" title="{$smarty.const.COMMENTS}" / > <a href="?section=awards&action=view&id={$a.awardID}">({$a.comments})</a></td>
+  </tr>
+  {/foreach}
+</table>

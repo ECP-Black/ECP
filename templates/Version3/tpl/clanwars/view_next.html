@@ -1,0 +1,83 @@
+<table border="0" cellspacing="0" width="100%">
+	<tr class="{cycle values="row_odd,row_even"}">
+		<td width="25%">{$smarty.const.GAME}:</td>
+		<td width="75%"><img src="images/games/{$icon}" alt="" title="{$gamename}" /> {$gamename}</td>
+	</tr>
+	<tr class="{cycle values="row_odd,row_even"}">
+		<td>{$smarty.const.TEAM}:</td>
+		<td>{$tname}</td>
+	</tr>
+	<tr class="{cycle values="row_odd,row_even"}">
+		<td>{$smarty.const.MATCHTYPE}:</td>
+		<td>{$matchtypename}</td>
+	</tr>
+	<tr class="{cycle values="row_odd,row_even"}">
+		<td>{$smarty.const.CLANWARS_XONX}:</td>
+		<td>{$xonx}</td>
+	</tr>
+	<tr class="{cycle values="row_odd,row_even"}">
+		<td>{$smarty.const.CLANWAR_OPP_NAME}:</td>
+		<td><img src="images/flaggen/{$country}.gif" alt="" title="{$countryname}" /> {$oppname}</td>
+	</tr>
+	<tr class="{cycle values="row_odd,row_even"}">
+		<td>{$smarty.const.CLANWAR_OPP_SHORT}:</td>
+		<td>{$oppshort}</td>
+	</tr>
+	<tr class="{cycle values="row_odd,row_even"}">
+		<td>{$smarty.const.HOMEPAGE}:</td>
+		<td>{if  $homepage}<a href="{$homepage}" target="_blank">{$homepage}</a>{/if}</td>
+	</tr>
+	<tr class="{cycle values="row_odd,row_even"}">
+		<td>{$smarty.const.DATE}:</td>
+		<td>{$datum}</td>
+	</tr>
+	<tr  class="{cycle values="row_odd,row_even"}">
+		<td>{$smarty.const.MAPS}:</td>
+		<td>{$maps}</td>
+	</tr>
+	<tr  class="{cycle values="row_odd,row_even"}">
+		<td>{$smarty.const.LIVE_STREAM}:</td>
+		<td>{$livestream}</td>
+	</tr>    
+	<tr class="{cycle values="row_odd,row_even"}">
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	</tr>
+	{if $teilnehmer}	
+	<tr>
+		<td colspan="2"><b>{$smarty.const.INFOS_FOR_PLAYERS}</b></td>
+	</tr>
+	<tr class="{cycle values="row_odd,row_even"}">
+		<td>{$smarty.const.SERVER_IP}:</td>
+		<td><a href="hlsw://{$server}">{$server}</a></td>
+	</tr>
+	<tr class="{cycle values="row_odd,row_even"}">
+		<td>{$smarty.const.PASSWORD}</td>
+		<td>{$pw}</td>
+	</tr>
+	<tr class="{cycle values="row_odd,row_even"}">
+		<td>{$smarty.const.LINE_UP}:</td>
+		<td>{foreach from=$players item=p}<a href="?section=user&id={$p.userID}"><span class="{if $p.status == 1}clanwar_win{elseif $p.status == 2}clanwar_loss{elseif $p.status == 3}clanwar_draw{else}{/if}">{$p.username}</span></a>{if $p.meldedatum}({$p.datum}){/if}, {/foreach}</td>
+	</tr>
+	<tr class="{cycle values="row_odd,row_even"}">
+		<td>{$smarty.const.CW_CLOSED_MEMBER}:</td>
+		<td>{$meldefrist}</td>
+	</tr>
+	<tr class="{cycle values="row_odd,row_even"}">
+		<td align="left" valign="top">{$smarty.const.CLANWARS_TAKTIK}:</td>
+		<td>{$hinweise}&nbsp;</td>
+	</tr>
+	<tr class="{cycle values="row_odd,row_even"}">
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	</tr>
+	<tr class="{cycle values="row_odd,row_even"}">
+		<td align="left" valign="top">{$smarty.const.PARTICIPATION}:</td>
+		<td>{if $aktiv}
+		<a href="?section=clanwars&action=setpart&mode=1&id={$id}"><font class="clanwar_win">{$smarty.const.CW_WITH}</font></a><br>
+		<a href="?section=clanwars&action=setpart&mode=2&id={$id}"><font class="clanwar_loss">{$smarty.const.CW_WITHOUT}</font></a><br>
+		<a href="?section=clanwars&action=setpart&mode=3&id={$id}"><font class="clanwar_draw">{$smarty.const.CW_QUEST}</font></a>
+        {else}{$smarty.const.PARTICIPATION_END}{/if}</td>
+	</tr>
+	{/if}
+</table>

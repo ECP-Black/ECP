@@ -1,0 +1,15 @@
+<div id="menu_mini">
+
+	<img src="templates/{$smarty.const.DESIGN}/images/dot.gif" alt="" /> <a href="?section=account">{$smarty.const.HALLO} {$smarty.session.username},</a><br /><br />
+    <img src="templates/{$smarty.const.DESIGN}/images/dot.gif" alt="" /> <a href="?section=account&action=edit">{$smarty.const.ACCOUNT_DATA_EDIT}</a><br />
+	<img src="templates/{$smarty.const.DESIGN}/images/dot.gif" alt="" /> <a href="?section=account&action=msgbox">{$smarty.const.MESSAGES}</a> {if $anzahl}<span class="error"><strong>( {$anzahl} )</strong></span>{/if}<br />
+    <img src="templates/{$smarty.const.DESIGN}/images/dot.gif" alt="" /> <a href="?section=account&action=guestbook">{$smarty.const.GUESTBOOK}</a><br />
+    <img src="templates/{$smarty.const.DESIGN}/images/dot.gif" alt="" /> <a href="?section=account&action=buddy">{$smarty.const.BUDDYLIST}</a><br />
+    <img src="templates/{$smarty.const.DESIGN}/images/dot.gif" alt="" /> <a href="?section=account&action=avatar">{$smarty.const.AVATAR}</a><br />
+    <img src="templates/{$smarty.const.DESIGN}/images/dot.gif" alt="" /> <a href="?section=account&action=stats">{$smarty.const.STATS}</a><br /><br />
+    <img src="templates/{$smarty.const.DESIGN}/images/dot.gif" alt="" /> <a href="?section=account&action=logout">{$smarty.const.LOGOUT}</a><br />
+    {if $smarty.session.rights.admin OR $smarty.session.rights.superadmin} 
+    <br />
+    <img src="templates/{$smarty.const.DESIGN}/images/dot.gif" alt="" /> <a href="?section=admin">{$smarty.const.ADMIN}</a><br />
+    {/if}
+</div>

@@ -1,0 +1,21 @@
+{if !$ajax}<div id="comments_bereich">{/if}<a name="comments"></a><a href="?section=guestbook&action=add">{$smarty.const.GUESTBOOK_ADD}</a><br />
+  {if $seiten}<div class="pageLinks">{$seiten}</div>{/if}
+    {foreach from=$comments item=c} <br />
+    <div id="com_{$c.comID}" class="comment_mainframe">
+  <div class="comment_user"> {$c.author}
+        <div class="comment_user_details">{if $c.homepage}<a href="{$c.homepage}" target="_blank"><img src="templates/{$smarty.const.DESIGN}/images/homepage.png" alt="" title="{$smarty.const.HOMEPAGE}" /></a>{/if} {if $c.email} {mailto address=$c.email text="<img src='templates/`$smarty.const.DESIGN`/images/message.png' />"}{/if}<br /> <span class="klammer">[</span> <a href="?section=guestbook&action=comments&id={$c.comID}#comments">{$smarty.const.COMMENTS}: {$c.comments}</a> <span class="klammer">]</span>
+        </div>
+      </div>
+      <div class="comment_comment">
+        <div class="comment_header"><span class="comment_date"><img src="templates/{$smarty.const.DESIGN}/images/comment.png" alt="" style="vertical-align:middle" /> {$c.datum} </span>
+          <a href="#top"><img src="templates/{$smarty.const.DESIGN}/images/page_up.gif" title="{$smart.const.PAGE_TOP}" alt="" align="absbottom" /></a> <a href="#com_{$c.comID}" class="comment_nr">{$c.nr}</a></div>
+        <div class="comment_beitrag"> {$c.beitrag}</div>
+        <div class="comments_buttons">
+            {if $smarty.session.rights.superadmin OR $smarty.session.rights.admin.guestbook.edit}<img onclick="location.href='?section=guestbook&action=editgbcomment&id={$c.comID}';" src="templates/{$smarty.const.DESIGN}/images/comment_edit.png" class="imgpointer" title="{$smarty.const.EDIT_2}" alt=""  />{/if}
+            {if $smarty.session.rights.superadmin OR $smarty.session.rights.admin.guestbook.del}<img onclick="comment_delete({$c.comID}, '{$c.author}');" src="templates/{$smarty.const.DESIGN}/images/comment_delete.png" class="imgpointer" title="{$smarty.const.DELETE}" alt=""  />{/if}
+        </div>                 
+      </div>   
+    </div>
+    {/foreach}
+  {if $seiten}<div class="pageLinks">{$seiten}</div>{/if}
+{if !$ajax}</div><div style="clear:both"></div>{/if}

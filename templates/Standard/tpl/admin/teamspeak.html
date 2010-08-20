@@ -1,0 +1,29 @@
+<form id="ts_form" action="ajax_checks.php?func=admin&site=ts_edit" method="post">
+	<fieldset>
+    	<div><label for="ip">{$smarty.const.SERVER_IP}</label><input type="text" name="ip" id="ip" value="{$ip}" maxlength="15" /></div>
+        <div><label for="port">{$smarty.const.SERVER_PORT}</label><input type="text" name="port" id="port" value="{$port}" class="smallinput" maxlength="5" /></div>
+        <div><label for="qport">{$smarty.const.SERVER_QUERYPORT}</label><input type="text" name="qport" id="qport" value="{$qport}" class="smallinput" maxlength="5" /> {$smarty.const.DEFAULT_PORT}: 51234</div>
+        <input type="submit" class="submit" id="ts_form_submit" value="{$smarty.const.EDIT_2}" /> <img src="templates/{$smarty.const.DESIGN}/images/spinner.gif" id="ts_form_spinner" alt="" title="{$smarty.const.LOADING}" style="visibility: hidden" />
+    </fieldset>
+</form>
+{literal}
+<script type="text/javascript">
+$('ts_form').addEvent('submit', function(e) {
+		new Event(e).stop();
+		$('ts_form_spinner').style.visibility = '';
+		$('ts_form_submit').disabled = true;
+		new Request({	
+			url: $('ts_form').action,
+			onSuccess: function(r) {
+				$('ts_form_spinner').style.visibility = 'hidden';
+				$('ts_form_submit').disabled = false;				
+				if(r == 'ok') {			
+					make_info(TS_SUCCESS_EDIT, 'accept');															
+				} else {
+					errorAlert(ERROR, r);
+				}
+			}
+		}).send($('ts_form'));
+});
+</script>
+{/literal} 

@@ -1,0 +1,20 @@
+<form action="?section=account&action=newmsg" method="post" id="new_msg">
+<fieldset>
+	<div><label for="username">{$smarty.const.TO_USER}:</label><input type="text" id="username" class="required" name="username" value="{$smarty.post.username}" maxlength="30" /> <img src="templates/{$smarty.const.DESIGN}/images/spinner.gif" alt="" style="visibility:hidden" id="user_spinner" title="{$smarty.const.LOADING}" /></div>
+	<div><label for="title">{$smarty.const.MSG_SUBJECT}:</label><input type="text" id="title" name="title" value="{$smarty.post.title}" maxlength="40" /></div>    
+    <div><label for="message">&nbsp;</label><textarea name="message" class="com_input required" id="message" rows="10" cols="50">{$smarty.post.message}</textarea></div>
+</fieldset>
+<input type="submit" value="{$smarty.const.SUBMIT}" name="submit" class="submit" />
+</form>
+{literal}
+<script type="text/javascript">
+window.addEvent('domready', function() { 
+	new Autocompleter.Ajax.Json($('username'), 'ajax_checks.php?func=search_member', { 
+				postVar: 'username', multi: false,
+			  onRequest: function ()  { $('user_spinner').style.visibility = ''; },
+			  onComplete: function ()  { $('user_spinner').style.visibility = 'hidden'; }, 
+			  zIndex: 999999 });
+	new FormValidator('new_msg');
+});
+</script>
+{/literal}

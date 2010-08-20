@@ -1,0 +1,94 @@
+<strong>{$smarty.const.PATH}:</strong> {$navi}
+<hr />
+<table width="100%" border="0" cellspacing="1" cellpadding="0">
+  <tr>
+    <td align="center"><img src="templates/{$smarty.const.DESIGN}/images/refresh.png" alt="" style="cursor:pointer" title="{$smarty.const.REFRESH}" onClick="load_dir('{$ordner}');" /></td>
+    <td><strong>{$smarty.const.FILE}:</strong></td>
+    <td><strong>{$smarty.const.SIZE}:</strong></td>
+    <td>&nbsp;</td>
+  </tr>
+  {foreach from=$folders item=o}
+  <tr class="{cycle values="row_odd,row_even"}">
+    <td width="5%" align="center"><img src="templates/{$smarty.const.DESIGN}/images/folder.png" alt="" title="" /></td>
+    <td width="49%"><a href="#" style="text-decoration: none;" onclick="load_dir('{if $o.name == '..'}{$o.back}{else}{$ordner}/{$o.name}{/if}'); return false;">{$o.name}</a></td>
+    <td width="32%"></td>
+    <td width="14%">{if $o.name != '..'}{/if}</td>
+  </tr>
+  {/foreach}
+  {foreach from=$files item=f}
+  <tr class="{cycle values="row_odd,row_even"}">
+    <td width="5%" align="center"><img src="images/file_icons/{$f.icon}" alt="" title="" /></td>
+    <td width="49%"><a href="#" style="text-decoration: none;"  onclick="set_download('{$smarty.const.SITE_URL}downloads{$ordner}/{$f.name}', '{$f.size}'); return false;">{$f.name}</a></td>
+    <td width="32%">{$f.filesize}</td>
+    <td width="14%"><a href="#" onClick="dl_del_file('{$ordner}/', '{$f.name}'); return false;"><img src="templates/{$smarty.const.DESIGN}/images/download_delete.png" alt="" title="{$smarty.const.DELETE}" /></a></td>
+  </tr>
+  {/foreach}
+</table>
+<hr />
+{$smarty.const.ADD_FOLDER}: <input type="text" name="add_folder" id="add_folder" /> <img onclick="add_folder('{$ordner}');" src="templates/{$smarty.const.DESIGN}/images/folder_add.png" style="cursor:pointer" alt="" title="{$smarty.const.ADD_FOLDER}" />
+<hr />
+<form action="{$smarty.const.SITE_URL}ajax_checks.php?func=admin&amp;site=dlupload&amp;folder={$ordner}&amp;{$sid}" method="post" name="photoupload" id="photoupload" enctype="multipart/form-data">
+	<fieldset id="upload-fallback">
+		<legend>File Upload</legend>
+		<p>
+			Selected your photo to upload.<br />
+			<strong>This form is just an example fallback for the unobtrusive behaviour of FancyUpload.</strong>
+		</p>
+		<label for="file-upload">
+			Upload Photos:
+			<input type="file" name="photoupload" id="file-upload" />
+		</label>
+	</fieldset>
+	<div id="upload-status" class="hide upload-status">
+		<p>
+			<a href="#" id="demo-browse-all">{$smarty.const.CHOOSE_FILES}</a> |
+			<a href="#" id="demo-clear">{$smarty.const.CLEAR_COMPLETE}</a>
+		</p>
+        <div>
+             <strong class="overall-title">{$smarty.const.OVER_ALL_PROGRESS}</strong><br />
+             <img src="templates/{$smarty.const.DESIGN}/images/bar.gif" class="progress overall-progress" />
+         </div>
+         <div>
+             <strong class="current-title">{$smarty.const.FILE_PROGRESS}</strong><br />
+             <img src="templates/{$smarty.const.DESIGN}/images/bar.gif" class="progress current-progress" />
+         </div>
+		<div class="current-text"></div>
+	</div> 
+	<ul id="upload-list" class="upload-list"></ul>
+  	<div class="clear"></div>
+  <input type="submit" class="submit" id="upload_submit" value="{$smarty.const.UPLOAD}"/>
+</form>
+{literal}
+<script language="javascript" type="text/javascript">
+window.addEvent('domready', function() {
+		swiffy = new FancyUpload2($('upload-status'), $('upload-list'), {
+			'url': $('photoupload').action,
+			'fieldName': 'file-upload',
+			'path': 'inc/javascript/Swiff.Uploader.swf',
+			'onAllComplete' : function() { 
+				if(!this.options.error) load_dir('{/literal}{$ordner}{literal}');
+				this.options.error = false;
+			},
+			'onLoad': function() {
+					$('upload-status').removeClass('hide');
+					$('upload-fallback').destroy();
+			},
+			target: 'demo-browse-all',
+			typeFilter: null					
+		}); 
+		$('demo-browse-all').addEvent('click', function() {
+			swiffy.browse();
+			return false;
+		}); 
+		$('demo-clear').addEvent('click', function() {
+			swiffy.removeFile();
+			return false;
+		}); 
+		$('upload_submit').addEvent('click', function(e) {
+			new Event(e).stop();
+			swiffy.upload();
+			return false;
+		});
+});
+</script>
+{/literal}

@@ -1,0 +1,49 @@
+<table width="100%" border="0" cellspacing="0" cellpadding="0" style="table-layout:fixed">
+  <tr>
+    <td width="30%"><strong>{$smarty.const.SERVER_IP}</strong></td>
+    <td width="20%"><strong>{$smarty.const.SERVER_GAMETYPE}</strong>&nbsp;</td>
+    <td width="10%"><strong>{$smarty.const.AKTIV}</strong>&nbsp;</td>  
+    <td width="10%"><strong>{$smarty.const.SERVER_DISPLAY_MENU1}</strong>&nbsp;</td>
+    <td width="10%"><strong>{$smarty.const.SERVER_LOG_STAT}</strong>&nbsp;</td>      
+    <td width="20%">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="4">
+<div id="server" class="sorting_div"> 
+{foreach from=$server item=s}
+  <div id="server_{$s.serverID}" style="width: 540px;">
+  	<table cellpadding="1" cellspacing="0" width="100%" style="table-layout:fixed;">
+      <tr class="{cycle values="row_odd,row_even"}">
+ 	   <td width="30%"><a href="hlsw://{$s.ip}:{$s.port}{if $s.queryport}:{$s.queryport}{/if}">{$s.ip}:{$s.port}</a></td>
+ 	   <td width="20%">{$s.gametype}</td>
+ 	   <td width="10%"><a href="#" onclick="change_server_aktiv({$s.serverID}); return false;">{if $s.aktiv == 1}<span class="server_aktiv">{$smarty.const.AKTIV}{else}<span class="server_inaktiv">{$smarty.const.INAKTIV}{/if}</span></a></td>
+ 	   <td width="10%"><a href="#" onclick="change_server_display({$s.serverID}); return false;">{if $s.displaymenu == 1}<span class="server_aktiv">{$smarty.const.AKTIV}{else}<span class="server_inaktiv">{$smarty.const.INAKTIV}{/if}</span></a></td>
+ 	   <td width="10%"><a href="#" onclick="change_server_stat({$s.serverID}); return false;">{if $s.stat == 1}<span class="server_aktiv">{$smarty.const.AKTIV}{else}<span class="server_inaktiv">{$smarty.const.INAKTIV}{/if}</span></a></td>       
+ 	   <td width="20%" align="right"><img src="templates/{$smarty.const.DESIGN}/images/arrow_out.png" alt="" class="dragHandle" style="cursor: move;" /> <a href="#" onclick="return false;" class="Tips" title="{$smarty.const.SERVER_IMAGE_PATH}"><img src="templates/{$smarty.const.DESIGN}/images/help.png" /><span class="tipcontents">{$s.path}</span></a>&nbsp;&nbsp;&nbsp;<img src="templates/{$smarty.const.DESIGN}/images/server_edit.png" alt="" style="cursor:pointer" onclick="server_edit({$s.serverID});" title="{$smarty.const.SERVER_EDIT}" /> <img src="templates/{$smarty.const.DESIGN}/images/server_delete.png" alt="" style="cursor:pointer" onclick="server_del({$s.serverID}, '{$s.ip}');" title="{$smarty.const.SERVER_DEL}" /></td>
+      </tr>
+    </table>
+  </div>
+  {/foreach}
+  </div> 
+	  </td>
+    </td>
+  </tr>
+</table>
+{literal}
+<script type="text/javascript">
+new Sortables($('server'), { handle: 'img', clone: true, revert: true, onComplete: function() { 
+		var order = '';
+		$$('#server div').each(function (e) {
+			order += e.id.split("_")[1]+',';
+		});
+		new Request({url: 'ajax_checks.php?func=admin&site=server_order&order='+order, 
+			onComplete: function(r) { 
+				if(r != 'ok') 
+					errorAlert(ERROR, r); 
+			} 
+		}).get();
+		check_color('server'); 
+	} 
+});
+</script>
+{/literal}

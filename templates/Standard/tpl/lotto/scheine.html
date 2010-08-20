@@ -1,0 +1,18 @@
+<table width="100%" border="0" cellspacing="0" cellpadding="1">
+  <tr>
+    <td><strong>{$smarty.const.LOTTO_NUMBER}:</strong></td>
+    <td><strong>{$smarty.const.NUMBER} 1:</strong></td>
+    <td><strong>{$smarty.const.NUMBER} 2:</strong></td>
+    <td><strong>{$smarty.const.NUMBER} 3:</strong></td>
+    <td><strong>{$smarty.const.NUMBER} 4:</strong></td>
+  </tr>
+  {foreach from=$scheine item=s key=k}
+  <tr class="{cycle values="row_odd, row_even"}">
+    <td><strong>{$k+1}</strong></td>
+    <td>{$s.zahl1}</td>
+    <td>{$s.zahl2}</td>
+    <td>{$s.zahl3}</td>
+    <td>{$s.zahl4}</td>
+  </tr>
+  {/foreach}
+</table>

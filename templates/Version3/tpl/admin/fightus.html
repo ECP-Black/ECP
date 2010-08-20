@@ -1,0 +1,21 @@
+<div id="view_fightus"></div>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" id="fightus_table">
+  <tr>
+    <td width="15%"><strong>{$smarty.const.DATE}:</strong></td>
+    <td width="20%"><strong>{$smarty.const.CLANNAME}:</strong></td>
+	<td width="20%"><strong>{$smarty.const.TEAM}:</strong></td>    
+    <td width="15%"><strong>{$smarty.const.MATCHTYP}:</strong></td>
+    <td width="15%"><strong>{$smarty.const.FINISHED}:</strong></td>
+    <td width="15%">&nbsp;</td>
+  </tr>
+ {foreach from=$fightus item=f}
+  <tr class="{cycle values="row_odd,row_even"}" id="fightus_{$f.fightusID}">
+    <td>{$f.wardatum}</td>
+    <td>{if $f.homepage}<a href="{$f.homepage}" target="_blank">{$f.clanname}</a>{else}{$f.clanname}{/if}</td>
+    <td>{$f.tname}</td>    
+    <td><img src="images/games/{$f.icon}" title="{$f.gamename}" alt="" /> {$f.matchtypename}</td>
+    <td><span id="finished_by_{$f.fightusID}">{if $f.bearbeitet}<a href="?section=user&id={$f.vonID}">{$f.username}</a>{else}-{/if}</span></td>
+    <td><a href="?section=admin&site=clanwars&func=fightusadd&id={$f.fightusID}"><img src="templates/{$smarty.const.DESIGN}/images/clanwars_add.png" alt="{$smarty.const.CLANWARS_ADD}" title="{$smarty.const.CLANWARS_ADD}" /></a> <a href="?section=admin&site=clanwars&func=fightusnext&id={$f.fightusID}"><img src="templates/{$smarty.const.DESIGN}/images/nextwars_add.png" alt="{$smarty.const.NEXTWARS_ADD}" title="{$smarty.const.NEXTWARS_ADD}" /></a> <img src="templates/{$smarty.const.DESIGN}/images/view.png" alt="" title="{$smarty.const.VIEW}" onclick="fightus_view({$f.fightusID});" style="cursor:pointer" /> <img src="templates/{$smarty.const.DESIGN}/images/delete.png" alt="" title="{$smarty.const.DELETE}" onclick="fightus_del({$f.fightusID}, '{$f.clanname}');" style="cursor: pointer" /></td>    
+  </tr>
+  {/foreach}
+</table>

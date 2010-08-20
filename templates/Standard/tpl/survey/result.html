@@ -1,0 +1,17 @@
+    <table width="100%" border="0" cellspacing="0" cellpadding="1">
+      {foreach from=$antworten item=a}
+      <tr>
+        <td colspan="2">{$a.answer}</td>
+      </tr>
+      <tr>
+        <td width="75%"><div class="survey_curve_container"><div class="survey_curve" style="width: {if $a.prozent}{$a.prozent}{else}{1}{/if}%"></div></div></td>
+        <td width="25%">&nbsp;{$smarty.const.VOTES}: {$a.votes} ({$a.prozent}%)</td>
+      </tr>
+      {/foreach}
+    </table>
+    <br />
+    <script type="text/javascript" language="javascript">
+		alt = accordion.previous;
+		accordion.display();
+		accordion.display(alt);
+	</script>

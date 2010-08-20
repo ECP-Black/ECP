@@ -1,0 +1,7 @@
+    <div id="gallery_head"><span class="klammer">[</span> {$pfad} <span class="klammer">]</span></div>
+    <div id="gallery_infos"><span class="klammer">[</span> {$smarty.const.USER}: <a href="?section=user&amp;id={$userID}">{$username}</a> <span class="klammer">|</span> {$smarty.const.GALLERY_CLICKS}: {$klicks} <span class="klammer">|</span> {$smarty.const.DATE}: {$uploaded} <span class="klammer">]</span></div>
+<div style="width: 49%; float: left;padding-bottom: 10px;{if !$vorID}visibility: hidden{/if}"><span class="pageLink imgpointer" onclick="load_gallery_pic({$vorID});"><<</span></div><div style="width: 50%; float: left; text-align:right;padding-bottom: 10px;{if !$nachID}visibility: hidden{/if}"><span class="pageLink imgpointer" onclick="load_gallery_pic({$nachID});">>></span></div><div style="clear:both;"></div>
+    <div style="text-align:center">
+        <a target="_blank" href="images/gallery/{$folder}/{$smarty.get.id}_{$filename}" rel="lightbox[]"><img src="images/gallery/{$folder}/{$smarty.get.id}_{$filename}" class="gallery_pic_big" alt="" title="" /></a>
+        {if $beschreibung}<div style="clear:both">{$beschreibung}</div>{/if}
+    </div>

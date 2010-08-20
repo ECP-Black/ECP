@@ -1,0 +1,148 @@
+  <script type="text/javascript" src="inc/amstats/swfobject.js"></script>
+     <div id="tabBoxExample">
+        <ul class="tabSet">    
+			<li class="off"><a>{$smarty.const.GENERAL}</a></li>
+            <li class="off"><a>{$smarty.const.WEB_STATS}</a></li>
+  		</ul>
+        <div class="panelSet">             
+          <div class="panel">
+            <table width="100%" cellpadding="1" cellspacing="1">
+              <tr class="{cycle values="row_odd, row_even"}">
+                <td width="25%">{$smarty.const.UPTIME}:</td>
+                <td width="25%">{$installed} ({$tage} {$smarty.const.DAYS})</td>
+                <td width="25%">{$smarty.const.MEMBERS}:</td>
+                <td width="25%">{$members}</td>
+              </tr>
+              <tr class="{cycle values="row_odd, row_even"}">
+                <td>{$smarty.const.VISITS}:</td>
+                <td>{$visits}</td>
+                <td>{$smarty.const.NEWEST_MEMBER}:</td>
+                <td>{$lastmember}</td>
+              </tr>
+              <tr class="{cycle values="row_odd, row_even"}">
+                <td>{$smarty.const.PAGE_HITS}:</td>
+                <td>{$hits}</td>
+                <td>{$smarty.const.DOWNLOADS}:</td>
+                <td>{$downloads}</td>
+              </tr>
+              <tr class="{cycle values="row_odd, row_even"}">
+                <td>{$smarty.const.MESSAGES_SEND}:</td>
+                <td>{$messages}</td>
+                <td>{$smarty.const.DOWNLOAD_TRAFFIC}:</td>
+                <td>{$traffic}</td>
+              </tr>
+              <tr class="{cycle values="row_odd, row_even"}">
+                <td>{$smarty.const.AWARDS}:</td>
+                <td>{$awards}</td>
+                <td>{$smarty.const.USER_MONEY}</td>
+                <td> {$money} {$smarty.const.VIRTUELL_MONEY_UNIT}</td>
+              </tr>
+              <tr class="{cycle values="row_odd, row_even"}">
+                <td>{$smarty.const.COMMENTS}:</td>
+                <td>{$comments}</td>
+                <td>{$smarty.const.GALLERY_GALLERIES}</td>
+                <td>{$galleries}</td>
+              </tr>
+              <tr class="{cycle values="row_odd, row_even"}">
+                <td>{$smarty.const.SURVEYS}:</td>
+                <td>{$surveys}</td>
+                <td>{$smarty.const.GALLERY_IMAGES}:</td>
+                <td>{$images}</td>
+              </tr>
+              <tr class="{cycle values="row_odd, row_even"}">
+                <td>{$smarty.const.CLANWARS}:</td>
+                <td>{$clanwars}</td>
+                <td>{$smarty.const.FORUM_THREADS2}:</td>
+                <td>{$threads}</td>
+              </tr>
+              <tr class="{cycle values="row_odd, row_even"}">
+                <td>{$smarty.const.NEWS}:</td>
+                <td>{$news}</td>
+                <td>{$smarty.const.FORUM_COMMENTS}:</td>
+                <td>{$posts}</td>
+              </tr>              
+            </table>
+          </div>   
+          <div class="panel">
+            {$webstats}                      
+            <div id="web_user">
+                <strong>You need to upgrade your Flash Player</strong>
+            </div> 
+            <div style="text-align:center"><span class="klammer">[</span> <a href="#" onclick="return load_webstats('browser_hits');">Browser-Hits</a> <span class="klammer">|</span> <a href="#" onclick="return load_webstats('browser_visits');">Browser-Visits</a> <span class="klammer">|</span> <a href="#" onclick="return load_webstats('os_hits');">OS-Hits</a> <span class="klammer">|</span> <a href="#" onclick="return load_webstats('os_visits');">OS-Visits</a> <span class="klammer">|</span> <a href="#" onclick="return load_webstats('user_hits');">User-Hits</a> <span class="klammer">]</span></div>
+            <div id="web_all">
+                <strong>You need to upgrade your Flash Player</strong>
+            </div>    
+            <div id="web_jahr">
+                <strong>You need to upgrade your Flash Player</strong>
+            </div>  
+            <div id="web_monat">
+                <strong>You need to upgrade your Flash Player</strong>
+            </div>
+            <div id="web_tag">
+                <strong>You need to upgrade your Flash Player</strong>
+            </div>    
+          </div>                               
+ 		</div>
+      </div>
+	<script type="text/javascript">
+		window.addEvent('load', function() {ldelim}
+		web_dates = {ldelim}'day' : {$tag}, 'month': {$monat}, 'year': {$jahr}{rdelim}
+						
+		so = new SWFObject("inc/amstats/ampie.swf", "webuser", "520", "390", "8", "#FFFFFF");
+		so.addVariable("path", "inc/amstats/");
+		so.addVariable("settings_file", escape("templates/{$smarty.const.DESIGN}/tpl/stats/ampie_settings.xml"));
+		so.addVariable("data_file", escape("ajax_checks.php?func=get_webstats&mode=user_hits"));
+		so.addVariable("preloader_color", "#FFFFFF");
+		so.write("web_user");
+				
+		so = new SWFObject("inc/amstats/amline.swf", "weball", "520", "390", "8", "#fff");
+		so.addVariable("path", "inc/amstats/");
+		so.addVariable("settings_file", escape("templates/{$smarty.const.DESIGN}/tpl/stats/amline_settings.xml"));
+		so.addVariable("data_file", escape("ajax_checks.php?func=get_webstats"));
+		so.addVariable("additional_chart_settings", "<settings><grid><x><approx_count>12</approx_count></x></grid></settings>");
+//	so.addVariable("chart_data", "");
+		so.addVariable("preloader_color", "#FFFFFF");
+		so.write("web_all");
+			
+		so = new SWFObject("inc/amstats/amline.swf", "webyear", "520", "390", "8", "#fff");
+		so.addVariable("path", "inc/amstats/");
+		so.addVariable("settings_file", escape("templates/{$smarty.const.DESIGN}/tpl/stats/amline_settings.xml"));
+		so.addVariable("data_file", escape("ajax_checks.php?func=get_webstats&mode=year&year={$jahr}"));
+		so.addVariable("additional_chart_settings", "<settings><grid><x><approx_count>12</approx_count></x></grid></settings>");
+//	so.addVariable("chart_data", "");
+		so.addVariable("preloader_color", "#FFFFFF");
+		so.write("web_jahr");
+		
+		// <![CDATA[		
+		so = new SWFObject("inc/amstats/amline.swf", "webmonth", "520", "390", "8", "#fff");
+		so.addVariable("path", "inc/amstats/");
+		so.addVariable("settings_file", escape("templates/{$smarty.const.DESIGN}/tpl/stats/amline_settings.xml"));
+		so.addVariable("data_file", escape("ajax_checks.php?func=get_webstats&mode=month&month={$monat}&year={$jahr}"));
+		so.addVariable("additional_chart_settings", "<settings><grid><x><approx_count>31</approx_count></x></grid></settings>");
+//	so.addVariable("chart_data", "");
+		so.addVariable("preloader_color", "#FFFFFF");
+		so.write("web_monat");
+		
+		so = new SWFObject("inc/amstats/amline.swf", "webday", "520", "390", "8", "#fff");
+		so.addVariable("path", "inc/amstats/");
+		so.addVariable("settings_file", escape("templates/{$smarty.const.DESIGN}/tpl/stats/amline_settings.xml"));
+		so.addVariable("data_file", escape("ajax_checks.php?func=get_webstats&mode=day&day={$tag}&month={$monat}&year={$jahr}"));
+		so.addVariable("additional_chart_settings", "<settings><grid><x><approx_count>24</approx_count></x></grid></settings>");
+//	so.addVariable("chart_data", "");
+		so.addVariable("preloader_color", "#FFFFFF");
+		so.write("web_tag");		
+		// ]]> 
+		{rdelim});
+{literal}
+new TabSwapper({
+  selectedClass: 'on',
+  deselectedClass: 'off',
+  tabs: $$('#tabBoxExample li'),
+  clickers: $$('#tabBoxExample li a'),
+  sections: $$('div.panelSet div.panel'),
+  {/literal}{if $smarty.get.view == 'cw'}initPanel: 1,{/if}{literal}
+  /*use transitions to fade across*/
+  smooth: true
+});	
+</script>
+{/literal}     

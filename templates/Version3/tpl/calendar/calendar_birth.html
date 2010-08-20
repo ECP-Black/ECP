@@ -1,0 +1,12 @@
+<a href="" onclick="return false;" class="Tips" title="{$smarty.const.BIRTHDAYS}"><img src="templates/{$smarty.const.DESIGN}/images/birthday.png" alt="" /><span class="tipcontents">
+<table width="250" border="0" cellspacing="0" cellpadding="1">
+  <tr>
+    <td><strong>{$smarty.const.USERNAME}:</strong></td>
+    <td><strong>{$smarty.const.AGE}:</strong></td>
+  </tr>{foreach from=$birth item=b}
+  <tr>
+    <td><img src="images/flaggen/{$b.country}.gif" alt="" title="{$b.countryname}" /> <a href="?section=user&amp;id={$b.ID}">{$b.username}</a></td>
+    <td>{$b.alter}</td>
+  </tr>{/foreach}
+</table>     
+</span></a>

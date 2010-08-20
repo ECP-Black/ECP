@@ -1,0 +1,20 @@
+<a href="" onclick="return false;" class="Tips" title="{$smarty.const.NEWS}"><img src="templates/{$smarty.const.DESIGN}/images/newspaper.png" alt="" /><span class="tipcontents">
+    <table width="500" border="0" cellspacing="0" cellpadding="1">
+      <tr>
+		<td width="10%"><strong>{$smarty.const.DATE}</strong></td>       
+        <td width="30%"><strong>{$smarty.const.HEADLINE}</strong></td>
+        <td width="20%"><strong>{$smarty.const.USERNAME}</strong></td>
+        <td width="25%"><strong>{$smarty.const.TOPIC}</strong></td>
+        <td width="15%"><strong>{$smarty.const.COMMENTS}</strong></td>                
+      </tr>
+      {foreach from=$news item=n}
+      <tr class="{cycle name="news" values="row_odd,row_even"}">
+      	<td>{$n.datum}</td>
+        <td>{$n.headline|truncate:26:"...":true}</td>
+     	<td><img src="images/flaggen/{$n.country}.gif" alt="" title="{$n.countryname}" /> <a href="?section=user&amp;id={$n.userID}">{$n.username}</a></td>
+        <td>{$n.topicname}</td>
+        <td>{$n.comments}</td>
+      </tr>
+      {/foreach}
+    </table>
+</span></a>

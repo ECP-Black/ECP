@@ -1,0 +1,57 @@
+{if $nextwars}
+<div id="nextwars">
+<table width="100%" border="0" cellspacing="0" cellpadding="1" id="nextwars_overview">
+  <tr>
+    <td width="6%"><strong>ID:</strong></td>
+    <td width="17%"><strong>{$smarty.const.DATE}:</strong></td>
+    <td width="30%"><strong>{$smarty.const.OPP}:</strong></td>
+    <td width="17%"><strong>{$smarty.const.GAME}:</strong></td>
+    <td width="15%"><strong>{$smarty.const.FINISH}:</strong></td>
+    <td width="15%">&nbsp;</td>
+  </tr>
+  {foreach from=$nextwars item=c}
+  <tr class="{cycle values="row_odd,row_even"}" id="cw_{$c.warID}">
+    <td>{$c.warID}</td>
+    <td>{$c.datum}</td>
+    <td><a href="#" onclick="return cw_edit_opp({$c.oID});">{$c.oppname}</a></td>
+    <td><img src="images/games/{$c.icon}" alt="" title="{$c.gamename}" /></td>
+    <td><a href="?section=admin&site=clanwars&func=finish&id={$c.warID}">{$smarty.const.FINISH}</a></td>
+    <td><a href="?section=admin&site=clanwars&func=editnext&id={$c.warID}"><img src="templates/{$smarty.const.DESIGN}/images/clanwars_edit.png" alt="" style="cursor:pointer" title="{$smarty.const.EDIT}" /></a> <img src="templates/{$smarty.const.DESIGN}/images/clanwars_delete.png" alt="" style="cursor:pointer" onclick="clanwar_del({$c.warID}, '{$c.datum}');" title="{$smarty.const.DELETE}" /></td>
+  </tr>
+  {/foreach}
+</table>
+<br />
+</div>
+{/if}
+<div id="wars">
+{if $anzahl}
+	<div id="ajaxloadert">&nbsp;</div>
+    {if $seiten}<div class="pageLinks">{$smarty.const.SITES}: {$seiten}</div><div style="clear:both"></div>{/if}
+<div id="swf"></div>
+<table width="100%" border="0" cellspacing="0" cellpadding="1" id="clanwars_overview">
+  <tr>
+    <td width="6%"><strong>ID:</strong></td>
+    <td width="17%"><strong>{$smarty.const.DATE}:</strong></td>
+    <td width="30%"><strong>{$smarty.const.OPP}:</strong></td>
+    <td width="17%"><strong>{$smarty.const.GAME}:</strong></td>
+    <td width="15%"><strong>{$smarty.const.CLANWARS_SCREENS}:</strong></td>
+    <td width="15%">&nbsp;</td>
+  </tr>
+  {foreach from=$clanwars item=c}
+  <tr class="{cycle values="row_odd,row_even"}" id="cw_{$c.warID}">
+    <td>{$c.warID}</td>
+    <td>{$c.datum}</td>
+    <td><a href="#" onclick="return cw_edit_opp({$c.oID});">{$c.oppname}</a></td>
+    <td><img src="images/games/{$c.icon}" alt="" title="{$c.gamename}" /></td>
+    <td><a href="#" onclick="return cw_upload({$c.warID});">{$smarty.const.UPLOAD}</a></td>
+    <td><a href="?section=admin&site=clanwars&func=edit&id={$c.warID}"><img src="templates/{$smarty.const.DESIGN}/images/clanwars_edit.png" alt="" style="cursor:pointer" title="{$smarty.const.EDIT}" /></a> <img src="templates/{$smarty.const.DESIGN}/images/clanwars_delete.png" alt="" style="cursor:pointer" onclick="clanwar_del({$c.warID}, '{$c.datum}');" title="{$smarty.const.DELETE}" /></td>
+  </tr>
+  {/foreach}
+</table>
+<br />
+    {if $seiten}<div class="pageLinks">{$smarty.const.SITES}: {$seiten}</div>{/if}
+<div style="clear:both"></div>
+{else}
+{$smarty.const.NO_ENTRIES}
+{/if}
+</div>

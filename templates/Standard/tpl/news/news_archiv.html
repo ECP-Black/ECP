@@ -1,0 +1,20 @@
+<form method="get"><input type="hidden" value="news" name="section" /><input type="hidden" value="archiv" name="action" /><select name="tid"><option value="0">{$smarty.const.ALL}</option>{foreach from=$topics item=t}<option value="{$t.tID}">{$t.topicname}</option>{/foreach}</select> <input type="submit" class="submit" value="{$smarty.const.VIEW}" /></form>
+<br />
+<table width="100%" border="0" cellspacing="1" cellpadding="0">
+  <tr>
+    <td><strong>{$smarty.const.DATE}:</strong></td>
+    <td><strong>{$smarty.const.HEADLINE}:</strong></td>
+    <td><strong>{$smarty.const.TOPIC}:</strong></td>
+    <td><strong>{$smarty.const.COMMENTS}:</strong></td>
+    <td><strong>{$smarty.const.HITS}:</strong></td>
+  </tr>
+{foreach from=$news item=n}
+  <tr>
+    <td>{$n.datum}</td>
+    <td><a href="?section=news&action=comments&id={$n.newsID}">{$n.headline}</a></td>
+    <td><a href="?section=news&action=archiv&tid={$n.topicID}">{$n.topicname}</a></td>
+    <td>{$n.comments}</td>
+    <td>{$n.hits}</td>
+  </tr>
+{/foreach}
+</table>

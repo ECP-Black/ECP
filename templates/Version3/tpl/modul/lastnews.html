@@ -1,0 +1,23 @@
+{foreach from=$news item=n}
+<div class="Tips" title="{$n.headline}"><img src="templates/{$smarty.const.DESIGN}/images/dot.gif" alt="" /> <a href="?section=news&action=comments&id={$n.newsID}">{$n.headline|truncate:26:"...":true}</a>
+<span class="tipcontents"><table width="250" border="0" cellspacing="0" cellpadding="1">
+  <tr>
+    <td width="100"><strong>{$smarty.const.USER}:</strong></td>
+    <td width="150"><img src="images/flaggen/{$n.country}.gif" alt="" title="{$n.countryname}" /> {$n.username}</td>
+  </tr>
+  <tr>
+    <td><strong>{$smarty.const.DATE}:</strong></td>
+    <td>{$n.datum}</td>
+  </tr>
+  <tr>
+    <td><strong>{$smarty.const.TOPIC}:</strong></td>
+    <td>{$n.topicname}</td>
+  </tr>
+  <tr>
+    <td><strong>{$smarty.const.COMMENTS}:</strong></td>
+    <td>{$n.comments}</td>
+  </tr>
+</table>
+</span>
+</div>
+{/foreach}

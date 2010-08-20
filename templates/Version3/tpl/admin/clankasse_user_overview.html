@@ -1,0 +1,16 @@
+<table width="100%" border="0" cellspacing="0" cellpadding="1" id="user_overview">
+  <tr>
+    <td width="30%"><strong>{$smarty.const.USER}:</strong></td>
+    <td width="40%"><strong>{$smarty.const.FINANCES_CONTRIB}:</strong></td>
+    <td width="15%"><strong>{$smarty.const.FINANCES_USE}:</strong></td>
+    <td width="15%">&nbsp;</strong></td>
+  </tr>
+  {foreach from=$user item=u}
+  <tr class="{cycle values="row_odd,row_even"}" id="user_{$u.userID}">
+    <td><a href="?section=user&id={$u.userID}">{$u.username}</a></td>
+    <td>{$u.geld} &euro;</td>
+    <td>{$u.verwendung}</td>
+    <td><img src="templates/{$smarty.const.DESIGN}/images/edit.png" class="imgpointer" alt="" title="{$smarty.const.EDIT}" onclick="clankasse_edit_user({$u.userID});" /> <img src="templates/{$smarty.const.DESIGN}/images/delete.png" alt="" title="{$smarty.const.DELETE}" class="imgpointer" onclick="clankasse_del_user({$u.userID}, '{$u.username}');" /></td>
+  </tr>
+  {/foreach}
+</table>

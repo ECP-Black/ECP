@@ -1,0 +1,31 @@
+<div>{$smarty.const.VERSION1}: <br />
+  {$smarty.const.YOURS}: <span id="version">{$smarty.const.VERSION}</span> | {$smarty.const.ECP_ONLINE}: <span id="onlineversion"></span></div>
+<div class="div_headline">{$smarty.const.ECP_NEWS}</div>
+<div id="ecp_news">
+</div>
+{literal}<script type="text/javascript">
+window.addEvent('load', function() {
+	new JsonP('http://www.easy-clanpage.de/version_check.php', {
+	  onComplete: function(data){
+	  	$('onlineversion').set('html', data.version);
+	  	if($('version').get('html') != data.version) {
+			$('version').addClass('version_old');
+		} else {
+			$('version').addClass('version_new');		
+		}
+		data.news.each(function(e, k) {
+			el = new Element('div', {'class': (k%2 ? 'row_even' : 'row_odd')});
+			datum = new Date(e.date*1000);
+			el2 = new Element('div', {'html': e.headline+' | '+datum.toLocaleString(), 'styles': {'font-weight': 'bold'}});
+			el2.inject(el);
+			el2 = new Element('div', {'html': e.msg}); 
+			el2.inject(el);
+			el2 = new Element('br');
+			el2.inject(el);
+			el.inject('ecp_news');
+		});
+	  }
+	}).request();
+});
+</script>
+{/literal}

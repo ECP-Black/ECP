@@ -1,0 +1,117 @@
+Lizenzabkommen zur kostenlosen Nutzung des Easy Clanpage Scriptes.
+------------------------------------------------------------------
+Stand: 17.2.2009
+
+Durch das Downloaden/Nutzen erklärt sich der Lizenznehmber 
+mit den folgenden Bedingungen einverstanden.
+
+----------------------------------------
+1. Berechtigungen	
+----------------------------------------
+
+1.1 	Es ist dem Lizenznehmer gestattet die Software 
+	in uneingeschrenkter Anzahl auf Servern zu installieren 
+	und zu nutzen.
+
+1.2	Das Aussehen und die Funktionsweise darf nach eigenen 
+	Bedürfnissen geändert werden.
+	Dabei dürfen die Änderungen jedoch nicht gegen 1.3 
+	verstoßen.
+
+1.3 	Es ist nicht gestattet die Verweise (Links) auf die 
+	Urheberseite zu entfernen. Sollte dies nicht eingehalten 
+	werden, stellt dies ein Verstoß gegen §13 UrhG dar. 
+	Weitere Informationen unter 3.1.
+	Mit einer kostenpflichtigen Lizenz kann die Nutzung 
+	ohne Verweise ermöglicht werden.
+
+1.4	Eine kommerzielle Nutzung der Software ist nicht erlaubt. 
+	Es besteht jedoch die Möglichkeit auf eine kommerzielle 
+	Nutzung nach der Rücksprache und Einverständniserklärung 
+	des Urhebers.
+	Eine kommerzielle Nutzung ist vorhanden wenn mittels der 
+	Software Gewinn erziehlt wird. Eine kostendeckende Nutzung 
+	ist jedoch erlaubt (z.B. durch Werbung wie AdSense). 
+	Dies behinhaltet lediglich die Kosten für das betreiben 
+	der Software (Miete für z.B. Gameservern gelten nicht als 
+	Ausgaben).
+	Als Einnahmen zählen auch Zuwendungen von Sponsoren.
+	
+	Webspaceanbieter die die Software standardmäßig auf ihren 
+	Produkten anbieten wollen (z.B. als Standardinstallation) 
+	sollten vorher Rücksprache mit dem Urheber des ECP halten.
+
+1.5	Dem Lizenznehmber ist es gestattet Addons/Designs fürs 
+	ECP zu erstellen. Diese dürfen jedoch nicht kommerziell 
+	angeboten werden. Es besteht die Möglichkeit nach 
+	Rücksprache und Zustimmung mit dem Urheber diese auch 
+	kostenpflichtig anzubieten.
+
+1.6	Das Nutzen von Quellcodeteilen in anderen Projekten ist 
+	nicht gestattet. Ausnahmen sind unter 4. aufgeführt.
+
+1.7	Eine Verwendung der Software, die gegen geltene Rechte 
+	verstoßen, ist nicht erlaubt (z.B. Verbreitung von 
+	rasistischen oder gewaltverherrlichten Inhalten).
+
+----------------------------------------
+2. Schadensfall
+----------------------------------------
+2.1	Die Nutzung der Software geschieht auf eigenen Gefahr. 
+	Schäden die durch die Nutzung der Software (z.B. durch 
+	Sicherheitslücken oder Fehlern im Quelltext) entstehen 
+	können, kann der Urheber nicht haftbar gemacht werden.
+
+2.2	Eine Funktionsgarantie kann nicht gewährt werden.
+
+2.3	Es besteht kein Recht auf Support oder Unterstützung 
+	bei Problemen mit der Software. Supportantfragen über 
+	Email und ICQ werden nicht bearbeitet. Ausnahmen sind 
+	Sicherheitslücken. 
+
+2.4	Sicherheitslücken sollten per Email dem Urheber bekannt 
+	gemacht werden.
+
+----------------------------------------
+3. Lizenzverstöße	
+----------------------------------------
+3.1	Bei Verstößen kann die Nutzung der Software vom Urheber
+	untersagt (Lizenzentzug) werden.
+
+3.2	Bei Verstößen können rechtliche Schritte eingeleitet werden. 
+	Ebenso ist der Urheber berechtigt Schadensersatz zu fordern 
+	und diese auch vor Gericht geltent zu machen.
+
+----------------------------------------
+4. Fremdscripte
+----------------------------------------
+4.1	Die Lizenzvorschriften gelten nicht für folgende 
+	Bestandteile der Software:
+	- Mootools (www.mootools.net - MIT License)
+	- clientcide (www.clientcide.com - MIT License)
+	- Multiple file upload element (Mootools 1.2 version 
+					http://the-stickman.com)
+	- FancyUpload (www.digitarald.de - MIT License)
+	- cPHPezMail
+	- Services_JSON (Michal Migurski - BSD License)
+	- MySQL database backup (Vagharshak Tozalakyan 
+					GNU Public license)
+	- Nomad MIME Mail (Alejandro Garcia Gonzalez
+					GNU Public license)
+	- N/X API to Google Maps (Sven Weih - GNU Public license)
+	- htmLawed (Santosh Patnaik - GPL v3 license)
+	- TinyMCE (LGPL (GNU) - http://tinymce.moxiecode.com/)
+	
+4.2	Für die in 4.1 genannten Programmen/Scripten gelten die 
+	jeweiligen Lizenzen.
+
+4.3	Eine Garantie auf Vollständigkeit der in 4.1 genannten 
+	Programmen/Scripten kann nicht gegeben werden. Fremdscripte 
+	wurden in der Regel im Quellcode kenntlich gemacht.
+
+----------------------------------------
+5.	Salvatorische Klausel
+----------------------------------------
+5.1	Sollte einzelne Teile der vorstehende Lizenzbedingungen 
+	unwirksam oder nichtig sein, so behalten die übrigen 
+	Bedingungen ihre Gültigkeit.

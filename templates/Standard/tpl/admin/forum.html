@@ -1,0 +1,65 @@
+<div id="admin_foren">
+    {foreach from=$foren item=f}
+    <div id="f_{$f.boardID}" class="forum_admin_haupt">
+        <div class="{if $f.isforum}foren_admin_haupt{else}foren_admin_kate{/if}"><div style="float: left;">{if $f.isforum}<img src="templates/{$smarty.const.DESIGN}/images/forum_icon{if $f.closed}_closed{/if}.png" style="float: left; margin-right: 5px" /> {/if}
+        	<strong>{$f.name}</strong><br />&nbsp; {$f.beschreibung}</div>
+            <div style="float: right;">
+                <a href="?section=admin&site=forum&func=edit&id={$f.boardID}"><img src="templates/{$smarty.const.DESIGN}/images/forum_edit.png" alt="" title="{$smarty.const.EDIT}" /></a> 
+                <img src="templates/{$smarty.const.DESIGN}/images/forum_delete.png" alt="" title="{$smarty.const.DELETE}" onclick="forum_delete({$f.boardID}, '{$f.name}');" class="imgpointer" />
+                <img src="templates/{$smarty.const.DESIGN}/images/arrow_out.png" style="cursor: move;" class="dragHandle" />
+             </div>
+         </div>
+         <div id="subs_{$f.boardID}">
+         {foreach from=$f.subs item=s}
+             <div class="foren_admin_sub" id="f_{$s.boardID}"><div style="float: left;width:80%;"><img src="templates/{$smarty.const.DESIGN}/images/forum_icon{if $s.closed}_closed{/if}.png" style="float: left; margin-right: 5px" /> 
+             	<strong>{$s.name}</strong><br />&nbsp; {$s.beschreibung}</div>
+                 <div style="float: right;">
+                    <a href="?section=admin&site=forum&func=edit&id={$s.boardID}"><img src="templates/{$smarty.const.DESIGN}/images/forum_edit.png" alt="" title="{$smarty.const.EDIT}" /></a> 
+                    <a href="?section=admin&site=forum&func=del&id={$s.boardID}"><img src="templates/{$smarty.const.DESIGN}/images/forum_delete.png" alt="" title="{$smarty.const.DELETE}" onclick="return forum_delete({$s.boardID}, '{$s.name}');" class="imgpointer"/></a> 
+                    <img src="templates/{$smarty.const.DESIGN}/images/arrow_out.png" style="cursor: move;" class="dragHandle_{$f.boardID}" />
+                  </div>
+              </div> 
+          {/foreach}
+         </div>
+    </div>
+    {/foreach}
+</div>
+{literal}
+<script language="javascript" type="text/javascript">
+new Sortables($('admin_foren'), {
+	handle: 'img.dragHandle', 
+	cloneOpacity:.2,
+	clone: true,
+	revert: true,	
+	onComplete: function() { 
+					ids = '';
+					i = 0;
+					$$('#admin_foren div.forum_admin_haupt').each( function(e) {
+						ids += '&'+i+'='+e.id.replace('f_','').toInt();
+						i++;
+					});
+					new Request({url: 'ajax_checks.php?func=admin&site=forum_order',  
+						data: ids.substr(1)							
+					}).post();
+		}
+});
+{/literal}
+{foreach from=$foren item=f}
+new Sortables($('subs_{$f.boardID}'), {literal}{
+	handle: 'img.dragHandle_{/literal}{$f.boardID}{literal}', 
+	cloneOpacity:.2,
+	clone: true,
+	revert: true,	
+	onComplete: function() { 
+			ids = '';
+			{/literal}
+			$$('#subs_{$f.boardID}{literal} div.foren_admin_sub').each( function(e,i) {
+				ids += '&'+i+'='+e.id.replace('f_','').toInt();
+			});
+			new Request({url: 'ajax_checks.php?func=admin&site=forum_order', 
+				data: ids.substr(1)							
+			}).post();
+	}
+}); {/literal}
+{/foreach}
+</script>

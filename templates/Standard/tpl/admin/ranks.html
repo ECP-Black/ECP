@@ -1,0 +1,21 @@
+<form id="rank_form" action="?section=admin&site=ranks&func=add" method="post" enctype="multipart/form-data">
+<fieldset>
+	<div><label for="rankname">{$smarty.const.RANG_NAME}:</label><input type="text" id="rankname" maxlength="25" class="required" name="rankname" /></div>
+	<div><label for="fest">{$smarty.const.RANG_CONST}:</label><input type="checkbox" class="checkbox" onchange="check_fest(this)" value="1" id="fest" name="fest" /></div>
+    <div id="fadeout" style="clear:both"><label for="abposts">{$smarty.const.RANG_POSTS}:</label><input type="text" id="abposts" maxlength="25" class="smallinput" name="abposts" /></div>
+    <div style="clear:both"><label for="money">{$smarty.const.RANG_MONEY}:</label><input type="text" id="money" maxlength="25" class="smallinput" name="money" /></div>
+    <div id="rank_edit"><label for="iconname">{$smarty.const.RANG_PIC}:</label><input type="file" name="rank" class="required" /></div>  
+    <input type="submit" name="submit" class="submit" value="{$smarty.const.ADD}" id="rank_form_submit" />  <img src="templates/{$smarty.const.DESIGN}/images/spinner.gif" alt="" title="{$smarty.const.LOADING}" id="rank_form_spinner" style="visibility:hidden" />
+</fieldset>
+</form>
+{literal}
+<script type="text/javascript">
+	rank_valid = new FormValidator('rank_form');
+	function check_fest(el) {
+		if(el.checked) 
+			$('fadeout').style.display = 'none';
+		else 
+			$('fadeout').style.display = '';
+	};
+</script>
+{/literal}

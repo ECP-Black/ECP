@@ -1,0 +1,67 @@
+<form name="form_board" id="form_board" action="?section=admin&site=forum&func={$url}" method="post">
+  <div id="tabBoxExample">
+    <ul class="tabSet">
+      <li class="off"><a>{$smarty.const.FORUM_MAIN}</a></li>
+      <li class="off"><a>{$smarty.const.RIGHTS}</a></li>   
+      <li class="off"><a>{$smarty.const.FORUM_MODERATION}</a></li>      
+    </ul>
+    <div class="panelSet">    
+      <div class="panel">
+        <fieldset style="border: none;">
+             <div><label for="type">{$smarty.const.FORUM_TYPE}:</label><select id="isforum" name="isforum" {if $url != 'add'}disabled="disabled"{/if} onChange="check_forum_type(this);"><option value="1">{$smarty.const.FORUM}</option><option value="0" {if $isforum == 0 and $isforum != ''}selected{/if}>{$smarty.const.FORUM_CATE}</option></select></div>
+            <div><label for="name">{$smarty.const.NAME}:</label><input type="text" name="name" id="name" maxlength="70" class="required" value="{$name}" /></div>
+            <div><label for="beschreibung">{$smarty.const.DISCRIPTION}:</label><input type="text" name="beschreibung" id="beschreibung" value="{$beschreibung}" maxlength="500" /></div>    
+            <div class="isforum"><label for="boardparentID">{$smarty.const.FORUM_PARENT}:</label><select name="boardparentID" id="boardparentID"><option value="0"></option>{$boards}</select></div>
+            <div class="isforum"><label for="closed">{$smarty.const.FORUM_CLOSED_A}:</label><select name="closed" id="closed"><option value="1">{$smarty.const.YES}</option><option value="0" {if $closed == 0}selected{/if}>{$smarty.const.NO}</select></div>
+            <div class="isforum"><label for="attachments">{$smarty.const.FORUM_ATTACHMENTS}:</label><input type="text" value="{if $attachments}{$attachments}{else}0{/if}" name="attachments" id="attachments" class="smallinput validate-number" /> {$smarty.const.FORUM_ATTACH_PRO_COMMENT}</div>    
+            <div class="isforum"><label for="attachmaxsize">{$smarty.const.FORUM_ATTACHMENTS_MAX_SIZE}:</label><input type="text"  value="{if $attachmaxsize}{$attachmaxsize}{else}50000{/if}" name="attachmaxsize" id="attachmaxsize" class="smallinput validate-number" /> <select style="width: 5em" size="1" name="modifkator" id="modifkator">
+              <option selected value="1"> Byte </option>
+              <option value="1024"> Kbyte </option>
+              <option value="1048576"> Mbyte </option>
+            </select> {$smarty.const.FORUM_SIZE_PRO_ATTACH}</div>  
+            <div class="isforum"><label for="commentsperpost">{$smarty.const.FORUM_COMMENTS_PER_POST}:</label><input type="text" value="{if $commentsperpost}{$commentsperpost}{else}1{/if}" name="commentsperpost" id="commentsperpost" class="smallinput validate-number" /></div>    
+            <div class="isforum"><label for="moneyperpost">{$smarty.const.FORUM_MONEY_PER_POST}:</label><input type="text" value="{if $moneyperpost}{$moneyperpost}{else}1{/if}" name="moneyperpost" id="moneyperpost" class="smallinput validate-numberdot" /> <img src="templates/{$smarty.const.DESIGN}/images/money.png" alt="" /></div>                            
+            <br />  
+            <input type="submit" class="submit" name="submit" value="{$smarty.const.SUBMIT}" />
+		</fieldset>       
+      </div>
+      <div class="panel">
+          <fieldset style="border:none">
+          	<div><label for="rightsread">{$smarty.const.FORUM_READ}:</label><select size="7" multiple="multiple" id="rightsread" name="rightsread[]">{$rightsread}</select></div>
+            <div><label for="threadopen">{$smarty.const.FORUM_THREAD_ADD}:</label><select size="7" multiple="multiple" id="threadopen" name="threadopen[]">{$threadopen}</select></div>                                 
+            <div><label for="postcom">{$smarty.const.FORUM_POST_COM}:</label><select size="7" multiple="multiple" id="postcom" name="postcom[]">{$postcom}</select></div>
+            <div><label for="editcom">{$smarty.const.FORUM_EDIT_COM}:</label><select size="7" multiple="multiple" id="editcom" name="editcom[]">{$editcom}</select></div>                                      
+            <div><label for="startsurvey">{$smarty.const.FORUM_START_SURVEY}:</label><select size="7" multiple="multiple" id="startsurvey" name="startsurvey[]">{$startsurvey}</select></div>
+            <div><label for="votesurvey">{$smarty.const.FORUM_VOTE_SURVEY}:</label><select size="7" multiple="multiple" id="votesurvey" name="votesurvey[]">{$votesurvey}</select></div>
+            <div><label for="attachfiles">{$smarty.const.FORUM_ATTACH_FILE}:</label><select size="7" multiple="multiple" id="attachfiles" name="attachfiles[]">{$attachfiles}</select></div>
+            <div><label for="downloadattch">{$smarty.const.FORUM_DL_ATTACH}:</label><select size="7" multiple="multiple" id="downloadattch" name="downloadattch[]">{$downloadattch}</select>
+          </fieldset>
+      </div>
+      <div class="panel">
+          <fieldset style="border:none">
+          	<div><label for="threadclose">{$smarty.const.FORUM_THREAD_CLOSE1}:</label><select size="7" multiple="multiple" id="threadclose" name="threadclose[]">{$threadclose}</select></div>
+            <div><label for="threaddel">{$smarty.const.FORUM_THREAD_DEL}:</label><select size="7" multiple="multiple" id="threaddel" name="threaddel[]">{$threaddel}</select></div> 
+            <div><label for="threadmove">{$smarty.const.FORUM_THREAD_MOVE}:</label><select size="7" multiple="multiple" id="threadmove" name="threadmove[]">{$threadmove}</select></div>             
+            <div><label for="threadpin">{$smarty.const.FORUM_THREAD_PIN}:</label><select size="7" multiple="multiple" id="threadpin" name="threadpin[]">{$threadpin}</select></div>                                            
+            <div><label for="editmocom">{$smarty.const.FORUM_MO_EDIT_COM}:</label><select size="7" multiple="multiple" id="editmocom" name="editmocom[]">{$editmocom}</select></div>
+            <div><label for="delcom">{$smarty.const.FORUM_DEL_COM}:</label><select size="7" multiple="multiple" id="delcom" name="delcom[]">{$delcom}</select></div>                                                         
+          </fieldset>
+      </div>      
+    </div>
+  </div> 
+</form>
+{literal}
+<script language="javascript" type="text/javascript">
+check_forum_type($('isforum'));
+new FormValidator($('form_board')); 	
+new TabSwapper({
+  selectedClass: 'on',
+  deselectedClass: 'off',
+  tabs: $$('#tabBoxExample li'),
+  clickers: $$('#tabBoxExample li a'),
+  sections: $$('div.panelSet div.panel'),
+  /*use transitions to fade across*/
+  smooth: true
+});	
+</script>
+{/literal}

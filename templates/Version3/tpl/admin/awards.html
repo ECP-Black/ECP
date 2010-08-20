@@ -1,0 +1,115 @@
+<form name="award_form" id="award_form" method="post" action="?section=admin&amp;site=awards&amp;func=add">
+	<fieldset>
+    	<legend>{$smarty.const.AWARDS}</legend>
+        <div><label for="eventname">{$smarty.const.NAME}:</label><input type="text" name="eventname" id="eventname" maxlength="40" class="required" /></div>
+        <div><label for="url">{$smarty.const.AWARDS_URL}:</label><input type="text" name="url" id="url" maxlength="255" /></div>
+   		<div><label for="eventdatum">{$smarty.const.DATE}:</label><div><input type="text" name="eventdatum" id="eventdatum" size="30" class="required validate-date smallinput" /><img id="button_cal" src="templates/{$smarty.const.DESIGN}/images/calendar.png" alt="{$smarty.const.CHOOSE_DATE}" title="{$smarty.const.CHOOSE_DATE}" /></div></div>        
+        <div><label for="platz">{$smarty.const.AWARDS_POS}:</label><select name="platz" id="platz" size="1" class="validate-selection selected">
+          <option value="0">{$smarty.const.CHOOSE}</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+</select></div>
+        <div><label for="preis">{$smarty.const.AWARDS_PRIZE}:</label><input type="text" name="preis" id="preis" maxlength="40" /></div>
+    	<div><label for="teamID">{$smarty.const.TEAM}:</label><select name="teamID" class="validate-selection selected" id="teamID">{$teams}</select></div>
+    	<div><label for="spieler">{$smarty.const.AWARDS_PLAYERS}:</label><input type="text" id="spieler" name="spieler" class="required" /> <img style="visibility: hidden" src="templates/{$smarty.const.DESIGN}/images/spinner.gif" id="search_spinner" alt="" title="{$smarty.const.LOADING}" /></div>        
+	    <div><label for="gID">{$smarty.const.GAME}:</label><select name="gID" class="validate-selection selected" id="gID">{$games}</select></div>    
+          <label>{$smarty.const.REPORT}: </label>
+          <p>
+          <div id="tabBoxExample">
+            <ul class="tabSet">
+              {foreach from=$lang item=l}
+              <li class="off"><a><img src="images/flaggen/{$l.lang}.gif" alt="" title="{$l.name}" /></a></li>
+              {/foreach}
+            </ul>
+            <div class="panelSet"> {foreach from=$lang item=l}
+              <div class="panel" id="discription_{$l.lang}_div">
+                <textarea class="admininput" rows="7" cols="60" name="discription_{$l.lang}" id="discription_{$l.lang}">{$l.content}</textarea>
+                <div align="center"><a onclick="tinyMCE.execCommand('mceToggleEditor',false,'discription_{$l.lang}');">{$smarty.const.TOGGLE_EDITOR}</a></div>
+              </div>
+            {/foreach} </div>
+          </div>        
+        <br />
+        <input type="submit" name="submit" value="{$smarty.const.ADD}" class="submit" id="submit_award" /> <img src="templates/{$smarty.const.DESIGN}/images/spinner.gif" alt="" title="{$smarty.const.LOADING}" id="award_submit_spinner" style="visibility:hidden" />
+  </fieldset>
+</form>
+<br />
+<div id="award_div">
+    <table width="100%" border="0" cellspacing="0" cellpadding="1" id="award_table">
+      <tr>
+        <td width="40%"><strong>{$smarty.const.NAME}:</strong></td>
+        <td width="20%"><strong>{$smarty.const.DATE}:</strong></td>
+        <td width="25%"><strong>{$smarty.const.AWARDS_POS}:</strong></td>        
+        <td width="15%">&nbsp;</td>
+      </tr>
+      {foreach from=$awards item=a}
+      <tr class="{cycle values="row_odd,row_even"}" id="award_{$a.awardID}">
+        <td>{$a.eventname}</td>
+        <td>{$a.eventdatum}</td>
+        <td>{if $a.platz < 4}<img src="templates/{$smarty.const.DESIGN}/images/award_{$a.platz}.png" alt="" title="{$a.platz}" />{else}{$a.platz}{/if}</td>
+        <td><img src="templates/{$smarty.const.DESIGN}/images/edit.png" alt="" title="{$smarty.const.EDIT}" onClick="award_edit({$a.awardID})" style="cursor:pointer" /> <img src="templates/{$smarty.const.DESIGN}/images/delete.png" alt="" title="{$smarty.const.DELETE}" onClick="award_del({$a.awardID}, '{$a.eventname}')" style="cursor:pointer" /></td>
+      </tr>
+      {/foreach}
+    </table>
+</div>
+<script type="text/javascript" language="javascript">
+{literal}
+window.addEvent('domready', function() { 
+	new Autocompleter.Ajax.Json($('spieler'), 'ajax_checks.php?func=search_member', { 
+			  postVar: 'username', 
+			  multiple: true,
+			  onRequest: function ()  { $('search_spinner').style.visibility = ''; },
+			  onComplete: function (r)  { $('search_spinner').style.visibility = 'hidden'; }, 
+			  zIndex: 999999 });
+});
+new TabSwapper({
+  selectedClass: 'on',
+  deselectedClass: 'off',
+  tabs: $$('#tabBoxExample li'),
+  clickers: $$('#tabBoxExample li a'),
+  sections: $$('div.panelSet div.panel'),
+  /*remember what the last tab the user clicked was*/
+  smooth: true
+});
+aw_form = new FormValidator($('award_form')); 
+Calendar.setup({
+    inputField    : "eventdatum",
+    button        : "button_cal",	
+	showsTime     : true,
+	onUpdate:	  function() { aw_form.validateField($('eventdatum')); }
+});		
+$('award_form').addEvent('submit', function(e) {
+	new Event(e).stop();
+	if(aw_form.validate()) {
+		$('award_submit_spinner').style.visibility = '';
+		$('submit_award').disabled = true;
+		$$('#award_form textarea').each( function (e) { 
+			el = tinyMCE.get(e.name);					
+			if(el.isDirty()) el.save();
+		});			
+		new Request({
+			url: $('award_form').action,		
+			onSuccess: function(r) {
+				$('award_submit_spinner').style.visibility = 'hidden';
+				$('submit_award').disabled = false;			
+				if(r == 'ok') {			
+					$('award_form').reset();				
+					if($('award_form').action.contains('edit')) {
+						make_info(AWARD_EDIT_SUCCESS, 'accept');
+					} else {
+						make_info(AWARD_ADD_SUCCESS, 'accept');
+					}		
+					$('award_form').action = '?section=admin&site=awards&func=add';
+					$('submit_award').value = ADD;	
+					load_content('award_div', 'ajax_checks.php?func=admin&site=awards_overview');																	
+				} else {
+					errorAlert(ERROR, r);
+				}
+			}
+		}).send($('award_form'));
+	}
+});
+</script>
+{/literal}

@@ -1,0 +1,38 @@
+<div id="dl_head">
+  <div style="text-align:center">
+    <form action="?section=downloads&action=search" method="post">
+      <strong>{$smarty.const.DOWNLOADS}: </strong>
+      <input type="text" style="width:30%" name="search_name" id="search_name" value="{$smarty.post.search_name}"} />
+      <input type="submit" name="submit" value="{$smarty.const.SEARCH}" />
+      <img id="dl_spinner" style="visibility:hidden" src="templates/{$smarty.const.DESIGN}/images/spinner.gif" alt="" title="{$smarty.const.LOADING}" />
+    </form>
+    <span class="klammer">[</span> <a href="?section=downloads">{$smarty.const.DOWNLOADS}</a> <span class="klammer">|</span> <a href="?section=downloads&amp;action=spezial&amp;view=new">{$smarty.const.NEW_DOWNLOADS}</a> <span class="klammer">|</span> <a href="?section=downloads&amp;action=spezial&amp;view=hits">{$smarty.const.DOWNLOADS_POPULAR}</a> <span class="klammer">|</span> <a href="?section=downloads&amp;action=spezial&amp;view=traffic">{$smarty.const.DOWNLOADS_TRAFFIC}</a> <span class="klammer">]</span> </div>
+</div>
+<hr />
+{if $pfad}
+<div style="text-align:center">{$smarty.const.PATH}: {$pfad}
+  {if $beschreibung}<br />
+  <strong>{$smarty.const.DISCRIPTION}:</strong> {$beschreibung}{/if}</div>
+{/if}
+{literal}
+<script type="text/javascript" language="javascript">
+window.addEvent('domready', function(){ 
+	new Autocompleter.Ajax.Json($('search_name'), 'ajax_checks.php?func=search_dl', { 
+		postVar: 'name', 
+		multiple: false,
+		inheritWidth: false,
+		autoSubmit : true,
+		width: 300,
+	  injectChoice: function(choice) {
+		var el = new Element('li')
+		  .set('html', this.markQueryValue(choice[0]))
+		  .adopt(new Element('span', {'class': 'example-info'}).set('html', this.markQueryValue(choice[1])));
+		el.inputValue = choice[0];
+		this.addChoiceEvents(el).injectInside(this.choices);
+	  },		
+		onRequest: function ()  { $('dl_spinner').style.visibility = ''; },
+		onComplete: function ()  { $('dl_spinner').style.visibility = 'hidden'; }, 
+		zIndex: 999999 });
+});
+</script>
+{/literal}

@@ -1,0 +1,9 @@
+<fieldset>
+    <legend>{$smarty.const.GUESTBOOK}</legend>
+    <div><label for="public_guestbook_view">{$smarty.const.VIEW}:</label><input class="checkbox" type="checkbox" name="public_guestbook_view" value="1" {if $public_guestbook_view}checked{/if} /></div>      
+    <div><label for="public_guestbook_add">{$smarty.const.GUESTBOOK_ADD}:</label><input class="checkbox" type="checkbox" name="public_guestbook_add" value="1" {if $public_guestbook_add}checked{/if} /></div>          
+    <div><label for="public_guestbook_com_view">{$smarty.const.COMMENTS_VIEW}:</label><input class="checkbox" type="checkbox" name="public_guestbook_com_view" value="1" {if $public_guestbook_com_view}checked{/if} /></div>
+    <div><label for="public_guestbook_com_add">{$smarty.const.COMMENTS_ADD}:</label><input class="checkbox" type="checkbox" name="public_guestbook_com_add" value="1" {if $public_guestbook_com_add}checked{/if} /></div>
+    <div><label for="public_guestbook_com_edit" title="{$smarty.const.DISCRIPTION_NEWS_COM_EDIT}">{$smarty.const.COMMENTS_EDIT}:</label><input class="checkbox" type="checkbox" name="public_guestbook_com_edit" value="1" {if $public_guestbook_com_edit}checked{/if} /></div>
+    <div><label for="public_guestbook_com_del" title="{$smarty.const.DISCRIPTION_NEWS_COM_DEL}">{$smarty.const.COMMENTS_DEL}:</label><input class="checkbox" type="checkbox" name="public_guestbook_com_del" value="1" {if $public_guestbook_com_del}checked{/if} /></div>    
+</fieldset>

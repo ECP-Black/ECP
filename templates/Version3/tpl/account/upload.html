@@ -1,0 +1,26 @@
+<div class="upload_pic">
+	<div class="div_headline"><strong>{$smarty.const.ACCOUNT_PIC}</strong></div>
+	{if $pic}
+    	<img src="images/user/{$smarty.session.userID}_{$pic}" alt="" title="{$smarty.session.username}"  class="user_pic_border" /><br />
+        <a href="?section=account&action=deluserpic">{$smarty.const.DEL_USER_PIC}</a>
+    {else}
+    <img src="templates/{$smarty.const.DESIGN}/images/nopic.png" alt="" title="{$smarty.const.NO_USER_PIC}"  class="user_pic_border" />
+    <form method="post" enctype="multipart/form-data" action="?section=account&action=user_pic" name="user_form" id="user_form">
+    <input type="file" name="user" style="width: 65%" /><br />
+    <input type="submit" name="submit" class="submit" value="{$smarty.const.UPLOAD}" />
+    </form>
+    {$usermsg}
+    {/if}
+	<div class="div_headline"><strong>{$smarty.const.AVATAR}</strong></div>
+	{if $avatar}
+    	<img src="images/avatar/{$smarty.session.userID}_{$avatar}" alt="" title="{$smarty.session.username}"  class="user_pic_border" /><br />
+        <a href="?section=account&action=delavatar">{$smarty.const.DEL_AVATAR}</a>
+    {else}
+    <img src="templates/{$smarty.const.DESIGN}/images/noavatar.png" alt="" title="{$smarty.const.NO_AVATAR_PIC}"  class="user_pic_border" />
+    <form method="post" enctype="multipart/form-data" action="?section=account&action=user_avatar" name="avatar_form" id="avatar_form">
+    <input type="file" name="avatar" style="width: 65%" /><br />
+    <input type="submit" name="submit" class="submit" value="{$smarty.const.UPLOAD}" />
+    </form>
+    {$avatarmsg}
+    {/if}    
+</div>

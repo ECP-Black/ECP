@@ -1,0 +1,9 @@
+<div class="div_headline">{$smarty.const.EVENTS}</div>
+<div>
+      {foreach from=$data item=e}
+	   <div class="div_headline">{$e.eventname}</div>
+       <img src="images/flaggen/{$e.country}.gif" alt="" title="{$e.countryname}" /> <a href="?section=user&amp;id={$e.userID}">{$e.username}</a> :: {$e.datum}<br />
+       {$e.inhalt}
+      {/foreach}
+</div>
+</span></a>

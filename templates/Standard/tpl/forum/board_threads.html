@@ -1,0 +1,25 @@
+{if $seiten}<div class="pageLinks" style="height: 22px;">{$seiten}<br /></div>{/if}
+{if $newtopic AND !$closed}<div class="newTopic"><a href="?section=forum&action=newtopic&boardID={$smarty.get.boardID}">{$smarty.const.FORUM_NEW_TOPIC}</a></div>{/if}
+<div id="threads_body">
+    <table width="100%" border="0" cellspacing="0" cellpadding="1">
+      <tr id="threads_head">
+        <th scope="col" width="50%">{$smarty.const.FORUM_THREADS}</th>
+        <th scope="col" width="11%">{$smarty.const.FORUM_RATING}</th>
+        <th scope="col" width="10%">{$smarty.const.FORUM_POSTS}</th>
+        <th scope="col" width="10%">{$smarty.const.FORUM_VIEWS}</th>
+        <th scope="col" width="19%">{$smarty.const.FORUM_LAST_POST}</th>
+      </tr>{if $threads}
+      {foreach from=$threads item=t}
+      <tr class="thread">
+        <td>{if $t.fsurveyID OR $t.anhaenge OR $t.aboID}<div class="forum_icons">{if $t.fsurveyID}<img src="templates/{$smarty.const.DESIGN}/images/forum_survey.png" alt="" title="{$smarty.const.FORUM_SURVEY}" />{/if} {if $t.anhaenge}<img src="templates/{$smarty.const.DESIGN}/images/forum_attach.png" alt="" title="{$smarty.const.FORUM_ATTACHS}" />{/if}{if $t.aboID} <img src="templates/{$smarty.const.DESIGN}/images/forum_abo.png" al="" title="{$smarty.const.FORUM_ABO2}" />{/if}</div>{/if}<img src="templates/{$smarty.const.DESIGN}/images/forum_icon{if $t.posts > $smarty.const.HOT_THREAD_POSTS OR $t.views > $smarty.const.HOT_THREAD_VIEWS}_hot{/if}{if $t.closed}_closed{elseif $t.new}_new{/if}.png" alt="" title="" align="left"/> {if $t.sticky}<img src="templates/{$smarty.const.DESIGN}/images/forum_thread_pin.png" /> {/if}{if $t.new}<a href="?section=forum&action=gotonew&threadID={$t.threadID}&boardID={$smarty.get.boardID}"><img src="templates/{$smarty.const.DESIGN}/images/forum_goto_new.gif" alt="" title="{$smarty.const.FORUM_GOTO_NEW}" /></a> {/if}<a href="?section=forum&action=thread&boardID={$t.bID}&threadID={$t.threadID}">{$t.threadname}</a><br /><span class="forum_smalltext">{$smarty.const.FROM} {if $t.vonID}<a href="?section=user&amp;id={$t.vonID}">{$t.vonusername}</a>{else}{$t.vonname}{/if} ({$t.datum})</span></td>
+        <td align="center"><img src="templates/{$smarty.const.DESIGN}/images/{$t.bewertungbild}.png" alt="" title="{$t.bewertung}" /></td>
+        <td align="center">{$t.posts}</td>
+        <td align="center">{$t.views}</td>
+        <td><a href="?section=forum&action=gotolast&boardID={$smarty.get.boardID}&amp;threadID={$t.threadID}"><img src="templates/{$smarty.const.DESIGN}/images/forum_goto_last.png" title="{$smarty.const.FORUM_GOTO_LAST}" alt="" style="float: left;" /></a> {if $t.lastuserID}<a href="?section=user&amp;id={$t.lastuserID}">{$t.lastuserIDname}</a>{else}{$t.lastusername}{/if}<br /><span class="forum_smalltext">({$t.lastreplay})</span></td>
+      </tr>
+      {/foreach} 
+      {else}<tr><td colspan="5" align="center">{$smarty.const.NO_ENTRIES}</td></tr>{/if} 
+    </table>
+</div>
+{if $newtopic AND !$closed}<div class="newTopic"><a href="?section=forum&action=newtopic&boardID={$smarty.get.boardID}">{$smarty.const.FORUM_NEW_TOPIC}</a></div>{/if}
+{if $seiten}<div class="pageLinks" style="height: 22px;">{$seiten}<br /></div>{/if}

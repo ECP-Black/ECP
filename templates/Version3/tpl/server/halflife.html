@@ -1,0 +1,103 @@
+<div id="server_{$serverID}" style="padding-bottom: 40px">
+<table border="0" width="100%" cellspacing="0" style="table-layout:fixed">
+	<tr>
+		<td align="left" width="15%" valign="top"><b>{$smarty.const.GAME}:</b></td>
+		<td align="left" width="50%" valign="top">{if $gamename}{$gamename}{else}{$game_description}{/if}</td>
+		<td rowspan="8" width="35%" align="center">
+		<img src="{$image}" style="border: 1px solid #333333" alt="" title="{$map}" /></td>
+	</tr>
+	<tr>
+		<td align="left" valign="top"><b>{$smarty.const.NAME}:</b></td>
+		<td align="left" valign="top">{$name}</td>
+	</tr>
+	<tr>
+		<td align="left" valign="top"><b>{$smarty.const.SERVER_IP}:</b></td>
+		<td align="left" valign="top">{$ip}:{$port} <a href="hlsw://{$ip}:{$port}:{$queryport}">
+		(Hinzufügen zu HLSW)</a></td>
+	</tr>	
+	<tr>
+		<td align="left" valign="top"><b>{$smarty.const.SERVER_SLOTS}:</b></td>
+		<td align="left" valign="top">{$playersmax} (freie: {$playersmax-$players})</td>
+	</tr>
+	<tr>
+		<td align="left" valign="top"><b>{$smarty.const.PLAYERS}:</b></td>
+		<td align="left" valign="top">{$players}</td>
+	</tr>
+	<tr>
+		<td align="left" valign="top"><b>{$smarty.const.PASSWORD}:</b></td>
+		<td align="left" valign="top">{if $password AND $passwort == ''}{$smarty.const.SERVER_PW_PROTECT}{else}{$passwort}{/if}</td>
+	</tr>
+	<tr>
+		<td align="left" valign="top"><b>{$smarty.const.MAP}:</b></td>
+		<td align="left" valign="top">{$map} {if $nextmap}{$nextmap}{/if}</td>
+	</tr>
+	<tr>
+		<td align="left" valign="top"><b>{$smarty.const.SERVER_TIMELIMIT}:</b></td>
+		<td align="left" valign="top">{$mp_timelimit} min. {$timeleft}</td>
+	</tr>
+	<tr>
+		<td align="left" valign="top"><b>{$smarty.const.SERVER_LAST_UPDATE}:</b></td>
+		<td align="left" valign="top">{$datum} ({$smarty.const.SERVER_NEXT_UPDATE}: {$nextupdate}) <img src="templates/{$smarty.const.DESIGN}/images/refresh.png" alt="" title="{$smarty.const.SERVER_REFRESH}" onclick="server_refresh({$serverID});" class="imgpointer" /></td>
+	</tr>	    	
+	<tr>
+		<td><strong>{$smarty.const.SERVER_SETTINGS}:</strong></td>
+		<td colspan="2">{$settings}</td>
+		</tr>
+    {if $serverstats}
+	<tr>
+		<td><strong>{$smarty.const.STATS}</strong></td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+    	<td colspan="3"><div id="server_stat_{$serverID}"><strong>You need to upgrade your Flash Player</strong></div></td>
+	</tr>    
+    {/if}
+	<tr>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	</tr>    
+	<tr>
+		<td><b>{$smarty.const.PLAYERS}:</b></td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td colspan="3">
+		<table border="0" width="100%" cellspacing="1" cellpadding="1">
+			<tr>
+				<td width="55%" class="rahmen_boden_rechts"><b>{$lang.name}:</b></td>
+				<td width="25%" class="rahmen_boden_rechts"><b>{$lang.score}:</b></td>
+				<td width="20%" class="rahmen_boden"><b>{$lang.time}:</b></td>
+			</tr>
+			{if $plys}
+			{foreach from=$plys item=plyer}
+			<tr class="{cycle values="row_odd,row_even"}">
+				<td width="55%" class="rahmen_boden_rechts">{$plyer.name}</td>
+				<td width="25%" class="rahmen_boden_rechts">{$plyer.score}</td>
+				<td width="20%" class="rahmen_boden">{$plyer.time}</td>
+			</tr>
+			{/foreach}
+			{else}
+			<tr>
+			   <td colspan="4">
+				<p align="center">{$smarty.const.SERVER_NO_PLAYERS}</td>
+			</tr>
+			{/if}
+		</table>
+		</td>
+	</tr>
+</table>
+{literal}
+<script type="text/javascript">
+// <![CDATA[		
+var so = new SWFObject("inc/amstats/amstock.swf", "amstock", "600", "240", "8", "#FFFFFF");
+so.addVariable("path", "inc/amstats/")                  
+so.addVariable("settings_file", escape("ajax_checks.php?func=server_stats&id={/literal}{$serverID}{literal}"));
+so.addVariable("preloader_color", "#999999");
+so.addParam("wmode", "opaque");
+so.write("server_stat_{/literal}{$serverID}{literal}");
+// ]]>
+</script>
+{/literal}

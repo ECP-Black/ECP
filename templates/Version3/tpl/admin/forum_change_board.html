@@ -1,0 +1,30 @@
+{$smarty.const.FORUM_THREAD_MOVE_TO}: <select name="change_board" id="change_board">{$select}</select><br />
+{$smarty.const.FORUM_THREAD_MOVE_MSG}: <input type="checkbox" class="checkbox" name="msg_user" id="msg_user" value="1" /><br /><br />
+<input type="button" class="submit" value="{$smarty.const.SUBMIT}" id="change_board_submit" name="change_board_submit" /> <img id="board_waiter" src="templates/{$smarty.const.DESIGN}/images/spinner.gif" alt="" title="{$smarty.const.LOADING}" style="visibility: hidden" /> 
+<script language="javascript" type="text/javascript">
+{literal}
+$('change_board_submit').addEvent('click', function(e) {
+	if($('change_board').get('inputValue') == '-1' || $('change_board').get('inputValue').toInt() == 0) {
+		errorAlert(ERROR, FORUM_THREAD_MOVE_VALID);
+	} else {
+		$('msg_user').checked == true ? msguser = 1 : msguser =0;
+		new Request({url: 'ajax_checks.php?func=thread_move&id=' + {/literal}{$id}{literal} + '&newboard='+$('change_board').get('inputValue')+'&msguser='+msguser, 
+	    	onRequest: function() {
+				$('board_waiter').style.visibility = '';
+				$('change_board_submit').disabled = true;
+			},
+			onSuccess: function(r){
+				$('board_waiter').style.visibility = 'hidden';
+				$('change_board_submit').disabled = false;
+				if (r =='ok') {
+					change_board_win.hide();
+					make_info(FORUM_THREAD_MOVE_SUCCESS, 'accept');
+				} else {
+					errorAlert(ERROR, r);
+				}
+			}
+		}).get();
+	}
+});
+{/literal}
+</script>

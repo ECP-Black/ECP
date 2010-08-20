@@ -1,0 +1,36 @@
+<form action="ajax_checks.php?func=thread_answer_edit&id={$id}" method="post" name="answer_edit_form" id="answer_edit_form">
+  <fieldset>
+  <legend>{$smarty.const.SURVEY_ANSWER}</legend>
+  <div>
+    <label for="answer">{$smarty.const.SURVEY_ANSWER}:</label>
+    <input type="text" maxlength="200" id="answer" name="answer" class="required" value="{$answer}" />
+  </div>
+  </fieldset>
+  <input type="submit" value="{$smarty.const.EDIT_2}" class="submit" id="answer_edit_submit" /> <img src="templates/{$smarty.const.DESIGN}/images/spinner.gif" alt="" title="{$smarty.const.LOADING}" id="answer_spinner" style="visibility:hidden" />
+</form>
+
+<script language="javascript" type="text/javascript">
+{literal}
+answer_form = new FormValidator($('answer_edit_form')); 		
+$('answer_edit_form').addEvent('submit', function(e) {
+	new Event(e).stop();
+	if(answer_form.validate()) {
+		$('answer_spinner').style.visibility = '';
+		$('answer_edit_submit').disabled = true;
+		new Request({
+			url: $('answer_edit_form').action,
+			onSuccess: function(r) {
+				$('answer_spinner').style.visibility = 'hidden';
+				$('answer_edit_submit').disabled = false;			
+				if(r == 'ok') {			
+					forum_survey_answers({/literal}{$sid}{literal});	
+					answer_edit_win.hide();										
+				} else {
+					errorAlert(ERROR, r);
+				}
+			}
+		}).send($('answer_edit_form'));
+	}
+});
+{/literal}
+</script>

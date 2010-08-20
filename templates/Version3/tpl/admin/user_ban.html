@@ -1,0 +1,39 @@
+<form name="user_ban_form" id="user_ban_form" action="ajax_checks.php?func=admin&site=user_ban&id={$id}" method="post">
+<fieldset>
+    <div><label for="ende">{$smarty.const.BAN_UNTIL}:</label><input type="text" name="ende" id="ende" size="30" class="required validate-date-eu smallinput" />
+      <img id="button_cal" src="templates/{$smarty.const.DESIGN}/images/calendar.png" alt="{$smarty.const.CHOOSE_DATE}" title="{$smarty.const.CHOOSE_DATE}" /></div>
+    <div><label for="grund">{$smarty.const.BAN_REASON}:</label><input type="text" name="grund" id="grund" class="required" maxlength="255" /></div>
+   <input type="submit" class="submit" name="submit" value="{$smarty.const.SUBMIT}" id="user_ban_submit" /> <img style="visibility: hidden" src="templates/{$smarty.const.DESIGN}/images/spinner.gif" id="user_ban_submit_spinner" alt="" title="{$smarty.const.LOADING}" />
+</fieldset>
+</form>
+{literal}
+<script type="text/javascript" language="javascript">
+Calendar.setup({
+    inputField    : "ende",
+    button        : "button_cal",
+	showsTime     :    true,
+	onUpdate:	  function() { myFormValidator.validateField($('ende')); }
+});	
+var myFormValidator = new FormValidator($('user_ban_form'));	
+$('user_ban_form').addEvent('submit', function(e) {
+	new Event(e).stop();
+	if(myFormValidator.validate()) {
+		$('user_ban_submit_spinner').style.visibility = '';
+		$('user_ban_submit').disabled = true;
+		new Request({
+			url: $('user_ban_form').action,
+			onSuccess: function(r) {
+				$('user_ban_submit').disabled = false;
+				$('user_ban_submit_spinner').style.visibility = 'hidden';			
+				if(r == 'ok') {															
+					user_ban_win.hide();	
+					make_info(USER_BAN_SUCCESS, 'accept');			
+				} else {
+					errorAlert(ERROR, r);
+				}
+			}
+		}).send($('user_ban_form'));
+	}
+});	
+</script>
+{/literal}

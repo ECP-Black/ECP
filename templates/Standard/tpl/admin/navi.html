@@ -1,0 +1,73 @@
+<script type="text/javascript" src="inc/javascript/JSCookMenu.js"></script>
+<script type="text/javascript" src="inc/javascript/effect.js"></script>
+<link rel="stylesheet" href="templates/{$smarty.const.DESIGN}/images/admin_menu/theme.css" type="text/css">
+<script type="text/javascript" src="templates/{$smarty.const.DESIGN}/images/admin_menu/theme.js"></script>
+<script type="text/javascript"><!--
+var animMenu =
+[
+	['<img src="templates/{$smarty.const.DESIGN}/images/layout_content.png" /> ','{$smarty.const.CONTENT}',null,null,null,
+		['<img src="templates/{$smarty.const.DESIGN}/images/awards.png" />','{$smarty.const.AWARDS}','?section=admin&site=awards',null,null],	
+		['<img src="templates/{$smarty.const.DESIGN}/images/clanwars.png" />','{$smarty.const.CLANWARS}','?section=admin&site=clanwars',null,null,
+			['<img src="templates/{$smarty.const.DESIGN}/images/clanwars_add.png" />','{$smarty.const.CLANWARS_ADD}','?section=admin&site=clanwars&func=add',null,null],			
+			['<img src="templates/{$smarty.const.DESIGN}/images/nextwars_add.png" />','{$smarty.const.NEXTWARS_ADD}','?section=admin&site=clanwars&func=addnext',null,null]
+		],		
+		['<img src="templates/{$smarty.const.DESIGN}/images/download.png" />','{$smarty.const.DOWNLOADS}','?section=admin&site=downloads',null,null],
+		['<img src="templates/{$smarty.const.DESIGN}/images/own_pages.png" />','{$smarty.const.OWN_SITES}','?section=admin&site=cms',null,null],		
+		['<img src="templates/{$smarty.const.DESIGN}/images/forum.png" />','{$smarty.const.FORUM}','?section=admin&site=forum',null,null,
+			['<img src="templates/{$smarty.const.DESIGN}/images/forum_add.png" />','{$smarty.const.FORUM_ADD}','?section=admin&site=forum&func=add',null,null]
+		],		
+		['<img src="templates/{$smarty.const.DESIGN}/images/gallery.png" />','{$smarty.const.GALLERY}','?section=admin&site=gallery',null,null],
+		['<img src="templates/{$smarty.const.DESIGN}/images/calendar.png" />','{$smarty.const.CALENDAR}','?section=admin&site=calendar',null,null],				
+		['<img src="templates/{$smarty.const.DESIGN}/images/links.png" />','{$smarty.const.LINKS}','?section=admin&site=links',null,null],		
+		['<img src="templates/{$smarty.const.DESIGN}/images/newspaper.png" />','{$smarty.const.NEWS}','?section=admin&site=news',null,null,
+			['<img src="templates/{$smarty.const.DESIGN}/images/newspaper_add.png" />','{$smarty.const.NEWS_ADD}','?section=admin&site=news&func=add',null,null]
+		],
+		['<img src="templates/{$smarty.const.DESIGN}/images/server.png" />','{$smarty.const.SERVER}','?section=admin&site=server',null,null],		
+		['<img src="templates/{$smarty.const.DESIGN}/images/smilie.gif" />','{$smarty.const.SMILIES}','?section=admin&site=smilies',null,null],
+		['<img src="templates/{$smarty.const.DESIGN}/images/teamspeak.gif" />','{$smarty.const.TEAMSPEAK_2}','?section=admin&site=teamspeak',null,null],
+		['<img src="templates/{$smarty.const.DESIGN}/images/survey.png" />','{$smarty.const.SURVEY}','?section=admin&site=survey',null,null],	
+		['<img src="templates/{$smarty.const.DESIGN}/images/comment_edit.png" />','{$smarty.const.TEXTE}','?section=admin&site=texte',null,null]	
+	],
+	[null,'{$smarty.const.ADMINISTRATION}',null,null,null,
+		['<img src="templates/{$smarty.const.DESIGN}/images/user.png" />','{$smarty.const.USER}','?section=admin&site=user',null,null,
+			['<img src="templates/{$smarty.const.DESIGN}/images/user_add.png" />','{$smarty.const.USER_ADD}','?section=admin&site=user&func=add',null,null]
+		],	
+		['<img src="templates/{$smarty.const.DESIGN}/images/money.png" />','{$smarty.const.FINANCES}','?section=admin&site=clankasse',null,null],		
+		['<img src="templates/{$smarty.const.DESIGN}/images/clanwars.png" />','{$smarty.const.CLANWARS}',null,null,null,
+			['<img src="templates/{$smarty.const.DESIGN}/images/games.png" />','{$smarty.const.GAMES}','?section=admin&site=games',null,null],
+			['<img src="templates/{$smarty.const.DESIGN}/images/maps.png" />','{$smarty.const.MAPS}','?section=admin&site=games&func=maps',null,null],
+			['<img src="templates/{$smarty.const.DESIGN}/images/matchtype.png" />','{$smarty.const.MATCHTYPE}','?section=admin&site=matchtype',null,null]
+		],	
+		['<img src="templates/{$smarty.const.DESIGN}/images/database.png" />','{$smarty.const.DATABASE}',null,null,null,
+			['<img src="templates/{$smarty.const.DESIGN}/images/database_save.png" />','{$smarty.const.DATABASE_BACKUP}','?section=admin&site=database',null,null],
+			['<img src="templates/{$smarty.const.DESIGN}/images/database_optimize.png" />','{$smarty.const.DATABASE_OPTIMIZE}','?section=admin&site=database&func=optimize',null,null]
+		],			
+		['<img src="templates/{$smarty.const.DESIGN}/images/settings.png" />','{$smarty.const.SETTINGS}','?section=admin&site=settings',null,null],		
+		['<img src="templates/{$smarty.const.DESIGN}/images/fightus.png" />','{$smarty.const.FIGHTUS}','?section=admin&site=fightus',null,null],				
+		['<img src="templates/{$smarty.const.DESIGN}/images/group.png" />','{$smarty.const.GROUP}','?section=admin&site=groups',null,null,
+			['<img src="templates/{$smarty.const.DESIGN}/images/group_add.png" />','{$smarty.const.GROUP_ADD}','?section=admin&site=groups&func=add',null,null]
+		],
+		['<img src="templates/{$smarty.const.DESIGN}/images/joinus.png" />','{$smarty.const.JOINUS}','?section=admin&site=joinus',null,null],		
+		['<img src="templates/{$smarty.const.DESIGN}/images/menu.png" />','{$smarty.const.MENU}','?section=admin&site=menu',null,null,
+			['<img src="templates/{$smarty.const.DESIGN}/images/menu_add.png" />','{$smarty.const.MENU_ADD}','?section=admin&site=menu&func=add',null,null]
+		],
+		['<img src="templates/{$smarty.const.DESIGN}/images/message_answer.png" />','{$smarty.const.NEWSLETTER}','?section=admin&site=newsletter',null,null],	
+		['<img src="templates/{$smarty.const.DESIGN}/images/ranks.png" />','{$smarty.const.RANGS}','?section=admin&site=ranks',null,null],			
+		['<img src="templates/{$smarty.const.DESIGN}/images/group.png" />','{$smarty.const.TEAMS}','?section=admin&site=teams',null,null],
+		[null,'{$smarty.const.TOPICS}','?section=admin&site=topics',null,null]
+	],
+	['<img src="templates/{$smarty.const.DESIGN}/images/games.png" /> ','{$smarty.const.GAMES}',null,null,null,
+		['<img src="templates/{$smarty.const.DESIGN}/images/lotto.png" />','{$smarty.const.LOTTO}','?section=admin&site=lotto',null,null]
+	],
+];
+--></script>
+<div id="admin_menu" class="admin_menu"></div>
+<script type="text/javascript">
+<!--
+window.addEvent('domready', function() {ldelim}
+	var prop = cmClone (cmThemeOffice2003);
+	prop.effect = new CMSlidingEffect (8);
+	cmDraw ('admin_menu', animMenu, 'hbr', prop, 'ThemeOffice2003');
+{rdelim});
+-->
+</script>

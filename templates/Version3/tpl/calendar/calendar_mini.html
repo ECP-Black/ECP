@@ -1,0 +1,32 @@
+  <table width="98%" border="0" cellspacing="0" cellpadding="1" align="center">
+    <tr>
+      <td width="10%" align="right"><a href="" onclick="return load_calendar_mini({$year}, {$monthz-1});">&lt;&lt;</a></td>
+      <td width="80%" align="center" valign="middle">{$month} {$year}</td>
+      <td width="10%"><a href="" onclick="return load_calendar_mini({$year}, {$monthz+1});">&gt;&gt;</a></td>
+    </tr>
+  </table>
+<table width="98%" border="0" cellspacing="1" cellpadding="1" align="center" style="empty-cells:show">
+  <tr class="kal_head">
+    <td width="9%" class="kal_border" align="center"><strong>{$smarty.const.WEEK_SHORT}</strong></td>
+    <td width="13%" class="kal_border" align="center"><strong>{$smarty.const.MONDAY_S}</strong></td>
+    <td width="13%" class="kal_border" align="center"><strong>{$smarty.const.TUESDAY_S}</strong></td>
+    <td width="13%" class="kal_border" align="center"><strong>{$smarty.const.WEDNESDAY_S}</strong></td>
+    <td width="13%" class="kal_border" align="center"><strong>{$smarty.const.THURSDAY_S}</strong></td>
+    <td width="13%" class="kal_border" align="center"><strong>{$smarty.const.FRIDAY_S}</strong></td>
+    <td width="13%" class="kal_border" align="center"><strong>{$smarty.const.SATURDAY_S}</strong></td>
+    <td width="13%" class="kal_border" align="center"><strong>{$smarty.const.SUNDAY_S}</strong></td>
+  </tr>
+  {assign var=count value=1}
+  {foreach from=$kalender item=kal}
+  <tr>
+    <td align="center" valign="top" class="kal_border kal_week" ><strong>{$kal.woche}</strong></td>
+    <td align="center" valign="top" class="kal_border{if $kal.akt == 1} kal_today{/if}">{if $kal.events.1}<a href="?section=calendar&amp;action=viewday&amp;tag={$kal.tage.1}&amp;month={$monthz}&amp;year={$year}" class="Tips" title="{$kal.tage.1}. {$month} {$year}">{$kal.tage.1}<span class="tipcontents">{$kal.events.1}</span></a>{elseif $kal.tage.1}{$kal.tage.1}{else}&#160;{/if}</td>
+    <td align="center" valign="top" class="kal_border{if $kal.akt == 2} kal_today{/if}">{if $kal.events.2}<a href="?section=calendar&amp;action=viewday&amp;tag={$kal.tage.2}&amp;month={$monthz}&amp;year={$year}" class="Tips" title="{$kal.tage.2}. {$month} {$year}">{$kal.tage.2}<span class="tipcontents">{$kal.events.2}</span></a>{elseif $kal.tage.2}{$kal.tage.2}{else}&#160;{/if}</td>
+    <td align="center" valign="top" class="kal_border{if $kal.akt == 3} kal_today{/if}">{if $kal.events.3}<a href="?section=calendar&amp;action=viewday&amp;tag={$kal.tage.3}&amp;month={$monthz}&amp;year={$year}" class="Tips" title="{$kal.tage.3}. {$month} {$year}">{$kal.tage.3}<span class="tipcontents">{$kal.events.3}</span></a>{elseif $kal.tage.3}{$kal.tage.3}{else}&#160;{/if}</td>
+    <td align="center" valign="top" class="kal_border{if $kal.akt == 4} kal_today{/if}">{if $kal.events.4}<a href="?section=calendar&amp;action=viewday&amp;tag={$kal.tage.4}&amp;month={$monthz}&amp;year={$year}" class="Tips" title="{$kal.tage.4}. {$month} {$year}">{$kal.tage.4}<span class="tipcontents">{$kal.events.4}</span></a>{elseif $kal.tage.4}{$kal.tage.4}{else}&#160;{/if}</td>
+    <td align="center" valign="top" class="kal_border{if $kal.akt == 5} kal_today{/if}">{if $kal.events.5}<a href="?section=calendar&amp;action=viewday&amp;tag={$kal.tage.5}&amp;month={$monthz}&amp;year={$year}" class="Tips" title="{$kal.tage.5}. {$month} {$year}">{$kal.tage.5}<span class="tipcontents">{$kal.events.5}</span></a>{elseif $kal.tage.5}{$kal.tage.5}{else}&#160;{/if}</td>
+    <td align="center" valign="top" class="kal_border kal_weekend{if $kal.akt == 6} kal_today{/if}">{if $kal.events.6}<a href="?section=calendar&amp;action=viewday&amp;tag={$kal.tage.6}&amp;month={$monthz}&amp;year={$year}" class="Tips" title="{$kal.tage.6}. {$month} {$year}">{$kal.tage.6}<span class="tipcontents">{$kal.events.6}</span></a>{elseif $kal.tage.6}{$kal.tage.6}{else}&#160;{/if}</td>
+    <td align="center" valign="top" class="kal_border kal_weekend{if $kal.akt == 0} kal_today{/if}">{if $kal.events.0}<a href="?section=calendar&amp;action=viewday&amp;tag={$kal.tage.0}&amp;month={$monthz}&amp;year={$year}" class="Tips" title="{$kal.tage.0}. {$month} {$year}">{$kal.tage.0}<span class="tipcontents">{$kal.events.0}</span></a>{elseif $kal.tage.0}{$kal.tage.0}{else}&#160;{/if}</td>
+  </tr>
+  {assign var=count value=$count+1}{/foreach}
+</table>

@@ -1,0 +1,51 @@
+<form action="ajax_checks.php?func=thread_survey_edit&id={$id}" method="post" name="survey_edit_form" id="survey_edit_form">
+  <fieldset>
+  <legend>{$smarty.const.SURVEY}</legend>
+  <div>
+    <label for="frage">{$smarty.const.QUESTION}:</label>
+    <input type="text" maxlength="200" id="frage" name="frage" class="required" value="{$frage}" />
+  </div>
+  <div>
+    <label for="ende">{$smarty.const.FORUM_SURVEY_END}:</label>
+    <div>
+      <input type="text" name="ende" id="ende" size="30" class="validate-date-eu smallinput" value="{$ende}" />
+      <img id="button_cal" src="templates/{$smarty.const.DESIGN}/images/calendar.png" alt="{$smarty.const.CHOOSE_DATE}" title="{$smarty.const.CHOOSE_DATE}" /></div>
+  </div>
+  <div>
+    <label for="antworten">{$smarty.const.SURVEY_CHOOSE}:</label>
+    <input type="text" maxlength="200" id="antworten" value="{$antworten}" name="antworten" class="required validate-number smallinput" />
+  </div>
+  </fieldset>
+  <input type="submit" value="{$smarty.const.EDIT_2}" class="submit" id="survey_edit_submit" /> <img src="templates/{$smarty.const.DESIGN}/images/spinner.gif" alt="" title="{$smarty.const.LOADING}" id="survey_spinner" style="visibility:hidden" />
+</form>
+
+<script language="javascript" type="text/javascript">
+{literal}
+Calendar.setup({
+    inputField    : "ende",
+    button        : "button_cal",
+	showsTime     :    true
+});	
+survey_form = new FormValidator($('survey_edit_form')); 		
+$('survey_edit_form').addEvent('submit', function(e) {
+	if(survey_form.validate()) {
+		new Event(e).stop();
+		$('survey_spinner').style.visibility = '';
+		$('survey_edit_submit').disabled = true;
+		new Request({
+			url: $('survey_edit_form').action,
+			onSuccess: function(r) {
+				$('survey_spinner').style.visibility = 'hidden';
+				$('survey_edit_submit').disabled = false;			
+				if(r == 'ok') {			
+					forum_survey_answers({/literal}{$id}{literal});	
+					survey_edit_win.hide();										
+				} else {
+					errorAlert(ERROR, r);
+				}
+			}
+		}).send($('survey_edit_form'));
+	}
+});
+{/literal}
+</script>

@@ -1,0 +1,66 @@
+<div style="text-align: center"><span class="klammer">[</span> <a href="?section=clanwars">{$smarty.const.CLANWARS}</a> <span class="klammer">|</span> <a href="#comments">{$smarty.const.COMMENTS}: {$comments}</a> <span class="klammer">]</span></div>
+<br />
+<table width="100%" border="0" cellspacing="0" cellpadding="1">
+  <tr>
+    <td colspan="2" valign="top" class="cw_result_head">{$smarty.const.DETAILS}</td>
+  </tr>
+  <tr class="{cycle values="row_even,row_odd"}">
+    <td width="21%" valign="top"><strong>{$smarty.const.DATE}:</strong></td>
+    <td width="79%">{$datum}</td>
+  </tr>
+  <tr class="{cycle values="row_even,row_odd"}">
+    <td valign="top"><strong>{$smarty.const.TEAM}:</strong></td>
+    <td><a href="?section=teams&id={$tID}">{$tname}</a></td>
+  </tr>
+  <tr class="{cycle values="row_even,row_odd"}">
+    <td valign="top"><strong>{$smarty.const.GAME}:</strong></td>
+    <td><img src="images/games/{$icon}" alt="" title="{$gamename}" /> {$gamename}</td>
+  </tr>
+  <tr class="{cycle values="row_even,row_odd"}">
+    <td valign="top"><strong>{$smarty.const.XONX}:</strong></td>
+    <td>{$xonx}</td>
+  </tr>
+  <tr class="{cycle values="row_even,row_odd"}">
+    <td valign="top"><strong>{$smarty.const.OPP}:</strong></td>
+    <td><img src="images/flaggen/{$country}.gif" alt="" title="{$countryname}" />  {$oppname} {if $homepage}<a href="{$homepage}" target="_blank"><img src="templates/{$smarty.const.DESIGN}/images/homepage.png" alt="" title="{$smarty.const.HOMEPAGE}" /></a>{/if}</td>
+  </tr>
+  <tr class="{cycle values="row_even,row_odd"}">
+    <td valign="top"><strong>{$smarty.const.MATCHTYP}:</strong></td>
+    <td>{$matchtypename} {if $matchlink}<a href="{$matchlink}" target="_blank">{$smarty.const.MATCHLINK}</a>{/if}</td>
+  </tr>
+  <tr class="{cycle values="row_even,row_odd"}">
+    <td valign="top"><strong>{$smarty.const.MAPS}:</strong></td>
+    <td>{$locations}</td>
+  </tr>
+  <tr class="{cycle values="row_even,row_odd"}">
+    <td valign="top"><strong>{$smarty.const.OWN_PLAYERS}:</strong></td>
+    <td>{$ownplayers}</td>
+  </tr>
+  <tr class="{cycle values="row_even,row_odd"}">
+    <td valign="top"><strong>{$smarty.const.OPP_PLAYERS}:</strong></td>
+    <td>{$oppplayers}</td>
+  </tr>
+  <tr class="{cycle values="row_even,row_odd"}">
+    <td valign="top"><strong>{$smarty.const.REPORT}:</strong></td>
+    <td>{$report}</td>
+  </tr>
+  <tr>
+    <td valign="top">&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2" valign="top" class="cw_result_head">{$smarty.const.RESULT}<br />{$tname} <span class="klammer">[</span><span class="clanwar_{$result}"> {$resultscore} </span> <span class="klammer">]</span> {$oppname}</td>
+  </tr>  
+  <tr>
+    <td colspan="2" valign="top" height="5px"></td>
+  </tr>    
+  <tr>
+    <td colspan="2" valign="top">
+    {foreach from=$maps item=m}
+    <div class="cw_map_header">{if $m.exist}<img src="images/maps/{$m.locationname}.jpg" alt="" title="{$m.locationname}" />{else}{$m.locationname}{/if}</div>
+    <div class="cw_map_score">{$tname} <span class="klammer">[</span> <span class="clanwar_{$m.own_result}">{$m.ownscore}</span> : <span class="clanwar_{$m.opp_result}">{$m.oppscore}</span> <span class="klammer">]</span> {$oppname}</div>
+    <div class="cw_map_screens">{foreach from=$m.screens item=s}<img src="templates/{$smarty.const.DESIGN}/images/dot2.gif" alt="" /> <a target="_blank" href="images/screens/{$s.filename}" rel="lightbox[{$m.scoreID}]">{$smarty.const.CLANWARS_SCREEN} {$s.i}</a><br />{/foreach}</div>
+   	{/foreach}
+    </td>
+  </tr>  
+</table>

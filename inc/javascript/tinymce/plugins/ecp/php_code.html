@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>{#ecp.php_desc}</title>
+	<script type="text/javascript">
+	DESIGN = "Standard";
+	</script>      
+	<script type="text/javascript" src="../../tiny_mce_popup.js"></script>
+    <script type="text/javascript" src="../../../lang/de.js"></script>
+    <script type="text/javascript" src="../../../mootools.php"></script>
+    <script type="text/javascript">
+	function insert_php_code() {
+		htmlcode = $('php_input_code').get('inputValue');
+		htmlcode = htmlcode.replace(/&/g, '&amp;');
+		htmlcode = htmlcode.replace(/\"/g, '&quot;');
+		htmlcode = htmlcode.replace(/ /g, '&nbsp;');
+		htmlcode = htmlcode.replace(/</g, '&lt;');
+		htmlcode = htmlcode.replace(/>/g, '&gt;');
+		htmlcode = htmlcode.replaceAll("\t", "&nbsp;&nbsp;&nbsp;&nbsp;");
+		htmlcode = htmlcode.replace(/\r\n/g, '<br />');
+		htmlcode = htmlcode.replace(/\r/g, '<br />');
+		htmlcode = htmlcode.replace(/\n/g, '<br />');
+		tinyMCEPopup.execCommand('mceInsertContent', false, "[PHP]"+htmlcode+"[/PHP]");	
+		tinyMCEPopup.close();
+	}
+	</script>
+	<base target="_self" />
+</head>
+<body id="advlink" style="display: none">
+    <form onsubmit="insert_php_code();return false;" action="#">
+    	<textarea id="php_input_code" rows="15" cols="100" style="width: 100%; height: 100%; font-family: 'Courier New',Courier,mono; font-size: 12px;" dir="ltr" wrap="soft" class="mceFocus"></textarea>
+		<div class="mceActionPanel">
+			<div style="float: left">
+				<input type="submit" id="insert" name="insert" value="{#insert}" />
+			</div>
+
+			<div style="float: right">
+				<input type="button" id="cancel" name="cancel" value="{#cancel}" onclick="tinyMCEPopup.close();" />
+			</div>
+		</div>
+    </form>
+     <!-- www.easy-clanpage.de -->
+</body>
+</html>
